@@ -32,4 +32,4 @@ Cada novo projeto criado é armazenado neste repositório no padrão:
 ---
 
 ### 5. Rafiness Stronghold
-"https://scratch-ochre-alpha.vercel.app"
+"https://Gean-Felipe.github.io/rafiness-stronghold/"
