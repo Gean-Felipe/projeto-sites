@@ -8,18 +8,18 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
-  output: 'export',
+  // Allow access to remote image placeholder.
   images: {
-    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'picsum.photos',
         port: '',
-        pathname: '/**',
+        pathname: '/**', // This allows any path under the hostname
       },
     ],
   },
+  output: 'standalone',
   transpilePackages: ['motion'],
   webpack: (config, {dev}) => {
     // HMR is disabled in AI Studio via DISABLE_HMR env var.
