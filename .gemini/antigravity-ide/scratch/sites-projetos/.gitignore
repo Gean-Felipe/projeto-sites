@@ -1,0 +1,17 @@
+# Dependências e builds
+node_modules/
+.next/
+.output/
+.wrangler/
+dist/
+build/
+
+# Logs e arquivos temporários
+*.log
+.DS_Store
+Thumbs.db
+
+# Variáveis de ambiente
+.env
+.env.local
+.env.*.local
