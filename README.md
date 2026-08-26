@@ -28,3 +28,8 @@ Repositório principal contendo todos os projetos desenvolvidos e hospedados na 
 Cada novo projeto criado é armazenado neste repositório no padrão:
 `[Nome do Projeto]`
 `"[link do projeto na web]"`
+
+---
+
+### 5. Rafiness Stronghold
+"https://scratch-ochre-alpha.vercel.app"
