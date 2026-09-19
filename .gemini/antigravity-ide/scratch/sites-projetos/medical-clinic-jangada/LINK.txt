@@ -1,0 +1,7 @@
+﻿# LINK DO PROJETO EM PRODUÇÃO (VERCEL)
+
+- **Nome do Site**: MEDICAL CLINIC — JANGADA WELLNESS HUB
+- **Link Oficial em Produção**: https://jangada-wellness-hub.vercel.app
+- **Link Alternativo de Deploy**: https://jangada-wellness-pi0g9gs6t-dev-5d6a.vercel.app
+- **Painel de Inspeção Vercel**: https://vercel.com/dev-5d6a/jangada-wellness-hub/Egi6BqFDK9G48yMZWu42hQ1X3TkY
+- **Repositório GitHub**: https://github.com/Gean-Felipe/jangada-wellness-hub
