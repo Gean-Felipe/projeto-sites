@@ -2,9 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/site/Header";
 import { Hero } from "@/components/site/Hero";
 import { TrustBar } from "@/components/site/TrustBar";
-import { Transformamos } from "@/components/site/Transformamos";
+import { Sobre } from "@/components/site/Sobre";
 import { Diferenciais } from "@/components/site/Diferenciais";
-import { FormaDeCuidar } from "@/components/site/FormaDeCuidar";
 import { Tecnologia } from "@/components/site/Tecnologia";
 import { Tratamentos } from "@/components/site/Tratamentos";
 import { Equipe } from "@/components/site/Equipe";
@@ -15,9 +14,9 @@ import { CTAFinal } from "@/components/site/CTAFinal";
 import { Contato } from "@/components/site/Contato";
 import { Footer } from "@/components/site/Footer";
 
-const TITLE = "Dente Sim | Clínica Odontológica em Várzea Grande — MT";
+const TITLE = "DenteSim Clínica Odontológica | Cristo Rei e CPA — Cuiabá MT";
 const DESCRIPTION =
-  "Odontologia com experiência, tecnologia e atendimento humanizado em Várzea Grande — MT. Agende sua avaliação na Dente Sim.";
+  "Odontologia com +16 anos de experiência, tecnologia e atendimento humanizado em Cuiabá — MT. Duas unidades: Cristo Rei e CPA. Agende sua avaliação na DenteSim.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -37,27 +36,50 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Dentist",
-          name: "Dente Sim",
-          telephone: "+55 65 3026-8119",
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: "Rua Ary Paes Barreto, 1830 - Cristo Rei",
-            addressLocality: "Várzea Grande",
-            addressRegion: "MT",
-            postalCode: "78118-090",
-            addressCountry: "BR",
-          },
-          aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: "4.4",
-            reviewCount: "38",
-          },
+          name: "DenteSim Clínica Odontológica",
+          description: DESCRIPTION,
+          url: "/",
+          sameAs: ["https://www.instagram.com/dentesimadm/"],
+          address: [
+            {
+              "@type": "PostalAddress",
+              addressLocality: "Cuiabá",
+              addressRegion: "MT",
+              addressCountry: "BR",
+              description: "Unidade Cristo Rei",
+            },
+            {
+              "@type": "PostalAddress",
+              addressLocality: "Cuiabá",
+              addressRegion: "MT",
+              addressCountry: "BR",
+              description: "Unidade CPA",
+            },
+          ],
+          contactPoint: [
+            {
+              "@type": "ContactPoint",
+              telephone: "+55-65-99333-7878",
+              contactType: "customer service",
+              areaServed: "BR",
+              availableLanguage: "Portuguese",
+              description: "Unidade Cristo Rei",
+            },
+            {
+              "@type": "ContactPoint",
+              telephone: "+55-65-98457-9420",
+              contactType: "customer service",
+              areaServed: "BR",
+              availableLanguage: "Portuguese",
+              description: "Unidade CPA",
+            },
+          ],
         }),
       },
     ],
   }),
   component: Index,
-});
+}));
 
 function Index() {
   return (
@@ -66,9 +88,8 @@ function Index() {
       <main>
         <Hero />
         <TrustBar />
-        <Transformamos />
+        <Sobre />
         <Diferenciais />
-        <FormaDeCuidar />
         <Tecnologia />
         <Tratamentos />
         <Equipe />

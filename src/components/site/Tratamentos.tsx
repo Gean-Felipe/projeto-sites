@@ -1,82 +1,83 @@
-import { Sparkles, Anchor, Layers, AlignHorizontalDistributeCenter, Sun, Stethoscope } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Reveal } from "./Reveal";
+import { unidades } from "./data";
 
 const tratamentos = [
   {
-    icon: Sparkles,
-    nome: "Estética Dental",
-    desc: "Cuidados odontológicos voltados à harmonia e à aparência do sorriso, com soluções personalizadas para melhorar a estética e a confiança ao sorrir.",
+    nome: "Implantes Dentários",
+    desc: "Reposição de dentes ausentes com segurança e naturalidade, devolvendo função mastigatória e confiança ao sorriso.",
   },
   {
-    icon: Anchor,
-    nome: "Implantes",
-    desc: "Soluções para a reposição de um ou mais dentes ausentes, buscando recuperar a autoestima, funcionalidade, a segurança e a naturalidade do sorriso.",
-  },
-  {
-    icon: Layers,
-    nome: "Próteses",
-    desc: "Tratamentos destinados à reposição de dentes perdidos, contribuindo para recuperar a função mastigatória, a estética e o conforto.",
-  },
-  {
-    icon: AlignHorizontalDistributeCenter,
     nome: "Ortodontia",
-    desc: "Tratamentos para correção do posicionamento dos dentes e da mordida, promovendo um sorriso mais alinhado e uma melhor função oral.",
+    desc: "Correção do posicionamento dos dentes e da mordida, promovendo alinhamento, saúde oral e harmonia facial.",
   },
   {
-    icon: Sun,
-    nome: "Clareamento",
-    desc: "Procedimento estético destinado a deixar os dentes mais claros e valorizar a aparência do sorriso, de acordo com a avaliação profissional.",
+    nome: "Próteses",
+    desc: "Soluções para reposição de dentes perdidos, recuperando estética, conforto e qualidade de vida.",
   },
   {
-    icon: Stethoscope,
-    nome: "Dentística",
-    desc: "Área da odontologia dedicada à prevenção e ao tratamento de alterações nos dentes, preservando sua estrutura, função e estética.",
+    nome: "Estética Dental",
+    desc: "Procedimentos que valorizam a aparência do sorriso — clareamento, lentes de contato, restaurações estéticas.",
+  },
+  {
+    nome: "Endodontia",
+    desc: "Tratamento de canal com precisão, preservando a estrutura natural do dente e aliviando dores.",
+  },
+  {
+    nome: "Clínica Geral",
+    desc: "Prevenção, diagnóstico e tratamento das principais condições bucais com acompanhamento personalizado.",
   },
 ];
 
 export function Tratamentos() {
   return (
-    <section id="tratamentos" className="bg-background py-20 lg:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="max-w-2xl">
-          <Reveal delay={0}>
-            <p className="text-xs font-semibold tracking-[0.18em] text-primary uppercase">
-              Tratamentos
-            </p>
-          </Reveal>
-          <Reveal delay={150}>
-            <h2 className="mt-5 text-3xl font-bold sm:text-4xl">
-              Encontre o cuidado que seu sorriso precisa.
+    <section id="tratamentos" className="bg-warm py-20 lg:py-28">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6">
+        <Reveal delay={0}>
+          <span className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] text-gold uppercase">
+            <span className="inline-block h-px w-5 bg-gold" aria-hidden="true" />
+            Tratamentos
+          </span>
+        </Reveal>
+
+        <div className="mt-5 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <Reveal delay={120}>
+            <h2 className="max-w-lg text-3xl leading-tight sm:text-4xl">
+              Cuidados completos para cada fase do seu sorriso.
             </h2>
+          </Reveal>
+          <Reveal delay={200}>
+            <a
+              href={unidades[0].whatsappLink}
+              target="_blank"
+              rel="noreferrer"
+              className="text-sm font-semibold text-primary transition-colors hover:text-primary/80"
+            >
+              Agendar avaliação →
+            </a>
           </Reveal>
         </div>
 
-        <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {tratamentos.map(({ icon: Icon, nome, desc }, i) => (
+        <div className="mt-14 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+          {tratamentos.map((t, i) => (
             <Reveal
-              as="li"
-              key={nome}
-              delay={200 + (i % 3) * 150}
-              className="group flex flex-col rounded-2xl border border-border bg-background p-7 transition-all duration-700 ease-out hover:-translate-y-1 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5"
+              key={t.nome}
+              delay={100 + (i % 3) * 100}
+              className="group flex flex-col bg-background p-8 transition-colors duration-300 hover:bg-warm-light"
             >
-              <span className="grid size-11 place-items-center rounded-xl bg-ice text-primary transition-transform duration-500 group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground">
-                <Icon className="size-5" aria-hidden="true" />
+              <span className="text-[11px] font-semibold tracking-[0.15em] text-muted-foreground/50 uppercase">
+                {String(i + 1).padStart(2, "0")}
               </span>
-              <h3 className="mt-5 font-display text-lg font-bold">{nome}</h3>
-              <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{desc}</p>
-              <Button
-                asChild
-                variant="ghost"
-                className="mt-5 h-11 w-fit px-0 text-primary hover:bg-transparent hover:text-deep"
-              >
-                <a href="#contato" aria-label={`Saiba mais sobre ${nome}`}>
-                  Saiba mais →
-                </a>
-              </Button>
+              <h3 className="mt-4 font-display text-xl">{t.nome}</h3>
+              <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
+                {t.desc}
+              </p>
+              <span
+                className="mt-6 block h-[2px] w-8 bg-gold/60 transition-all duration-500 group-hover:w-16 group-hover:bg-gold"
+                aria-hidden="true"
+              />
             </Reveal>
           ))}
-        </ul>
+        </div>
       </div>
     </section>
   );

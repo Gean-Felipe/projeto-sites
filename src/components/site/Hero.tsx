@@ -1,86 +1,128 @@
-import { ArrowRight, Sparkles, HeartHandshake, Cpu } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Arc } from "./Arc";
 import { Reveal } from "./Reveal";
-import { clinica, img } from "./data";
-
-const indicadores = [
-  { icon: Sparkles, label: "Experiência" },
-  { icon: Cpu, label: "Tecnologia" },
-  { icon: HeartHandshake, label: "Atendimento humanizado" },
-];
+import { clinica, img, unidades } from "./data";
 
 export function Hero() {
   return (
-    <section id="inicio" className="relative overflow-hidden bg-ice pt-28 pb-16 lg:pt-36 lg:pb-24">
-      <Arc className="absolute -top-24 left-1/2 h-72 w-[140%] -translate-x-1/2 text-soft" width={1.2} />
-      <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
-        <div className="flex flex-col">
+    <section
+      id="inicio"
+      className="relative overflow-hidden bg-deep pt-28 pb-20 lg:pt-36 lg:pb-0"
+    >
+      {/* Subtle geometric accent */}
+      <div
+        className="pointer-events-none absolute top-0 right-0 h-full w-1/2 opacity-[0.04]"
+        aria-hidden="true"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 70% 30%, oklch(0.50 0.10 185) 0%, transparent 60%)",
+        }}
+      />
+
+      <div className="mx-auto grid max-w-7xl items-end gap-10 px-5 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-0">
+        <div className="flex flex-col pb-4 lg:pb-20">
           <Reveal delay={0}>
-            <p className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-background px-4 py-1.5 text-xs font-semibold tracking-wide text-primary uppercase">
-              Odontologia em Várzea Grande — MT
-            </p>
+            <span className="inline-flex items-center gap-2 text-sm font-medium tracking-wide text-gold uppercase">
+              <span
+                className="inline-block h-px w-6 bg-gold"
+                aria-hidden="true"
+              />
+              {clinica.experiencia} cuidando do seu sorriso
+            </span>
           </Reveal>
-          <Reveal delay={150}>
-            <h1 className="mt-6 text-4xl leading-[1.05] font-bold sm:text-5xl xl:text-6xl">
-              Mais que estética.{" "}
+
+          <Reveal delay={120}>
+            <h1 className="mt-7 text-4xl leading-[1.1] text-deep-foreground sm:text-5xl xl:text-[3.5rem]">
+              Saúde e bem-estar
+              <br />
+              através do{" "}
               <span className="relative inline-block">
-                Devolvemos confiança
-                <Arc className="absolute -bottom-3 left-0 h-4 w-full text-magenta" width={5} />
-              </span>{" "}
-              ao seu sorriso.
+                sorriso
+                <span
+                  className="absolute -bottom-1 left-0 h-[3px] w-full rounded-full bg-gold"
+                  aria-hidden="true"
+                />
+              </span>
+              .
             </h1>
           </Reveal>
-          <Reveal delay={300}>
-            <p className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Na Dente Sim, unimos experiência, tecnologia e cuidado para transformar sorrisos e
-              proporcionar uma experiência odontológica mais segura, acolhedora e personalizada.
+
+          <Reveal delay={240}>
+            <p className="mt-7 max-w-lg text-base leading-relaxed text-deep-foreground/70 sm:text-lg">
+              A DenteSim nasceu do compromisso com a odontologia de qualidade.
+              Há mais de 16 anos e mais de 15 mil pacientes atendidos, nossa
+              missão é devolver confiança, função e estética ao seu sorriso.
             </p>
           </Reveal>
-          <Reveal delay={450}>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <Button asChild size="lg" className="h-13 rounded-full px-7 text-base">
-                <a href="#contato">
-                  Agendar minha consulta <ArrowRight className="ml-1 size-4" />
+
+          <Reveal delay={360}>
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Button
+                asChild
+                size="lg"
+                className="h-13 rounded-lg bg-primary px-7 text-base font-semibold hover:bg-primary/90"
+              >
+                <a
+                  href={unidades[0].whatsappLink}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Agendar consulta{" "}
+                  <ArrowRight className="ml-1.5 size-4" />
                 </a>
               </Button>
               <Button
                 asChild
                 size="lg"
                 variant="outline"
-                className="h-13 rounded-full border-primary/30 bg-background px-7 text-base text-primary hover:bg-soft"
+                className="h-13 rounded-lg border-deep-foreground/20 bg-transparent px-7 text-base text-deep-foreground hover:bg-deep-foreground/5 hover:text-deep-foreground"
               >
-                <a href="#clinica">Conhecer a clínica</a>
+                <a href="#sobre">Conheça a clínica</a>
               </Button>
             </div>
-            <ul className="mt-10 flex flex-wrap gap-x-8 gap-y-4">
-              {indicadores.map(({ icon: Icon, label }) => (
-                <li key={label} className="flex items-center gap-2 text-sm font-bold text-deep">
-                  <Icon className="size-4 shrink-0 text-primary" aria-hidden="true" />
-                  {label}
-                </li>
-              ))}
-            </ul>
+          </Reveal>
+
+          <Reveal delay={480}>
+            <div className="mt-10 flex items-center gap-8">
+              <div>
+                <p className="font-display text-2xl text-deep-foreground">
+                  {clinica.pacientes}
+                </p>
+                <p className="mt-0.5 text-xs font-medium tracking-wide text-deep-foreground/50 uppercase">
+                  pacientes atendidos
+                </p>
+              </div>
+              <span
+                className="h-8 w-px bg-deep-foreground/15"
+                aria-hidden="true"
+              />
+              <div>
+                <p className="font-display text-2xl text-deep-foreground">
+                  2 unidades
+                </p>
+                <p className="mt-0.5 text-xs font-medium tracking-wide text-deep-foreground/50 uppercase">
+                  em Cuiabá — MT
+                </p>
+              </div>
+            </div>
           </Reveal>
         </div>
 
-        <Reveal delay={120} className="relative">
-          <div className="group relative mx-auto max-w-md lg:max-w-none">
-            <div className="absolute -inset-4 rounded-[2.5rem] bg-soft/70 transition-transform duration-700 group-hover:scale-[1.02]" aria-hidden="true" />
-            <div className="relative overflow-hidden rounded-[2rem] bg-background shadow-[0_24px_60px_-30px_oklch(0.443_0.101_243.5_/_0.45)]">
-              <img
-                src={img.heroProfissionais}
-                alt="Equipe de dentistas da Dente Sim"
-                className="aspect-[4/5] w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                width={1080}
-                height={1920}
-                fetchPriority="high"
-              />
-            </div>
-            <div className="animate-float-slow absolute -bottom-6 -left-4 rounded-2xl border border-border bg-background/95 p-5 shadow-xl backdrop-blur-md sm:left-2">
-              <p className="font-display text-2xl font-bold text-deep">{clinica.nota} ★</p>
-              <p className="text-xs text-muted-foreground">{clinica.avaliacoes} avaliações no Google</p>
-            </div>
+        <Reveal delay={80} className="relative self-end">
+          <div className="relative mx-auto max-w-md lg:max-w-none">
+            <img
+              src={img.antesDepois}
+              alt="Resultado de tratamento odontológico na DenteSim — antes e depois"
+              className="aspect-[3/4] w-full rounded-t-2xl object-cover object-top lg:rounded-t-3xl"
+              width={1080}
+              height={1920}
+              fetchPriority="high"
+            />
+            {/* Gradient overlay at bottom for seamless transition */}
+            <div
+              className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-deep to-transparent"
+              aria-hidden="true"
+            />
           </div>
         </Reveal>
       </div>

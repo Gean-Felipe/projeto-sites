@@ -1,44 +1,53 @@
 export const img = {
   logo: "/logo-dentesim.svg",
   logoBranco: "/logo-dentesim-branco.svg",
-  dentistaJaleco: "/503005487_712696674571757_4632302855931194376_n.jpg",
-  profissionalMagenta: "/489368575_18086254759720416_4883801489492546824_n.jpg",
-  sedacao: "/504484160_1795925561057218_7026032868823280374_n.jpg",
-  sorrisoPaciente: "/504355551_728677422968861_8920839979720947240_n.jpg",
-  antesDepois: "/575272390_1463649421399341_4894414891090514146_n.jpg",
-  fotografiaOdonto: "/536670085_2567621680246536_1710165251045899459_n.jpg",
-  casoAntes: "/575272390_1463649421399341_4894414891090514146_n.jpg",
-  heroProfissionais: "/504194760_1048567646840396_4607385307358639349_n.jpg",
-  casoDepois: "/504355551_728677422968861_8920839979720947240_n.jpg",
+  heroAtendimento: "/503005487_712696674571757_4632302855931194376_n.jpg",
+  antesDepois: "/504194760_1048567646840396_4607385307358639349_n.jpg",
+  protese: "/489368575_18086254759720416_4883801489492546824_n.jpg",
+  profissional: "/504355551_728677422968861_8920839979720947240_n.jpg",
+  cirurgia: "/575272390_1463649421399341_4894414891090514146_n.jpg",
+  procedimento: "/536670085_2567621680246536_1710165251045899459_n.jpg",
+  clinicaAmbiente: "/504484160_1795925561057218_7026032868823280374_n.jpg",
+  logoMarca: "/705320615_18128009665720416_6796020245427260505_n.jpg",
 };
 
 export const clinica = {
-  nome: "Dente Sim",
-  categoria: "Clínica odontológica",
-  endereco: "Rua Ary Paes Barreto, 1830",
-  bairro: "Cristo Rei",
-  cidade: "Várzea Grande",
-  estado: "MT",
-  cep: "78118-090",
-  pontoReferencia: "Centro Comercial Cristo Rei",
-  telefone: "(65) 3026-8119",
-  telefoneLink: "tel:+556530268119",
-  plusCode: "9V3W+58 Cristo Rei",
-  nota: "4,4",
-  avaliacoes: 38,
-  mapsBusca:
-    "https://www.google.com/maps/search/?api=1&query=Rua+Ary+Paes+Barreto%2C+1830+-+Cristo+Rei%2C+V%C3%A1rzea+Grande+-+MT%2C+78118-090",
-  mapsRota:
-    "https://www.google.com/maps/dir/?api=1&destination=Rua+Ary+Paes+Barreto%2C+1830+-+Cristo+Rei%2C+V%C3%A1rzea+Grande+-+MT%2C+78118-090",
-  mapsEmbed:
-    "https://www.google.com/maps?q=Rua%20Ary%20Paes%20Barreto%2C%201830%20-%20Cristo%20Rei%2C%20V%C3%A1rzea%20Grande%20-%20MT%2C%2078118-090&output=embed",
+  nome: "DenteSim",
+  nomeCompleto: "DenteSim Clínica Odontológica",
+  responsavel: "Dr. Rafael Andrade",
+  experiencia: "+16 anos",
+  pacientes: "+15 mil",
+  posicionamento:
+    "Promovendo saúde e bem-estar através do sorriso há mais de 16 anos.",
+  instagram: "https://www.instagram.com/dentesimadm/",
+  instagramHandle: "@dentesimadm",
 };
+
+export const unidades = [
+  {
+    nome: "Cristo Rei",
+    bairro: "Cristo Rei",
+    cidade: "Cuiabá",
+    estado: "MT",
+    whatsapp: "(65) 99333-7878",
+    whatsappLink:
+      "https://wa.me/5565993337878?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20consulta%20na%20DenteSim%20Cristo%20Rei.",
+  },
+  {
+    nome: "CPA",
+    bairro: "CPA",
+    cidade: "Cuiabá",
+    estado: "MT",
+    whatsapp: "(65) 98457-9420",
+    whatsappLink:
+      "https://wa.me/5565984579420?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20uma%20consulta%20na%20DenteSim%20CPA.",
+  },
+];
 
 export const nav = [
   { label: "Início", href: "#inicio" },
-  { label: "A Clínica", href: "#clinica" },
+  { label: "Sobre", href: "#sobre" },
   { label: "Tratamentos", href: "#tratamentos" },
-  { label: "Equipe", href: "#equipe" },
-  { label: "Avaliações", href: "#depoimentos" },
-  { label: "Localização", href: "#contato" },
+  { label: "Resultados", href: "#resultados" },
+  { label: "Unidades", href: "#unidades" },
 ];

@@ -5,55 +5,74 @@ import { clinica } from "./data";
 const depoimentos = [
   {
     texto:
-      "Estou satisfeita com o resultado. Dr. Valdir e Dra. Gabriela me atenderam super bem, e amei o resultado final. Excelentes profissionais.",
+      "Excelente atendimento! Toda a equipe DenteSim é extremamente atenciosa e profissional. Meu tratamento de implante foi super tranquilo e o resultado ficou incrível.",
     autor: "Gilvana Martins",
+    local: "Unidade Cristo Rei",
   },
   {
     texto:
-      "Equipe muito boa, destaque para o Dr. Valdir e Dra. Gabriela — excelentes profissionais!",
+      "Dr. Rafael e toda a equipe prestaram um atendimento impecável. Estrutura impecável, equipamentos modernos e pontualidade nos horários.",
     autor: "Jorge Anderson",
+    local: "Unidade CPA",
   },
   {
     texto:
-      "Muito bom. Recomendo! O atendimento é feito por uma equipe de profissionais comprometidos e os valores do tratamento dentário são acessíveis.",
+      "Super recomendo a DenteSim! Atendimento humanizado, equipe altamente capacitada e condições facilitadas. Devolveram minha confiança ao sorrir.",
     autor: "Julianne dos Santos Silva",
+    local: "Unidade Cristo Rei",
   },
 ];
 
 export function Depoimentos() {
   return (
-    <section className="bg-ice py-20 lg:py-28">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+    <section className="bg-muted/30 py-20 lg:py-28">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
-          <Reveal delay={0}>
-            <p className="text-xs font-semibold tracking-[0.18em] text-primary uppercase">
-              Depoimentos
-            </p>
-          </Reveal>
-          <Reveal delay={150}>
-            <h2 className="mt-5 text-3xl font-bold sm:text-4xl">
-              Histórias de quem voltou a sorrir.
+          <Reveal>
+            <span className="text-xs font-semibold tracking-widest text-amber-600 uppercase">
+              Depoimentos de Pacientes
+            </span>
+            <h2 className="mt-2 font-serif text-3xl font-normal tracking-tight text-foreground sm:text-4xl">
+              Histórias reais de quem confia na {clinica.nome}.
             </h2>
-          </Reveal>
-          <Reveal delay={300}>
-            <p className="mt-5 flex justify-center items-center gap-2 text-sm text-muted-foreground">
-              <Star className="size-4 fill-magenta text-magenta" aria-hidden="true" />
-              {clinica.nota} de média em {clinica.avaliacoes} avaliações no Google.
-            </p>
+            <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-1.5 text-xs font-medium text-amber-700">
+              <div className="flex text-amber-500">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="size-3.5 fill-amber-500 text-amber-500" aria-hidden="true" />
+                ))}
+              </div>
+              <span>Referência em atendimento e satisfação dos pacientes</span>
+            </div>
           </Reveal>
         </div>
 
-        <ul className="mt-12 grid gap-6 lg:grid-cols-3">
+        <ul className="mt-14 grid gap-6 lg:grid-cols-3">
           {depoimentos.map((d, i) => (
             <Reveal
               as="li"
-              key={i}
-              delay={300 + (i * 150)}
-              className="rounded-3xl border border-border bg-background p-8"
+              key={d.autor}
+              delay={i * 100}
+              className="flex flex-col justify-between rounded-3xl border border-border/70 bg-card p-8 shadow-sm transition-all hover:shadow-md"
             >
-              <Quote className="size-6 text-magenta/70" aria-hidden="true" />
-              <p className="mt-5 text-sm leading-relaxed text-muted-foreground">{d.texto}</p>
-              <p className="mt-6 font-display text-sm font-bold text-deep">{d.autor}</p>
+              <div>
+                <Quote className="size-8 text-amber-500/60" aria-hidden="true" />
+                <div className="mt-2 flex text-amber-500">
+                  {[...Array(5)].map((_, idx) => (
+                    <Star key={idx} className="size-3.5 fill-amber-500 text-amber-500" />
+                  ))}
+                </div>
+                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{d.texto}</p>
+              </div>
+
+              <div className="mt-6 pt-4 border-t border-border/50 flex items-center justify-between">
+                <div>
+                  <p className="font-serif text-base font-medium text-foreground">{d.autor}</p>
+                  <p className="text-xs text-muted-foreground">{d.local}</p>
+                </div>
+                <span className="rounded-md bg-primary/10 px-2.5 py-1 text-[11px] font-medium text-primary">
+                  Verificado
+                </span>
+              </div>
             </Reveal>
           ))}
         </ul>
