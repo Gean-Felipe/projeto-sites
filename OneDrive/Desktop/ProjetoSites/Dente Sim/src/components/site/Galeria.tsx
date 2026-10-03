@@ -1,4 +1,4 @@
-﻿import { Reveal } from "./Reveal";
+import { Reveal } from "./Reveal";
 import { img } from "./data";
 
 const fotos = [
@@ -30,7 +30,11 @@ export function Galeria() {
 
         <div className="mt-12 grid auto-rows-[180px] gap-4 sm:auto-rows-[200px] sm:grid-cols-4">
           {fotos.map((f, i) => (
-            <Reveal key={i} delay={i * 80} className={`overflow-hidden rounded-2xl ${f.span}`}>
+            <Reveal
+              key={i}
+              delay={i * 80}
+              className={`overflow-hidden rounded-2xl ${f.span}`}
+            >
               <img
                 src={f.src}
                 alt={f.alt}

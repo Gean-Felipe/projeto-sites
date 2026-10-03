@@ -1,4 +1,4 @@
-﻿import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Arc } from "./Arc";
 import { Reveal } from "./Reveal";
 import { img } from "./data";
@@ -18,10 +18,7 @@ export function FormaDeCuidar() {
               loading="lazy"
             />
           </div>
-          <Arc
-            className="absolute -bottom-6 left-1/2 h-10 w-3/4 -translate-x-1/2 text-magenta/60"
-            width={4}
-          />
+          <Arc className="absolute -bottom-6 left-1/2 h-10 w-3/4 -translate-x-1/2 text-magenta/60" width={4} />
         </Reveal>
 
         <Reveal delay={100} className="order-1 lg:order-2">
@@ -35,18 +32,13 @@ export function FormaDeCuidar() {
             Começa no acolhimento. Na escuta. Na confiança.
           </p>
           <p className="mt-5 text-base leading-relaxed text-muted-foreground">
-            Na Dente Sim, acreditamos que um bom atendimento vai além do procedimento. Cada paciente
-            possui uma história, uma necessidade e um objetivo diferente.
+            Na Dente Sim, acreditamos que um bom atendimento vai além do procedimento. Cada
+            paciente possui uma história, uma necessidade e um objetivo diferente.
           </p>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground">
             Por isso, buscamos oferecer uma experiência personalizada desde o primeiro contato.
           </p>
-          <Button
-            asChild
-            size="lg"
-            variant="outline"
-            className="mt-9 h-12 rounded-full border-primary/30 px-7 text-primary hover:bg-soft"
-          >
+          <Button asChild size="lg" variant="outline" className="mt-9 h-12 rounded-full border-primary/30 px-7 text-primary hover:bg-soft">
             <a href="#galeria">Conheça nossa clínica</a>
           </Button>
         </Reveal>

@@ -1,4 +1,4 @@
-﻿import { ArrowRight, Phone } from "lucide-react";
+import { ArrowRight, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Arc } from "./Arc";
 import { Reveal } from "./Reveal";

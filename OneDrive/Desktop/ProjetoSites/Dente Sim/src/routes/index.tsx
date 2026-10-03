@@ -15,9 +15,9 @@ import { CTAFinal } from "@/components/site/CTAFinal";
 import { Contato } from "@/components/site/Contato";
 import { Footer } from "@/components/site/Footer";
 
-const TITLE = "Dente Sim | Clínica Odontológica em Várzea Grande - MT";
+const TITLE = "Dente Sim | Clínica Odontológica em Várzea Grande — MT";
 const DESCRIPTION =
-  "Atendimento odontológico humanizado e completo no Cristo Rei, Várzea Grande - MT. Agende sua avaliação na Dente Sim.";
+  "Odontologia com experiência, tecnologia e atendimento humanizado em Várzea Grande — MT. Agende sua avaliação na Dente Sim.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -38,11 +38,10 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@type": "Dentist",
           name: "Dente Sim",
-          description: "Clínica odontológica em Cristo Rei, Várzea Grande - MT.",
           telephone: "+55 65 3026-8119",
           address: {
             "@type": "PostalAddress",
-            streetAddress: "Rua Ary Paes Barreto, 1830",
+            streetAddress: "Rua Ary Paes Barreto, 1830 - Cristo Rei",
             addressLocality: "Várzea Grande",
             addressRegion: "MT",
             postalCode: "78118-090",

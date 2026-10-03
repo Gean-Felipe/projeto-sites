@@ -1,11 +1,4 @@
-import {
-  Sparkles,
-  Anchor,
-  Layers,
-  AlignHorizontalDistributeCenter,
-  Sun,
-  Stethoscope,
-} from "lucide-react";
+import { Sparkles, Anchor, Layers, AlignHorizontalDistributeCenter, Sun, Stethoscope } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "./Reveal";
 

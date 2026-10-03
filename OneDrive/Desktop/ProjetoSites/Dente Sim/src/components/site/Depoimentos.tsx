@@ -2,58 +2,61 @@ import { Quote, Star } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { clinica } from "./data";
 
-const depoimentoOficial = {
-  texto:
-    "Sou paciente a anos, sempre muito bem atendido, excelentes profissionais para colocar aparelho, prótese, implantes, limpeza. Nota 10 recomendo",
-  autor: "Paciente Verificado no Google",
-};
+const depoimentos = [
+  {
+    texto:
+      "Estou satisfeita com o resultado. Dr. Valdir e Dra. Gabriela me atenderam super bem, e amei o resultado final. Excelentes profissionais.",
+    autor: "Gilvana Martins",
+  },
+  {
+    texto:
+      "Equipe muito boa, destaque para o Dr. Valdir e Dra. Gabriela — excelentes profissionais!",
+    autor: "Jorge Anderson",
+  },
+  {
+    texto:
+      "Muito bom. Recomendo! O atendimento é feito por uma equipe de profissionais comprometidos e os valores do tratamento dentário são acessíveis.",
+    autor: "Julianne dos Santos Silva",
+  },
+];
 
 export function Depoimentos() {
   return (
-    <section id="depoimentos" className="bg-ice py-20 lg:py-28">
+    <section className="bg-ice py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
           <Reveal delay={0}>
             <p className="text-xs font-semibold tracking-[0.18em] text-primary uppercase">
-              Avaliações Fatuais
+              Depoimentos
             </p>
           </Reveal>
           <Reveal delay={150}>
             <h2 className="mt-5 text-3xl font-bold sm:text-4xl">
-              O que os pacientes dizem sobre a Dente Sim.
+              Histórias de quem voltou a sorrir.
             </h2>
           </Reveal>
           <Reveal delay={300}>
-            <p className="mt-5 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-background px-4 py-2 text-sm font-semibold text-deep shadow-xs">
+            <p className="mt-5 flex justify-center items-center gap-2 text-sm text-muted-foreground">
               <Star className="size-4 fill-magenta text-magenta" aria-hidden="true" />
-              {clinica.nota} estrelas ({clinica.avaliacoes} avaliações no Google)
+              {clinica.nota} de média em {clinica.avaliacoes} avaliações no Google.
             </p>
           </Reveal>
         </div>
 
-        <div className="mt-12 mx-auto max-w-3xl">
-          <Reveal delay={350}>
-            <div className="relative overflow-hidden rounded-3xl border border-border bg-background p-8 sm:p-10 shadow-sm">
-              <Quote className="size-8 text-magenta/70" aria-hidden="true" />
-              <blockquote className="mt-6 text-base sm:text-lg leading-relaxed text-foreground font-medium">
-                "{depoimentoOficial.texto}"
-              </blockquote>
-              <div className="mt-8 flex items-center justify-between border-t border-border pt-6">
-                <div>
-                  <p className="font-display text-sm font-bold text-deep">
-                    {depoimentoOficial.autor}
-                  </p>
-                  <p className="text-xs text-muted-foreground">Avaliação real no Google Maps</p>
-                </div>
-                <div className="flex gap-1 text-magenta">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="size-4 fill-magenta text-magenta" />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </Reveal>
-        </div>
+        <ul className="mt-12 grid gap-6 lg:grid-cols-3">
+          {depoimentos.map((d, i) => (
+            <Reveal
+              as="li"
+              key={i}
+              delay={300 + (i * 150)}
+              className="rounded-3xl border border-border bg-background p-8"
+            >
+              <Quote className="size-6 text-magenta/70" aria-hidden="true" />
+              <p className="mt-5 text-sm leading-relaxed text-muted-foreground">{d.texto}</p>
+              <p className="mt-6 font-display text-sm font-bold text-deep">{d.autor}</p>
+            </Reveal>
+          ))}
+        </ul>
       </div>
     </section>
   );

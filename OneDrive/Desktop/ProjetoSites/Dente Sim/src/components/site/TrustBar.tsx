@@ -1,11 +1,10 @@
 import { Reveal } from "./Reveal";
-import { clinica } from "./data";
 
 const itens = [
-  { valor: `${clinica.nota} ★`, label: "avaliação no Google" },
-  { valor: `${clinica.avaliacoes}`, label: "avaliações de clientes" },
-  { valor: clinica.bairro, label: "Várzea Grande — MT" },
-  { valor: "Centro Comercial", label: "Cristo Rei" },
+  { valor: "+20", label: "anos de experiência" },
+  { valor: "4,5 ★", label: "avaliação no Google" },
+  { valor: "27", label: "avaliações" },
+  { valor: "Várzea Grande", label: "MT" },
 ];
 
 export function TrustBar() {

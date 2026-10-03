@@ -1,4 +1,4 @@
-﻿import { HeartPulse, ShieldCheck, UserRound } from "lucide-react";
+import { HeartPulse, ShieldCheck, UserRound } from "lucide-react";
 import { ArcDivider } from "./Arc";
 import { Reveal } from "./Reveal";
 import { img } from "./data";

@@ -1,4 +1,4 @@
-﻿import { Award, Cpu, HandHeart, Smile } from "lucide-react";
+import { Award, Cpu, HandHeart, Smile } from "lucide-react";
 import { Reveal } from "./Reveal";
 
 const blocos = [
@@ -39,10 +39,7 @@ export function Diferenciais() {
               delay={i * 80}
               className="group bg-background p-8 transition-colors hover:bg-background"
             >
-              <Icon
-                className="size-6 text-primary transition-transform duration-300 group-hover:scale-105"
-                aria-hidden="true"
-              />
+              <Icon className="size-6 text-primary transition-transform duration-300 group-hover:scale-105" aria-hidden="true" />
               <h3 className="mt-6 font-display text-lg font-bold">{titulo}</h3>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{texto}</p>
               <span className="mt-6 block h-0.5 w-8 bg-magenta/70 transition-all duration-300 group-hover:w-14" />

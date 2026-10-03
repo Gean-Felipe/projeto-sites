@@ -1,4 +1,4 @@
-﻿import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { MoveHorizontal } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { img } from "./data";

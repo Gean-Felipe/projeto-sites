@@ -1,4 +1,4 @@
-﻿import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
 /** Elemento gráfico inspirado no arco/sorriso do logo Dente Sim. */
 export function Arc({
@@ -31,10 +31,7 @@ export function Arc({
 /** Divisor de seção com o arco da marca. */
 export function ArcDivider({ className }: { className?: string }) {
   return (
-    <div
-      className={cn("flex items-center justify-center gap-4 py-2", className)}
-      aria-hidden="true"
-    >
+    <div className={cn("flex items-center justify-center gap-4 py-2", className)} aria-hidden="true">
       <span className="h-px w-16 bg-border sm:w-24" />
       <Arc className="h-4 w-20 text-primary" width={4} />
       <span className="h-px w-16 bg-border sm:w-24" />
