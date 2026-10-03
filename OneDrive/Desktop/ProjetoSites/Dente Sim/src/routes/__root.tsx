@@ -88,7 +88,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       // Preload da imagem LCP (Hero) — carregamento prioritário
       {
         rel: "preload",
-        href: "/dentista-jaleco.jpg",
+        href: "/504194760_1048567646840396_4607385307358639349_n.jpg",
         as: "image",
         type: "image/jpeg",
       },
