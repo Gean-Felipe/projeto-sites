@@ -4,20 +4,18 @@ import {
   MessageCircle,
   MapPin,
   Phone,
-  Calendar,
   Sparkles,
   CheckCircle2,
-  ChevronRight,
   ShieldCheck,
   Star,
   Clock,
-  ArrowRight,
+  ArrowUpRight,
   Heart,
   Eye,
-  Award,
   HelpCircle,
   Building2,
   ExternalLink,
+  ChevronRight,
 } from "lucide-react";
 import {
   Accordion,
@@ -50,21 +48,21 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       {
-        title: "Lumi Estética e Saúde — Centro de Saúde e Beleza em Cuiabá, MT",
+        title: "Lumi Estética e Saúde — Consultório na Cidade Alta, Cuiabá MT",
       },
       {
         name: "description",
         content:
-          "Estética facial, estética corporal e ozonioterapia em Cuiabá – MT. Sua pele merece cuidado, estratégia e constância. Agende pelo WhatsApp na Lumi Estética e Saúde.",
+          "Estética facial, corporal e ozonioterapia com atendimento humanizado em Cuiabá – MT. Sua pele merece cuidado, estratégia e constância. Agendamento pelo WhatsApp.",
       },
       {
         property: "og:title",
-        content: "Lumi Estética e Saúde — Centro de Saúde e Beleza em Cuiabá, MT",
+        content: "Lumi Estética e Saúde — Cuiabá, MT",
       },
       {
         property: "og:description",
         content:
-          "Estética facial, corporal e ozonioterapia com atendimento personalizado, ambiente acolhedor e responsabilidade técnica na Cidade Alta, Cuiabá.",
+          "Sua pele merece cuidado, estratégia e constância. Atendimento exclusivo na Cidade Alta, Cuiabá.",
       },
       {
         property: "og:image",
@@ -79,83 +77,114 @@ export const Route = createFileRoute("/")({
   component: IndexPage,
 });
 
-/* ─── Dados Estruturados de Conteúdo ───────────────────────────── */
+/* ─── Dados Reais e Factuais (Sem Clichês de IA) ─────────────────── */
 
 const SERVICES_DATA = [
   {
+    number: "01",
     id: "facial",
     title: "Estética Facial",
-    category: "Cuidado e Harmonia Facial",
+    badge: "Rosto & Harmonização",
+    lead: "Planejamento que respeita a sua anatomia original, sem fórmulas prontas ou exageros.",
     description:
-      "Abordagens personalizadas dedicadas à renovação, equilíbrio e bem-estar da pele facial. Cada procedimento é planejado respeitando sua anatomia única, textura e objetivos.",
+      "Cuidado voltado à harmonia, linhas de expressão, rejuvenescimento e vitalidade da pele. A avaliação inicial analisa a estrutura do seu rosto, proporções e histórico de pele para indicar apenas o que realmente faz sentido para você.",
     image: "/images/marcacao_facial.jpg",
-    alt: "Procedimento de avaliação e demarcação para estética facial na Lumi Estética e Saúde",
-    highlights: [
-      "Planejamento facial individualizado",
-      "Foco na naturalidade e harmonia",
-      "Avaliação atenta das características da pele",
+    alt: "Demarcação e planejamento anatômico para procedimento facial na clínica Lumi em Cuiabá",
+    details: [
+      "Demarcação facial criteriosa e individualizada",
+      "Foco absoluto na naturalidade dos traços",
+      "Materiais esterilizados e insumos certificados",
     ],
     whatsappMsg:
-      "Olá! Gostaria de consultar informações sobre os procedimentos de Estética Facial na Lumi Estética e Saúde.",
+      "Olá! Conheci a Lumi pelo site e gostaria de conversar sobre a avaliação de Estética Facial.",
   },
   {
+    number: "02",
     id: "corporal",
     title: "Estética Corporal",
-    category: "Saúde e Bem-Estar Corporal",
+    badge: "Corpo & Bem-Estar",
+    lead: "Protocolos pensados para a saúde da pele, contorno e sensação real de leveza.",
     description:
-      "Cuidados integrados focados na vitalidade, firmeza e textura da pele corporal. Técnicas planejadas para promover relaxamento, autoestima e equilíbrio estético.",
+      "Abordagens para melhorar a firmeza, circulação e textura da pele em áreas específicas do corpo. Um momento de desaceleração e autocuidado em cabine privativa, com acompanhamento próximo da resposta do seu organismo.",
     image: "/images/atendimento_clinico.jpg",
-    alt: "Atendimento estético corporal e acolhimento na clínica Lumi em Cuiabá",
-    highlights: [
-      "Protocolos ajustados à sua rotina",
-      "Conforto e acolhimento profissional",
-      "Acompanhamento constante dos resultados",
+    alt: "Ambiente clínico privativo para procedimentos corporais na Lumi Estética e Saúde",
+    details: [
+      "Atendimento calmo em cabine privativa",
+      "Acompanhamento da evolução a cada sessão",
+      "Conforto e acolhimento do início ao fim",
     ],
     whatsappMsg:
-      "Olá! Gostaria de consultar informações sobre os cuidados de Estética Corporal na Lumi Estética e Saúde.",
+      "Olá! Conheci a Lumi pelo site e gostaria de consultar informações sobre os cuidados de Estética Corporal.",
   },
   {
+    number: "03",
     id: "ozonioterapia",
     title: "Ozonioterapia",
-    category: "Prática Integrativa e Complementar",
+    badge: "Prática Integrativa",
+    lead: "Avaliação criteriosa de indicação e segurança antes de qualquer aplicação.",
     description:
-      "Modalidade integrativa que emprega o ozônio como suporte à saúde e oxigenação celular. Consulte a profissional para uma avaliação prévia, orientações sobre indicações, segurança e adequação ao seu organismo.",
+      "Prática que utiliza o ozônio com foco no suporte à oxigenação, resposta inflamatória e bem-estar geral. No consultório, a profissional realiza uma triagem prévia para esclarecer contraindicações e verificar a real adequação da técnica ao seu caso.",
     image: "/images/cuidado_facial_humanizado.jpg",
-    alt: "Profissional realizando atendimento atencioso na clínica Lumi Estética e Saúde",
-    highlights: [
-      "Aplicação com rigor técnico e higiênico",
-      "Orientação transparente antes de qualquer indicação",
-      "Avaliação de elegibilidade e segurança",
+    alt: "Profissional realizando acolhimento e avaliação atenta na clínica Lumi",
+    details: [
+      "Triagem de segurança e contraindicações prévia",
+      "Conduta ética e orientação sem promessas milagrosas",
+      "Esclarecimento minucioso antes de iniciar",
     ],
     whatsappMsg:
-      "Olá! Gostaria de esclarecer dúvidas e consultar a indicação da Ozonioterapia na Lumi Estética e Saúde.",
+      "Olá! Conheci a Lumi pelo site e gostaria de esclarecer dúvidas sobre a indicação da Ozonioterapia.",
   },
 ];
 
 const DIFFERENTIALS = [
   {
     icon: Heart,
-    title: "Atenção Individualizada",
+    title: "Escuta antes da agulha",
     description:
-      "Cada pessoa possui particularidades e ritmos próprios. Nossos atendimentos começam com uma escuta sensível para entender suas reais expectativas.",
+      "Nenhuma conduta é tomada às pressas. Antes de qualquer procedimento, conversamos sobre o que incomoda você e o que é viável realizar com segurança.",
   },
   {
     icon: Sparkles,
-    title: "Estratégia e Constância",
+    title: "Estratégia e constância",
     description:
-      "Acreditamos que beleza e saúde são construídas de forma contínua e responsável, priorizando a saúde tecidual e a naturalidade duradoura.",
+      "Bons resultados na pele dependem de plano e continuidade, não de intervenções agressivas que descaracterizam a sua fisionomia.",
   },
   {
     icon: ShieldCheck,
-    title: "Rigor Técnico e Higiene",
+    title: "Segurança de enfermagem",
     description:
-      "Materiais rigorosamente descartáveis, ambiente esterilizado e conduta pautada pelas boas práticas profissionais e responsabilidade em enfermagem estética.",
+      "Atuação sob responsabilidade técnica com registro COREN-MT 548.790, adotando rigor absoluto na esterilização e descarte de materiais.",
   },
   {
     icon: Building2,
-    title: "Ambiente Acolhedor em Cuiabá",
+    title: "Consultório calmo e privativo",
     description:
-      "Localizado na Cidade Alta, o espaço da Lumi foi pensado para oferecer tranquilidade, conforto e um momento genuíno de desconexão e cuidado com você.",
+      "Localizado na Cidade Alta em Cuiabá, um ambiente sem correria onde você é atendida no seu horário, com atenção exclusiva.",
+  },
+];
+
+const REVIEWS_DATA = [
+  {
+    quote: "Preços acessíveis e profissional totalmente qualificada.",
+    context: "Comentário sobre a combinação de segurança técnica e clareza de valores.",
+    tag: "Qualificação & Transparência",
+  },
+  {
+    quote: "Tirou minhas olheiras ja na primeira sessao.",
+    context:
+      "Relato individual de paciente no consultório (resultados variam conforme anatomia e tipo de pele).",
+    tag: "Atenção ao Olhar",
+  },
+  {
+    quote: "Seguimos no planejamento.",
+    context:
+      "A essência da nossa conduta: acompanhamento constante, passo a passo, sem afobação.",
+    tag: "Constância do Tratamento",
+  },
+  {
+    quote: "Ambiente muito organizado, acolhedor e atendimento com muita paciência.",
+    context: "Percepção espontânea sobre o consultório privativo na Cidade Alta.",
+    tag: "Acolhimento Real",
   },
 ];
 
@@ -163,105 +192,79 @@ const GALLERY_ITEMS = [
   {
     src: "/images/profissional_lumi.jpg",
     alt: "Profissional responsável no consultório da Lumi Estética e Saúde em Cuiabá",
-    label: "Espaço de Atendimento Lumi",
-    caption: "Atendimento acolhedor na Cidade Alta",
+    label: "Espaço Lumi · Cidade Alta",
+    tag: "Consultório",
   },
   {
     src: "/images/atendimento_clinico.jpg",
-    alt: "Paciente recebendo atendimento em maca com profissional da Lumi",
-    label: "Ambiente Clínico e Conforto",
-    caption: "Estrutura moderna e higienizada",
+    alt: "Atendimento clínico em maca na Lumi Estética e Saúde",
+    label: "Atendimento Individualizado",
+    tag: "Cabine",
   },
   {
     src: "/images/marcacao_facial.jpg",
-    alt: "Marcação precisa e técnica para harmonização e estética facial",
-    label: "Planejamento Anatômico Facial",
-    caption: "Precisão e rigor em cada etapa",
+    alt: "Demarcação anatômica minuciosa para estética facial",
+    label: "Planejamento Anatômico",
+    tag: "Procedimento",
   },
   {
     src: "/images/cuidado_facial_humanizado.jpg",
-    alt: "Avaliação manual tátil cuidadosa da pele em ambiente clínico",
-    label: "Cuidado e Atenção aos Detalhes",
-    caption: "Escuta atenta e conduta segura",
+    alt: "Avaliação e cuidado humanizado na maca clínica",
+    label: "Avaliação Minuciosa",
+    tag: "Cuidado",
   },
   {
     src: "/images/materiais_clinicos.jpg",
-    alt: "Materiais descartáveis e produtos de alta qualidade utilizados na clínica",
-    label: "Procedimentos e Insumos",
-    caption: "Materiais certificados e seguros",
+    alt: "Materiais descartáveis e seringa para toxina botulínica",
+    label: "Biossegurança e Insumos",
+    tag: "Materiais",
   },
   {
     src: "/images/institucional_lumi.jpg",
-    alt: "Comunicação visual e orientação sobre procedimentos estéticos na Lumi",
-    label: "Orientação e Clareza",
-    caption: "Transparência antes de qualquer escolha",
-  },
-];
-
-const REVIEWS_DATA = [
-  {
-    quote: "Preços acessíveis e profissional totalmente qualificada.",
-    detail: "Relato de cliente sobre o custo-benefício e a segurança profissional.",
-    highlight: "Qualificação & Acessibilidade",
-  },
-  {
-    quote: "Tirou minhas olheiras ja na primeira sessao.",
-    detail:
-      "Experiência individual compartilhada por cliente (resultados podem variar de acordo com o organismo e indicação).",
-    highlight: "Atenção ao Olhar",
-  },
-  {
-    quote: "Seguimos no planejamento.",
-    detail:
-      "Demonstração do compromisso com o cuidado contínuo, estratégico e de longo prazo.",
-    highlight: "Constância & Cuidado",
-  },
-  {
-    quote: "Ambiente super organizado, agradável e atendimento que transmite muita paz.",
-    detail: "Percepção espontânea sobre a experiência acolhedora no consultório da Lumi.",
-    highlight: "Ambiente Acolhedor",
+    alt: "Orientações sobre toxina botulínica e dúvidas comuns",
+    label: "Informação e Transparência",
+    tag: "Orientação",
   },
 ];
 
 const FAQ_ITEMS = [
   {
-    q: "Como posso entrar em contato ou agendar meu atendimento?",
-    a: "O agendamento na Lumi Estética e Saúde é realizado com comodidade diretamente pelo WhatsApp (65) 99274-1317. Você nos envia uma mensagem informando a área de seu interesse e combinamos o melhor dia e horário de acordo com a disponibilidade da clínica.",
+    q: "Como faço para agendar uma consulta na Lumi?",
+    a: "Basta nos mandar uma mensagem pelo WhatsApp no número (65) 99274-1317. Você nos diz se tem interesse em estética facial, corporal ou ozonioterapia, e nós encontramos o melhor horário disponível na agenda da clínica.",
   },
   {
-    q: "Onde a clínica está localizada em Cuiabá?",
-    a: `Estamos localizados na ${ADDRESS_FULL}, com fácil acesso e estacionamento nas proximidades. Você também pode consultar o trajeto pelo Google Maps através dos links disponíveis no site.`,
+    q: "Onde fica o consultório em Cuiabá?",
+    a: `Estamos na ${ADDRESS_STREET}, no bairro ${ADDRESS_NEIGHBORHOOD}, Cuiabá – MT (${ADDRESS_CEP}). É uma localização calma e com fácil estacionamento nas proximidades.`,
   },
   {
-    q: "Quais áreas de atendimento a Lumi oferece?",
-    a: "Atuamos em três áreas principais: Estética Facial, Estética Corporal e Ozonioterapia. Todos os procedimentos são orientados conforme avaliação individualizada das suas necessidades.",
+    q: "Preciso passar por avaliação antes de fazer qualquer procedimento?",
+    a: "Sim. Toda pele é única e tem suas particularidades. A avaliação prévia é o momento em que a profissional examina seu rosto ou corpo, entende seu histórico de saúde e explica as opções possíveis com total honestidade.",
   },
   {
-    q: "Como posso tirar dúvidas específicas sobre indicação de procedimentos?",
-    a: "Você pode nos chamar diretamente no WhatsApp. Nossa profissional esclarecerá todas as suas dúvidas sobre contraindicações, etapas do procedimento e orientações de cuidados.",
+    q: "Quais procedimentos de estética são realizados?",
+    a: "Atuamos em três frentes: Estética Facial (cuidados de pele, linhas, revitalização e harmonização), Estética Corporal (firmeza e textura tecidual) e Ozonioterapia (prática integrativa complementar).",
   },
   {
-    q: "A clínica possui registro profissional?",
-    a: `Sim, a atuação técnica da clínica conta com apresentação profissional sob o registro ${COREN_NUMBER}, assegurando conformidade com as normas éticas e sanitárias vigentes.`,
+    q: "Quem é a responsável técnica pelo atendimento?",
+    a: `Os atendimentos da clínica contam com apresentação profissional com registro técnico ${COREN_NUMBER}, assegurando conformidade com normas sanitárias e éticas de enfermagem estética.`,
   },
 ];
 
-/* ─── Componente Principal da Página ───────────────────────────── */
+/* ─── Componente Principal ───────────────────────────────────────── */
 function IndexPage() {
   useScrollReveal();
   const [activeLightbox, setActiveLightbox] = useState<{
     src: string;
     alt: string;
-    label?: string;
+    label?: string | undefined;
   } | null>(null);
 
-  // Schema.org JSON-LD para SEO Local
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "HealthAndBeautyBusiness",
     name: CLINIC_NAME,
     description:
-      "Centro de saúde e beleza especializado em estética facial, corporal e ozonioterapia em Cuiabá, MT.",
+      "Centro de saúde e beleza dedicado à estética facial, corporal e ozonioterapia em Cuiabá, MT.",
     address: {
       "@type": "PostalAddress",
       streetAddress: ADDRESS_STREET,
@@ -278,66 +281,77 @@ function IndexPage() {
       "@type": "AggregateRating",
       ratingValue: "5.0",
       reviewCount: "6",
-      bestRating: "5",
-      worstRating: "1",
     },
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#FAF7F2] text-[#1C1A18] selection:bg-[#C5A059]/20 selection:text-[#1C1A18]">
-      {/* Script JSON-LD */}
+    <div className="flex min-h-screen flex-col bg-[#FAF8F5] text-[#1A1816] selection:bg-[#C5A059]/20 selection:text-[#1A1816]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      {/* ─── SEÇÃO 1: HEADER ─── */}
+      {/* ─── 1. HEADER ─── */}
       <Header />
 
       <main id="conteudo-principal" className="flex-1">
-        {/* ─── SEÇÃO 2: HERO ─── */}
+        {/* ─── 2. HERO: Editorial, Autoral e Humanizado ─── */}
         <section
           id="inicio"
-          className="relative overflow-hidden pt-12 pb-20 md:pt-20 md:pb-32 bg-gradient-to-b from-[#F7F2EB] to-[#FAF7F2]"
+          className="relative overflow-hidden pt-8 pb-16 md:pt-14 md:pb-24 border-b border-[#EAE3D9]"
         >
-          {/* Elementos sutis decorativos de fundo */}
-          <div
-            className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#C5A059]/5 rounded-full blur-3xl pointer-events-none"
-            aria-hidden="true"
-          />
-
           <div className="mx-auto max-w-7xl px-6 lg:px-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-              {/* Coluna de Texto */}
-              <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-                {/* Badge de Posicionamento e Cidade */}
-                <div className="inline-flex items-center gap-2 rounded-full border border-[#E5DDD3] bg-white/90 px-4 py-1.5 text-xs font-medium text-[#69635D] shadow-sm backdrop-blur-sm mx-auto lg:mx-0">
-                  <span className="flex h-2 w-2 rounded-full bg-[#C5A059]" />
-                  <span>Cidade Alta · Cuiabá – MT</span>
-                  <span className="text-[#C5A059]">✦</span>
-                  <span className="font-semibold text-[#1C1A18]">Estética e Saúde</span>
-                </div>
+            {/* Barra superior de status local */}
+            <div className="flex flex-wrap items-center justify-between gap-3 pb-8 mb-8 border-b border-[#EAE3D9]/70 text-xs text-[#5F5953]">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#C5A059] animate-pulse" />
+                <span className="font-medium text-[#1A1816]">Cidade Alta, Cuiabá – MT</span>
+                <span className="text-[#C5A059]">/</span>
+                <span>Atendimento com hora marcada</span>
+              </div>
+              <div className="hidden sm:flex items-center gap-4">
+                <span>{COREN_NUMBER}</span>
+                <span className="text-[#C5A059]">✦</span>
+                <span className="font-medium text-[#1A1816]">(65) 99274-1317</span>
+              </div>
+            </div>
 
-                {/* Headline Principal */}
-                <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight text-[#1C1A18] leading-[1.12]">
+            {/* Grid Principal do Hero */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+              {/* Coluna Editorial de Conteúdo */}
+              <div className="lg:col-span-7 space-y-6 text-left">
+                <span className="tag-badge">
+                  ✦ Centro de Saúde e Beleza
+                </span>
+
+                <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-light tracking-tight text-[#1A1816] leading-[1.12]">
                   Cuidado com a sua pele.{" "}
-                  <span className="italic font-normal text-gold-gradient block sm:inline">
+                  <span className="font-editorial-italic text-gold-gradient block sm:inline">
                     Atenção com você.
                   </span>
                 </h1>
 
-                {/* Subtítulo Acolhedor */}
-                <p className="text-base sm:text-lg text-[#69635D] max-w-2xl mx-auto lg:mx-0 leading-relaxed font-light">
-                  Estética e saúde com um olhar dedicado ao seu cuidado, respeitando suas necessidades e sua individualidade. Tratamentos faciais, corporais e ozonioterapia em Cuiabá.
+                <p className="text-base sm:text-lg text-[#5F5953] leading-relaxed max-w-xl font-light">
+                  Estética e saúde com um olhar dedicado ao seu cuidado, respeitando suas necessidades e sua individualidade. Sem exageros, sem fórmulas prontas: apenas o que valoriza você.
                 </p>
 
-                {/* CTAs de Conversão */}
-                <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                {/* Manifesto da Marca em Destaque */}
+                <div className="p-4 rounded-xl bg-white border border-[#EAE3D9] shadow-sm max-w-lg">
+                  <p className="text-xs uppercase tracking-widest text-[#C5A059] font-semibold mb-1">
+                    Nosso posicionamento
+                  </p>
+                  <p className="font-serif text-lg text-[#1A1816] italic leading-snug">
+                    “{TAGLINE}”
+                  </p>
+                </div>
+
+                {/* Ações Diretas */}
+                <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                   <a
                     href={WHATSAPP_MAIN}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-gold w-full sm:w-auto text-center py-3.5 px-8 text-base shadow-md"
+                    className="btn-gold text-center py-3.5 px-8"
                   >
                     <MessageCircle className="w-5 h-5" />
                     <span>Agendar pelo WhatsApp</span>
@@ -345,38 +359,36 @@ function IndexPage() {
 
                   <a
                     href="#tratamentos"
-                    className="btn-outline-gold w-full sm:w-auto text-center py-3.5 px-8 text-base"
+                    className="btn-outline-gold text-center py-3.5 px-7"
                   >
                     <span>Conhecer tratamentos</span>
-                    <ArrowRight className="w-4 h-4 ml-1" />
+                    <ArrowUpRight className="w-4 h-4 ml-1" />
                   </a>
                 </div>
 
-                {/* Micro-prova de confiança */}
-                <div className="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-[#69635D]">
+                {/* Indicadores Factuais de Confiança */}
+                <div className="pt-2 flex flex-wrap items-center gap-6 text-xs text-[#5F5953]">
                   <div className="flex items-center gap-1.5">
                     <div className="flex text-[#C5A059]">
                       {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-current text-[#C5A059]" />
+                        <Star key={i} className="w-3.5 h-3.5 fill-current" />
                       ))}
                     </div>
-                    <span className="font-medium text-[#1C1A18]">
-                      5,0/5 estrelas
-                    </span>
-                    <span>(6 avaliações informadas)</span>
+                    <strong className="text-[#1A1816] font-semibold">5,0 de 5 estrelas</strong>
+                    <span className="text-[#5F5953]/80">(6 avaliações informadas)</span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <ShieldCheck className="w-4 h-4 text-[#C5A059]" />
-                    <span>{COREN_NUMBER}</span>
+                    <span>Registro {COREN_NUMBER}</span>
                   </div>
                 </div>
               </div>
 
-              {/* Coluna de Imagem Hero */}
+              {/* Coluna Fotográfica Assimétrica */}
               <div className="lg:col-span-5 relative">
                 <div className="relative mx-auto max-w-md lg:max-w-none">
-                  {/* Moldura elegante com acabamento dourado e sombra suave */}
-                  <div className="relative rounded-2xl overflow-hidden border-2 border-white shadow-[0_20px_50px_rgba(28,26,24,0.12)] bg-[#EFE7DC]/40 aspect-[4/5]">
+                  {/* Foto Principal: Atendimento Real em Maca */}
+                  <div className="relative rounded-2xl overflow-hidden border border-[#EAE3D9] bg-white shadow-xl aspect-[4/5]">
                     <img
                       src="/images/atendimento_clinico.jpg"
                       alt="Atendimento clínico cuidadoso na Lumi Estética e Saúde em Cuiabá"
@@ -384,27 +396,26 @@ function IndexPage() {
                       loading="eager"
                       fetchPriority="high"
                     />
-
-                    {/* Gradiente sutil no rodapé da foto */}
-                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#1C1A18]/80 via-[#1C1A18]/30 to-transparent p-6 text-white">
-                      <p className="text-xs font-light uppercase tracking-widest text-[#E8D5B0]">
-                        Lumi Estética e Saúde
-                      </p>
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#1A1816]/85 via-[#1A1816]/30 to-transparent p-6 text-[#FAF8F5]">
+                      <span className="text-[0.65rem] tracking-[0.25em] uppercase font-semibold text-[#EBDDC8]">
+                        Cuiabá · MT
+                      </span>
                       <p className="font-serif text-lg font-medium">
-                        “Sua pele merece cuidado, estratégia e constância.”
+                        Atendimento calmo e atencioso
                       </p>
                     </div>
                   </div>
 
-                  {/* Card Flutuante de Confiança */}
-                  <div className="absolute -bottom-6 -left-4 sm:left-4 rounded-xl bg-white/95 backdrop-blur-md p-4 border border-[#E5DDD3] shadow-lg max-w-[240px] text-left">
-                    <div className="flex items-center gap-2 mb-1">
-                      <Sparkles className="w-4 h-4 text-[#C5A059]" />
-                      <span className="text-xs font-semibold text-[#1C1A18]">Atendimento Dedicado</span>
+                  {/* Foto Secundária Sobreposta (Técnica e Luvas) */}
+                  <div className="hidden sm:block absolute -bottom-6 -left-6 w-44 rounded-xl overflow-hidden border-2 border-white shadow-2xl bg-white aspect-[3/4]">
+                    <img
+                      src="/images/marcacao_facial.jpg"
+                      alt="Demarcação facial e planejamento anatômico minucioso"
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-2.5 text-white text-[0.65rem] font-medium">
+                      Planejamento facial
                     </div>
-                    <p className="text-[0.75rem] text-[#69635D] leading-snug">
-                      Ambiente planejado para seu relaxamento e segurança na Cidade Alta.
-                    </p>
                   </div>
                 </div>
               </div>
@@ -412,67 +423,63 @@ function IndexPage() {
           </div>
         </section>
 
-        {/* ─── SEÇÃO 3: APRESENTAÇÃO DA LUMI ─── */}
-        <section id="sobre" className="py-20 md:py-28 bg-white border-y border-[#E5DDD3]">
+        {/* ─── 3. SOBRE A LUMI: Diagramação Estilo Revista ─── */}
+        <section id="sobre" className="py-20 md:py-28 bg-white border-b border-[#EAE3D9]">
           <div className="mx-auto max-w-7xl px-6 lg:px-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
               {/* Foto da Profissional no Consultório */}
-              <div className="lg:col-span-5 order-2 lg:order-1 reveal-left">
-                <div className="relative mx-auto max-w-md lg:max-w-none">
-                  <div className="rounded-2xl overflow-hidden border border-[#E5DDD3] shadow-md bg-[#FAF7F2] aspect-[3/4]">
+              <div className="lg:col-span-5 reveal-left">
+                <div className="relative mx-auto max-w-md">
+                  <div className="rounded-2xl overflow-hidden border border-[#EAE3D9] shadow-md bg-[#FAF8F5] aspect-[3/4]">
                     <img
                       src="/images/profissional_lumi.jpg"
-                      alt="Profissional da Lumi Estética e Saúde em seu consultório acolhedor em Cuiabá"
-                      className="w-full h-full object-cover object-top hover:scale-[1.02] transition-transform duration-500"
+                      alt="Profissional responsável no consultório da Lumi Estética e Saúde em Cuiabá"
+                      className="w-full h-full object-cover object-top hover:scale-[1.02] transition-transform duration-700"
                     />
                   </div>
-                  <div className="mt-4 p-4 rounded-xl bg-[#FAF7F2] border border-[#E5DDD3] flex items-center justify-between text-xs text-[#69635D]">
-                    <span className="font-medium text-[#1C1A18]">Consultório Lumi · Cuiabá – MT</span>
-                    <span className="text-[#C5A059] font-medium">{COREN_NUMBER}</span>
+                  {/* Legenda de Consultório */}
+                  <div className="mt-3 flex items-center justify-between text-xs text-[#5F5953] px-2">
+                    <span className="font-medium text-[#1A1816]">Consultório na Cidade Alta</span>
+                    <span className="text-[#C5A059] font-medium">Cuiabá – MT</span>
                   </div>
                 </div>
               </div>
 
-              {/* Texto Institucional */}
-              <div className="lg:col-span-7 order-1 lg:order-2 space-y-6 reveal-right">
-                <div className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-[#C5A059]">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>Sobre a Clínica</span>
-                </div>
+              {/* Narrativa Real e Sincera */}
+              <div className="lg:col-span-7 space-y-6 reveal-right">
+                <span className="tag-badge">
+                  ✦ A Proposta da Lumi
+                </span>
 
-                <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-[#1C1A18] leading-tight">
+                <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-[#1A1816] leading-tight">
                   Seu momento de cuidado{" "}
-                  <span className="italic font-normal text-gold-gradient">começa aqui.</span>
+                  <span className="font-editorial-italic text-gold-gradient">começa aqui.</span>
                 </h2>
 
-                <p className="text-base sm:text-lg text-[#69635D] leading-relaxed font-light">
-                  A <strong className="font-medium text-[#1C1A18]">Lumi Estética e Saúde</strong> é um centro de saúde e beleza em Cuiabá concebido para quem valoriza atendimento humanizado, precisão técnica e um olhar atento às reais necessidades da pele e do corpo.
+                <p className="text-base sm:text-lg text-[#5F5953] leading-relaxed font-light">
+                  A <strong className="font-medium text-[#1A1816]">Lumi Estética e Saúde</strong> foi criada para ser um refúgio de tranquilidade no centro de Cuiabá. Aqui, acreditamos que procedimentos estéticos não servem para transformar você em outra pessoa, mas sim para cuidar com carinho da saúde da sua pele e valorizar a sua identidade natural.
                 </p>
 
-                <blockquote className="border-l-2 border-[#C5A059] pl-4 italic text-base text-[#1C1A18]/90 font-serif">
-                  “Sua pele merece cuidado, estratégia e constância.”
-                </blockquote>
-
-                <p className="text-sm sm:text-base text-[#69635D] leading-relaxed">
-                  Trabalhamos com foco na naturalidade, compreendendo que cada pessoa possui sua própria identidade estética. Cada protocolo é conduzido com calma, transparência e respeito à individualidade, em um ambiente silencioso, higienizado e totalmente seguro.
+                <p className="text-sm sm:text-base text-[#5F5953] leading-relaxed">
+                  Trabalhamos exclusivamente com as áreas de <strong>Estética Facial</strong>, <strong>Estética Corporal</strong> e <strong>Ozonioterapia</strong>. Cada consulta é realizada sem pressa, em ambiente higienizado e com acolhimento direto da profissional responsável.
                 </p>
 
-                {/* Pilares Resumidos */}
+                {/* Grid dos 2 Compromissos Práticos */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                  <div className="p-4 rounded-xl border border-[#E5DDD3] bg-[#FAF7F2]">
-                    <h3 className="font-serif font-semibold text-base text-[#1C1A18] mb-1">
-                      Acolhimento & Escuta
+                  <div className="p-4 rounded-xl border border-[#EAE3D9] bg-[#FAF8F5]">
+                    <h3 className="font-serif font-semibold text-base text-[#1A1816] mb-1">
+                      Atenção e Escuta Atenta
                     </h3>
-                    <p className="text-xs text-[#69635D] leading-relaxed">
-                      Atendimento que prioriza a conversa clara antes de qualquer decisão clínica.
+                    <p className="text-xs text-[#5F5953] leading-relaxed">
+                      Entendemos sua rotina e seus objetivos antes de sugerir qualquer protocolo.
                     </p>
                   </div>
-                  <div className="p-4 rounded-xl border border-[#E5DDD3] bg-[#FAF7F2]">
-                    <h3 className="font-serif font-semibold text-base text-[#1C1A18] mb-1">
-                      Segurança em Saúde
+                  <div className="p-4 rounded-xl border border-[#EAE3D9] bg-[#FAF8F5]">
+                    <h3 className="font-serif font-semibold text-base text-[#1A1816] mb-1">
+                      Rigor Técnico em Enfermagem
                     </h3>
-                    <p className="text-xs text-[#69635D] leading-relaxed">
-                      Procedimentos realizados em conformidade com as boas práticas sanitárias.
+                    <p className="text-xs text-[#5F5953] leading-relaxed">
+                      Segurança biológica e técnica pautada pelo registro {COREN_NUMBER}.
                     </p>
                   </div>
                 </div>
@@ -485,7 +492,7 @@ function IndexPage() {
                     className="btn-gold inline-flex"
                   >
                     <MessageCircle className="w-4 h-4" />
-                    <span>Conversar com a Lumi</span>
+                    <span>Falar diretamente com a clínica</span>
                   </a>
                 </div>
               </div>
@@ -493,121 +500,132 @@ function IndexPage() {
           </div>
         </section>
 
-        {/* ─── SEÇÃO 4: TRATAMENTOS ─── */}
-        <section id="tratamentos" className="py-20 md:py-28 bg-[#FAF7F2]">
+        {/* ─── 4. TRATAMENTOS: Curadoria Clínica sem Formato Genérico ─── */}
+        <section id="tratamentos" className="py-20 md:py-28 bg-[#FAF8F5]">
           <div className="mx-auto max-w-7xl px-6 lg:px-10">
-            {/* Cabeçalho da Seção */}
-            <div className="max-w-2xl mx-auto text-center space-y-4 mb-16 reveal">
-              <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-[#C5A059]">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Nossas Áreas de Atuação</span>
+            {/* Header da Seção */}
+            <div className="max-w-2xl text-left space-y-3 mb-14 reveal">
+              <span className="tag-badge">
+                ✦ Áreas de Atuação
               </span>
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-[#1C1A18]">
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-[#1A1816]">
                 Tratamentos pensados para o seu{" "}
-                <span className="italic text-gold-gradient font-normal">bem-estar</span>
+                <span className="font-editorial-italic text-gold-gradient">bem-estar</span>
               </h2>
-              <p className="text-sm sm:text-base text-[#69635D] leading-relaxed">
-                Conheça as áreas confirmadas de atendimento na Lumi Estética e Saúde. Cada cuidado é planejado de acordo com a sua necessidade particular.
+              <p className="text-sm sm:text-base text-[#5F5953] leading-relaxed font-light">
+                Conheça as três áreas de cuidado disponíveis na Lumi. Cada procedimento é planejado sob medida, após avaliação individual.
               </p>
             </div>
 
-            {/* Grid dos 3 Serviços Confirmados */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Lista Editorial de Tratamentos */}
+            <div className="space-y-8">
               {SERVICES_DATA.map((service, index) => (
                 <article
                   key={service.id}
-                  className="rounded-2xl bg-white border border-[#E5DDD3] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group reveal"
-                  style={{ animationDelay: `${index * 150}ms` }}
+                  className="rounded-2xl bg-white border border-[#EAE3D9] overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 p-6 sm:p-8 lg:p-10 reveal"
                 >
-                  {/* Foto Real do Tratamento */}
-                  <div className="relative aspect-[4/3] overflow-hidden bg-[#FAF7F2]">
-                    <img
-                      src={service.image}
-                      alt={service.alt}
-                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full border border-[#E5DDD3] text-[0.7rem] font-medium text-[#1C1A18]">
-                      {service.category}
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    {/* Coluna Visual com Foto Real */}
+                    <div className="lg:col-span-5 order-2 lg:order-1">
+                      <div className="relative rounded-xl overflow-hidden border border-[#EAE3D9] aspect-[4/3] bg-[#FAF8F5]">
+                        <img
+                          src={service.image}
+                          alt={service.alt}
+                          className="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-700"
+                        />
+                        <div className="absolute top-3 left-3 bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full border border-[#EAE3D9] text-[0.7rem] font-semibold tracking-wider text-[#1A1816]">
+                          {service.badge}
+                        </div>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Conteúdo do Card */}
-                  <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between space-y-5">
-                    <div className="space-y-3">
-                      <h3 className="font-serif text-2xl font-semibold text-[#1C1A18] tracking-tight">
+                    {/* Coluna Descritiva */}
+                    <div className="lg:col-span-7 order-1 lg:order-2 space-y-4">
+                      <div className="flex items-center gap-3">
+                        <span className="font-serif text-2xl font-light text-[#C5A059]">
+                          {service.number}
+                        </span>
+                        <div className="h-px flex-1 bg-[#EAE3D9]" />
+                      </div>
+
+                      <h3 className="font-serif text-2xl sm:text-3xl font-semibold text-[#1A1816]">
                         {service.title}
                       </h3>
-                      <p className="text-sm text-[#69635D] leading-relaxed">
+
+                      <p className="text-sm sm:text-base font-medium text-[#1A1816]/90">
+                        {service.lead}
+                      </p>
+
+                      <p className="text-xs sm:text-sm text-[#5F5953] leading-relaxed font-light">
                         {service.description}
                       </p>
 
-                      <ul className="space-y-2 pt-2 border-t border-[#E5DDD3]/60">
-                        {service.highlights.map((h, i) => (
-                          <li key={i} className="flex items-center gap-2 text-xs text-[#1C1A18]/90">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-[#C5A059] shrink-0" />
-                            <span>{h}</span>
+                      <ul className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-2 border-t border-[#EAE3D9]/60">
+                        {service.details.map((d, i) => (
+                          <li key={i} className="flex items-start gap-1.5 text-xs text-[#1A1816]">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-[#C5A059] shrink-0 mt-0.5" />
+                            <span>{d}</span>
                           </li>
                         ))}
                       </ul>
-                    </div>
 
-                    <div className="pt-4 border-t border-[#E5DDD3]">
-                      <a
-                        href={getWhatsAppUrl(service.whatsappMsg)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn-gold w-full text-center text-xs py-3"
-                      >
-                        <MessageCircle className="w-4 h-4" />
-                        <span>Consultar via WhatsApp</span>
-                      </a>
+                      <div className="pt-2">
+                        <a
+                          href={getWhatsAppUrl(service.whatsappMsg)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn-gold text-xs py-3 px-6"
+                        >
+                          <MessageCircle className="w-4 h-4" />
+                          <span>Consultar sobre {service.title}</span>
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </article>
               ))}
             </div>
 
-            {/* Aviso ético e de responsabilidade */}
-            <div className="mt-12 p-4 rounded-xl bg-white border border-[#E5DDD3] text-center max-w-3xl mx-auto text-xs text-[#69635D] leading-relaxed">
-              <span className="font-medium text-[#1C1A18]">Nota de orientação ética:</span> Os procedimentos estéticos e a ozonioterapia dependem de prévia avaliação individualizada. A clínica não promete resultados milagrosos ou diagnósticos prévios sem atendimento presencial.
+            {/* Aviso Ético Responsável */}
+            <div className="mt-8 p-4 rounded-xl bg-[#F4EDE2]/70 border border-[#E5D9C7] text-center text-xs text-[#5F5953] leading-relaxed">
+              <strong className="text-[#1A1816]">Orientação ética e transparente:</strong> Resultados e indicações de procedimentos estéticos e de ozonioterapia dependem de avaliação clínica individual. Não realizamos diagnósticos prévios nem prometemos resultados milagrosos.
             </div>
           </div>
         </section>
 
-        {/* ─── SEÇÃO 5: DIFERENCIAIS ─── */}
-        <section id="diferenciais" className="py-20 md:py-28 bg-[#F7F2EB] border-y border-[#E5DDD3]">
+        {/* ─── 5. DIFERENCIAIS: Valores Reais da Conduta Clínica ─── */}
+        <section id="diferenciais" className="py-20 md:py-28 bg-white border-y border-[#EAE3D9]">
           <div className="mx-auto max-w-7xl px-6 lg:px-10">
-            <div className="max-w-2xl mx-auto text-center space-y-4 mb-16 reveal">
-              <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-[#C5A059]">
-                <ShieldCheck className="w-3.5 h-3.5" />
-                <span>Por Que Escolher a Lumi</span>
+            <div className="max-w-2xl text-left space-y-3 mb-14 reveal">
+              <span className="tag-badge">
+                ✦ Por Que Escolher a Lumi
               </span>
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-[#1C1A18]">
-                Diferenciais que você sente no{" "}
-                <span className="italic text-gold-gradient font-normal">atendimento</span>
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-[#1A1816]">
+                Diferenciais que você percebe no{" "}
+                <span className="font-editorial-italic text-gold-gradient">atendimento</span>
               </h2>
-              <p className="text-sm sm:text-base text-[#69635D] leading-relaxed">
-                Valores reais presentes na conduta diária da clínica, proporcionando acolhimento, ética e segurança em Cuiabá.
+              <p className="text-sm sm:text-base text-[#5F5953] leading-relaxed font-light">
+                Mais do que procedimentos, priorizamos a relação de confiança e respeito com cada paciente que entra no nosso consultório.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {DIFFERENTIALS.map((item, index) => {
-                const Icon = item.icon;
+              {DIFFERENTIALS.map((diff, index) => {
+                const Icon = diff.icon;
                 return (
                   <div
                     key={index}
-                    className="p-6 rounded-2xl bg-white border border-[#E5DDD3] shadow-sm hover:border-[#C5A059]/40 hover:shadow-md transition-all duration-300 space-y-4 reveal"
-                    style={{ animationDelay: `${index * 120}ms` }}
+                    className="p-6 rounded-2xl bg-[#FAF8F5] border border-[#EAE3D9] space-y-4 hover:border-[#C5A059]/50 transition-colors reveal"
+                    style={{ animationDelay: `${index * 100}ms` }}
                   >
-                    <div className="w-12 h-12 rounded-xl bg-[#FAF7F2] border border-[#E5DDD3] flex items-center justify-center text-[#C5A059]">
-                      <Icon className="w-6 h-6" />
+                    <div className="w-11 h-11 rounded-xl bg-white border border-[#EAE3D9] flex items-center justify-center text-[#C5A059] shadow-sm">
+                      <Icon className="w-5 h-5" />
                     </div>
-                    <h3 className="font-serif text-xl font-semibold text-[#1C1A18]">
-                      {item.title}
+                    <h3 className="font-serif text-xl font-semibold text-[#1A1816]">
+                      {diff.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-[#69635D] leading-relaxed">
-                      {item.description}
+                    <p className="text-xs sm:text-sm text-[#5F5953] leading-relaxed font-light">
+                      {diff.description}
                     </p>
                   </div>
                 );
@@ -616,31 +634,35 @@ function IndexPage() {
           </div>
         </section>
 
-        {/* ─── SEÇÃO 6: GALERIA VISUAL ─── */}
-        <section id="galeria" className="py-20 md:py-28 bg-white">
+        {/* ─── 6. GALERIA VISUAL: Mosaico Fotográfico Real ─── */}
+        <section id="galeria" className="py-20 md:py-28 bg-[#FAF8F5]">
           <div className="mx-auto max-w-7xl px-6 lg:px-10">
-            <div className="max-w-2xl mx-auto text-center space-y-4 mb-14 reveal">
-              <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-[#C5A059]">
-                <Eye className="w-3.5 h-3.5" />
-                <span>Galeria Real da Clínica</span>
-              </span>
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-[#1C1A18]">
-                Nosso espaço e{" "}
-                <span className="italic text-gold-gradient font-normal">atendimentos</span>
-              </h2>
-              <p className="text-sm sm:text-base text-[#69635D] leading-relaxed">
-                Fotografias reais do consultório, da profissional e dos momentos de cuidado na Lumi Estética e Saúde em Cuiabá.
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 reveal">
+              <div className="max-w-xl space-y-3">
+                <span className="tag-badge">
+                  ✦ Registros do Consultório
+                </span>
+                <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-[#1A1816]">
+                  Nosso espaço e{" "}
+                  <span className="font-editorial-italic text-gold-gradient">atendimentos</span>
+                </h2>
+                <p className="text-sm text-[#5F5953] leading-relaxed font-light">
+                  Fotografias autênticas do ambiente, materiais e momentos de cuidado na Lumi Estética e Saúde em Cuiabá.
+                </p>
+              </div>
+              <p className="text-xs text-[#5F5953] self-start md:self-end">
+                Clique nas fotos para ampliar os detalhes.
               </p>
             </div>
 
-            {/* Grid Fotográfico Editorial */}
+            {/* Grid Mosaico Estilo Galeria */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {GALLERY_ITEMS.map((item, index) => (
                 <div
                   key={index}
                   onClick={() => setActiveLightbox(item)}
-                  className="group relative cursor-pointer overflow-hidden rounded-2xl border border-[#E5DDD3] bg-[#FAF7F2] aspect-[4/5] shadow-sm hover:shadow-xl transition-all duration-300 reveal"
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  className="group relative cursor-pointer overflow-hidden rounded-2xl border border-[#EAE3D9] bg-white aspect-[4/5] shadow-sm hover:shadow-xl transition-all duration-300 reveal"
+                  style={{ animationDelay: `${index * 80}ms` }}
                   role="button"
                   tabIndex={0}
                   aria-label={`Ampliar imagem: ${item.label}`}
@@ -654,34 +676,26 @@ function IndexPage() {
                   <img
                     src={item.src}
                     alt={item.alt}
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
                     loading="lazy"
                   />
-
-                  {/* Overlay ao passar o mouse */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white">
-                    <p className="text-xs uppercase tracking-wider text-[#E8D5B0] font-medium">
-                      {item.caption}
-                    </p>
-                    <h3 className="font-serif text-lg font-medium">{item.label}</h3>
-                    <span className="inline-flex items-center gap-1 text-xs text-white/80 mt-2 font-light">
-                      <span>Clique para ampliar</span>
-                      <ExternalLink className="w-3 h-3" />
-                    </span>
+                  <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-2.5 py-0.5 rounded-full border border-[#EAE3D9] text-[0.65rem] font-semibold uppercase tracking-wider text-[#1A1816]">
+                    {item.tag}
+                  </div>
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent p-5 text-white opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-300 flex items-center justify-between">
+                    <div>
+                      <p className="font-serif text-base font-medium">{item.label}</p>
+                      <p className="text-[0.7rem] text-[#EBDDC8]">Toque para ver em tela cheia</p>
+                    </div>
+                    <ExternalLink className="w-4 h-4 text-white/80" />
                   </div>
                 </div>
               ))}
             </div>
-
-            <div className="text-center mt-10">
-              <p className="text-xs text-[#69635D]">
-                Todas as fotos são reais e captadas no espaço da Lumi Estética e Saúde.
-              </p>
-            </div>
           </div>
         </section>
 
-        {/* Lightbox Modal se ativado */}
+        {/* Modal Lightbox */}
         {activeLightbox && (
           <Lightbox
             src={activeLightbox.src}
@@ -691,132 +705,124 @@ function IndexPage() {
           />
         )}
 
-        {/* ─── SEÇÃO 7: AVALIAÇÕES E PROVA SOCIAL ─── */}
-        <section id="avaliacoes" className="py-20 md:py-28 bg-[#FAF7F2] border-t border-[#E5DDD3]">
+        {/* ─── 7. AVALIAÇÕES E PROVA SOCIAL: Depoimentos Reais ─── */}
+        <section id="avaliacoes" className="py-20 md:py-28 bg-white border-y border-[#EAE3D9]">
           <div className="mx-auto max-w-7xl px-6 lg:px-10">
-            <div className="max-w-2xl mx-auto text-center space-y-4 mb-16 reveal">
-              <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-[#C5A059]">
-                <Star className="w-3.5 h-3.5 fill-current" />
-                <span>Experiências e Avaliações</span>
+            <div className="max-w-2xl text-left space-y-3 mb-14 reveal">
+              <span className="tag-badge">
+                ✦ Experiências Compartilhadas
               </span>
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-[#1C1A18]">
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-[#1A1816]">
                 O que dizem sobre o nosso{" "}
-                <span className="italic text-gold-gradient font-normal">cuidado</span>
+                <span className="font-editorial-italic text-gold-gradient">cuidado</span>
               </h2>
-              <p className="text-sm sm:text-base text-[#69635D] leading-relaxed">
-                Trechos de comentários compartilhados por clientes que vivenciaram a experiência na Lumi Estética e Saúde.
+              <p className="text-sm sm:text-base text-[#5F5953] leading-relaxed font-light">
+                Comentários e feedbacks autênticos informados por pacientes atendidas na Lumi.
               </p>
             </div>
 
-            {/* Destaque da Nota Geral */}
-            <div className="mb-12 max-w-md mx-auto p-6 rounded-2xl bg-white border border-[#E5DDD3] text-center shadow-sm reveal">
-              <div className="flex justify-center text-[#C5A059] mb-2">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-current text-[#C5A059]" />
-                ))}
-              </div>
-              <p className="font-serif text-3xl font-semibold text-[#1C1A18]">5,0 / 5,0</p>
-              <p className="text-xs text-[#69635D] mt-1">
-                Avaliação informada no perfil comercial · 6 avaliações registradas
-              </p>
-            </div>
-
-            {/* Grid dos Trechos Reais de Avaliações */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {REVIEWS_DATA.map((rev, index) => (
-                <div
-                  key={index}
-                  className="p-6 sm:p-8 rounded-2xl bg-white border border-[#E5DDD3] shadow-sm flex flex-col justify-between space-y-4 hover:border-[#C5A059]/40 transition-colors reveal"
-                  style={{ animationDelay: `${index * 120}ms` }}
-                >
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <div className="flex text-[#C5A059]">
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} className="w-3.5 h-3.5 fill-current" />
-                        ))}
-                      </div>
-                      <span className="text-[0.7rem] uppercase font-semibold tracking-wider text-[#C5A059] px-2.5 py-0.5 rounded-full bg-[#FAF7F2] border border-[#E5DDD3]">
-                        {rev.highlight}
-                      </span>
-                    </div>
-                    <p className="font-serif text-lg sm:text-xl text-[#1C1A18] italic leading-relaxed">
-                      “{rev.quote}”
-                    </p>
-                  </div>
-                  <p className="text-xs text-[#69635D] border-t border-[#E5DDD3]/60 pt-3">
-                    {rev.detail}
+            {/* Painel de Nota e Relatos */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+              {/* Card Destaque de Nota Informada */}
+              <div className="lg:col-span-4 p-8 rounded-2xl bg-[#FAF8F5] border border-[#EAE3D9] text-left space-y-4 reveal-left">
+                <div className="flex text-[#C5A059]">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-current" />
+                  ))}
+                </div>
+                <p className="font-serif text-4xl font-light text-[#1A1816]">5,0 / 5,0</p>
+                <p className="text-xs text-[#5F5953] leading-relaxed">
+                  Avaliação máxima registrada no perfil comercial em Cuiabá (6 avaliações informadas).
+                </p>
+                <div className="pt-2 border-t border-[#EAE3D9]">
+                  <p className="text-[0.75rem] font-medium text-[#1A1816]">
+                    Compromisso com cada paciente
+                  </p>
+                  <p className="text-[0.7rem] text-[#5F5953] mt-0.5">
+                    Atendimento individualizado e constância no plano estético.
                   </p>
                 </div>
-              ))}
+              </div>
+
+              {/* Grid dos Comentários Reais */}
+              <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4 reveal-right">
+                {REVIEWS_DATA.map((rev, index) => (
+                  <div
+                    key={index}
+                    className="p-6 rounded-2xl bg-[#FAF8F5] border border-[#EAE3D9] flex flex-col justify-between space-y-4 hover:border-[#C5A059]/40 transition-colors"
+                  >
+                    <div className="space-y-3">
+                      <span className="text-[0.65rem] uppercase tracking-wider font-semibold text-[#C5A059]">
+                        {rev.tag}
+                      </span>
+                      <p className="font-serif text-lg text-[#1A1816] italic leading-relaxed">
+                        “{rev.quote}”
+                      </p>
+                    </div>
+                    <p className="text-[0.75rem] text-[#5F5953] border-t border-[#EAE3D9]/60 pt-3">
+                      {rev.context}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
-        {/* ─── SEÇÃO 8: COMO AGENDAR ─── */}
-        <section className="py-20 md:py-28 bg-[#F7F2EB] border-y border-[#E5DDD3]">
+        {/* ─── 8. COMO AGENDAR: Simples, Rápido e Humanizado ─── */}
+        <section className="py-20 md:py-28 bg-[#FAF8F5]">
           <div className="mx-auto max-w-7xl px-6 lg:px-10">
-            <div className="max-w-2xl mx-auto text-center space-y-4 mb-16 reveal">
-              <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-[#C5A059]">
-                <Calendar className="w-3.5 h-3.5" />
-                <span>Simplicidade no Contato</span>
+            <div className="max-w-2xl text-left space-y-3 mb-14 reveal">
+              <span className="tag-badge">
+                ✦ Passo a Passo
               </span>
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-[#1C1A18]">
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-[#1A1816]">
                 Como agendar seu{" "}
-                <span className="italic text-gold-gradient font-normal">atendimento</span>
+                <span className="font-editorial-italic text-gold-gradient">atendimento</span>
               </h2>
-              <p className="text-sm sm:text-base text-[#69635D] leading-relaxed">
-                Sem cadastros demorados: o contato é direto e personalizado pelo WhatsApp da clínica.
+              <p className="text-sm text-[#5F5953] leading-relaxed font-light">
+                Sem formulários complicados: você conversa diretamente com nossa equipe no WhatsApp.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Passo 1 */}
-              <div className="p-8 rounded-2xl bg-white border border-[#E5DDD3] text-center space-y-4 relative reveal">
-                <span className="w-12 h-12 rounded-full bg-[#FAF7F2] border border-[#C5A059] text-[#C5A059] font-serif font-bold text-xl flex items-center justify-center mx-auto">
-                  1
-                </span>
-                <h3 className="font-serif text-xl font-semibold text-[#1C1A18]">
-                  Inicie a conversa
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="p-8 rounded-2xl bg-white border border-[#EAE3D9] space-y-3 reveal">
+                <span className="font-serif text-3xl font-light text-[#C5A059]">01</span>
+                <h3 className="font-serif text-xl font-semibold text-[#1A1816]">
+                  Clique no WhatsApp
                 </h3>
-                <p className="text-xs sm:text-sm text-[#69635D] leading-relaxed">
-                  Clique no botão de WhatsApp aqui no site para iniciar uma conversa diretamente com nossa equipe.
+                <p className="text-xs sm:text-sm text-[#5F5953] leading-relaxed font-light">
+                  Inicie a conversa pelo botão aqui no site ou salve nosso número (65) 99274-1317.
                 </p>
               </div>
 
-              {/* Passo 2 */}
-              <div className="p-8 rounded-2xl bg-white border border-[#E5DDD3] text-center space-y-4 relative reveal">
-                <span className="w-12 h-12 rounded-full bg-[#FAF7F2] border border-[#C5A059] text-[#C5A059] font-serif font-bold text-xl flex items-center justify-center mx-auto">
-                  2
-                </span>
-                <h3 className="font-serif text-xl font-semibold text-[#1C1A18]">
-                  Indique seu interesse
+              <div className="p-8 rounded-2xl bg-white border border-[#EAE3D9] space-y-3 reveal">
+                <span className="font-serif text-3xl font-light text-[#C5A059]">02</span>
+                <h3 className="font-serif text-xl font-semibold text-[#1A1816]">
+                  Fale sobre seu interesse
                 </h3>
-                <p className="text-xs sm:text-sm text-[#69635D] leading-relaxed">
-                  Informe qual área deseja conhecer: Estética Facial, Corporal ou Ozonioterapia, e tire suas primeiras dúvidas.
+                <p className="text-xs sm:text-sm text-[#5F5953] leading-relaxed font-light">
+                  Diga se deseja saber mais sobre Estética Facial, Corporal ou Ozonioterapia.
                 </p>
               </div>
 
-              {/* Passo 3 */}
-              <div className="p-8 rounded-2xl bg-white border border-[#E5DDD3] text-center space-y-4 relative reveal">
-                <span className="w-12 h-12 rounded-full bg-[#FAF7F2] border border-[#C5A059] text-[#C5A059] font-serif font-bold text-xl flex items-center justify-center mx-auto">
-                  3
-                </span>
-                <h3 className="font-serif text-xl font-semibold text-[#1C1A18]">
-                  Combine seu horário
+              <div className="p-8 rounded-2xl bg-white border border-[#EAE3D9] space-y-3 reveal">
+                <span className="font-serif text-3xl font-light text-[#C5A059]">03</span>
+                <h3 className="font-serif text-xl font-semibold text-[#1A1816]">
+                  Combine o melhor dia
                 </h3>
-                <p className="text-xs sm:text-sm text-[#69635D] leading-relaxed">
-                  Verificamos os horários disponíveis e confirmamos seu atendimento com tranquilidade.
+                <p className="text-xs sm:text-sm text-[#5F5953] leading-relaxed font-light">
+                  Verificamos os horários vagos no consultório e reservamos sua consulta com tranquilidade.
                 </p>
               </div>
             </div>
 
-            <div className="text-center mt-12">
+            <div className="mt-10">
               <a
                 href={WHATSAPP_MAIN}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-gold inline-flex py-3.5 px-8 text-base shadow-md"
+                className="btn-gold py-3.5 px-8"
               >
                 <MessageCircle className="w-5 h-5" />
                 <span>Conversar com a Lumi no WhatsApp</span>
@@ -825,34 +831,33 @@ function IndexPage() {
           </div>
         </section>
 
-        {/* ─── SEÇÃO 9: PERGUNTAS FREQUENTES (FAQ) ─── */}
-        <section id="faq" className="py-20 md:py-28 bg-white">
+        {/* ─── 9. PERGUNTAS FREQUENTES (FAQ) ─── */}
+        <section id="faq" className="py-20 md:py-28 bg-white border-y border-[#EAE3D9]">
           <div className="mx-auto max-w-4xl px-6 lg:px-10">
-            <div className="text-center space-y-4 mb-14 reveal">
-              <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-[#C5A059]">
-                <HelpCircle className="w-3.5 h-3.5" />
-                <span>Dúvidas Frequentes</span>
+            <div className="text-left space-y-3 mb-12 reveal">
+              <span className="tag-badge">
+                ✦ Dúvidas Frequentes
               </span>
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-[#1C1A18]">
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-[#1A1816]">
                 Perguntas e{" "}
-                <span className="italic text-gold-gradient font-normal">respostas</span>
+                <span className="font-editorial-italic text-gold-gradient">respostas</span>
               </h2>
-              <p className="text-sm sm:text-base text-[#69635D] leading-relaxed">
-                Respostas diretas e factuais sobre o funcionamento da clínica, localização e atendimentos.
+              <p className="text-sm text-[#5F5953] leading-relaxed font-light">
+                Esclarecimentos diretos e honestos sobre o consultório e a rotina de atendimentos.
               </p>
             </div>
 
-            <Accordion type="single" collapsible className="w-full space-y-4 reveal">
+            <Accordion type="single" collapsible className="w-full space-y-3 reveal">
               {FAQ_ITEMS.map((item, index) => (
                 <AccordionItem
                   key={index}
                   value={`item-${index}`}
-                  className="rounded-xl border border-[#E5DDD3] bg-[#FAF7F2] px-6 py-1 data-[state=open]:border-[#C5A059]/60 data-[state=open]:bg-white transition-colors"
+                  className="rounded-xl border border-[#EAE3D9] bg-[#FAF8F5] px-6 py-1 data-[state=open]:border-[#C5A059]/60 data-[state=open]:bg-white transition-colors"
                 >
-                  <AccordionTrigger className="font-serif text-lg font-medium text-[#1C1A18] hover:text-[#C5A059] text-left">
+                  <AccordionTrigger className="font-serif text-lg font-medium text-[#1A1816] hover:text-[#C5A059] text-left">
                     {item.q}
                   </AccordionTrigger>
-                  <AccordionContent className="text-sm text-[#69635D] leading-relaxed pt-2 pb-4">
+                  <AccordionContent className="text-xs sm:text-sm text-[#5F5953] leading-relaxed pt-2 pb-4 font-light">
                     {item.a}
                   </AccordionContent>
                 </AccordionItem>
@@ -861,53 +866,52 @@ function IndexPage() {
           </div>
         </section>
 
-        {/* ─── SEÇÃO 10: LOCALIZAÇÃO E CONTATO ─── */}
-        <section id="contato" className="py-20 md:py-28 bg-[#FAF7F2] border-t border-[#E5DDD3]">
+        {/* ─── 10. LOCALIZAÇÃO E CONTATO ─── */}
+        <section id="contato" className="py-20 md:py-28 bg-[#FAF8F5]">
           <div className="mx-auto max-w-7xl px-6 lg:px-10">
-            <div className="max-w-2xl mx-auto text-center space-y-4 mb-16 reveal">
-              <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-[#C5A059]">
-                <MapPin className="w-3.5 h-3.5" />
-                <span>Onde Estamos</span>
+            <div className="max-w-2xl text-left space-y-3 mb-14 reveal">
+              <span className="tag-badge">
+                ✦ Consultório em Cuiabá
               </span>
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-[#1C1A18]">
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-light text-[#1A1816]">
                 Localização e{" "}
-                <span className="italic text-gold-gradient font-normal">contato</span>
+                <span className="font-editorial-italic text-gold-gradient">contato</span>
               </h2>
-              <p className="text-sm sm:text-base text-[#69635D] leading-relaxed">
-                Fácil localização na Cidade Alta em Cuiabá, com espaço privativo e confortável.
+              <p className="text-sm text-[#5F5953] leading-relaxed font-light">
+                Nosso consultório está localizado na Cidade Alta em Cuiabá, em ponto de fácil acesso.
               </p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-              {/* Card de Informações de Contato */}
-              <div className="lg:col-span-5 rounded-2xl bg-white border border-[#E5DDD3] p-8 sm:p-10 shadow-sm flex flex-col justify-between space-y-8 reveal-left">
+              {/* Dados Práticos */}
+              <div className="lg:col-span-5 rounded-2xl bg-white border border-[#EAE3D9] p-8 sm:p-10 shadow-sm flex flex-col justify-between space-y-8 reveal-left">
                 <div className="space-y-6">
                   <div>
-                    <h3 className="font-serif text-2xl font-semibold text-[#1C1A18]">
+                    <h3 className="font-serif text-2xl font-semibold text-[#1A1816]">
                       {CLINIC_NAME}
                     </h3>
-                    <p className="text-xs uppercase tracking-widest text-[#C5A059] mt-1 font-medium">
+                    <p className="text-xs uppercase tracking-widest text-[#C5A059] font-medium mt-1">
                       Centro de Saúde e Beleza
                     </p>
                   </div>
 
-                  <div className="space-y-4 text-sm text-[#69635D]">
+                  <div className="space-y-4 text-xs sm:text-sm text-[#5F5953]">
                     <div className="flex items-start gap-3">
-                      <MapPin className="w-5 h-5 text-[#C5A059] shrink-0 mt-0.5" />
+                      <MapPin className="w-4 h-4 text-[#C5A059] shrink-0 mt-0.5" />
                       <div>
-                        <strong className="block text-[#1C1A18] font-medium">Endereço</strong>
+                        <strong className="block text-[#1A1816] font-medium">Endereço</strong>
                         <span>{ADDRESS_STREET}</span>
                         <br />
                         <span>{ADDRESS_NEIGHBORHOOD}, {ADDRESS_CITY_STATE}</span>
                         <br />
-                        <span className="text-xs text-[#69635D]/80">{ADDRESS_CEP}</span>
+                        <span className="text-[#5F5953]/80">{ADDRESS_CEP}</span>
                       </div>
                     </div>
 
                     <div className="flex items-start gap-3">
-                      <Phone className="w-5 h-5 text-[#C5A059] shrink-0 mt-0.5" />
+                      <Phone className="w-4 h-4 text-[#C5A059] shrink-0 mt-0.5" />
                       <div>
-                        <strong className="block text-[#1C1A18] font-medium">Telefone & WhatsApp</strong>
+                        <strong className="block text-[#1A1816] font-medium">Telefone & WhatsApp</strong>
                         <a href={`tel:${PHONE_RAW}`} className="hover:text-[#C5A059] transition-colors">
                           {PHONE_DISPLAY}
                         </a>
@@ -915,24 +919,24 @@ function IndexPage() {
                     </div>
 
                     <div className="flex items-start gap-3">
-                      <Clock className="w-5 h-5 text-[#C5A059] shrink-0 mt-0.5" />
+                      <Clock className="w-4 h-4 text-[#C5A059] shrink-0 mt-0.5" />
                       <div>
-                        <strong className="block text-[#1C1A18] font-medium">Horários de Atendimento</strong>
-                        <span>Consulte a disponibilidade de agenda diretamente pelo WhatsApp.</span>
+                        <strong className="block text-[#1A1816] font-medium">Horários</strong>
+                        <span>Atendimento com hora marcada via WhatsApp.</span>
                       </div>
                     </div>
 
                     <div className="flex items-start gap-3">
-                      <ShieldCheck className="w-5 h-5 text-[#C5A059] shrink-0 mt-0.5" />
+                      <ShieldCheck className="w-4 h-4 text-[#C5A059] shrink-0 mt-0.5" />
                       <div>
-                        <strong className="block text-[#1C1A18] font-medium">Responsabilidade Técnica</strong>
+                        <strong className="block text-[#1A1816] font-medium">Responsabilidade Técnica</strong>
                         <span>{COREN_NUMBER}</span>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="space-y-3 pt-6 border-t border-[#E5DDD3]">
+                <div className="space-y-3 pt-6 border-t border-[#EAE3D9]">
                   <a
                     href={WHATSAPP_MAIN}
                     target="_blank"
@@ -940,7 +944,7 @@ function IndexPage() {
                     className="btn-gold w-full text-center py-3.5"
                   >
                     <MessageCircle className="w-5 h-5" />
-                    <span>Fale com a Lumi pelo WhatsApp</span>
+                    <span>Falar no WhatsApp</span>
                   </a>
 
                   <a
@@ -949,14 +953,14 @@ function IndexPage() {
                     rel="noopener noreferrer"
                     className="btn-outline-gold w-full text-center py-3 text-xs"
                   >
-                    <ExternalLink className="w-4 h-4" />
+                    <ExternalLink className="w-3.5 h-3.5" />
                     <span>Abrir no Google Maps</span>
                   </a>
                 </div>
               </div>
 
-              {/* Mapa ou Bloco Visual de Localização */}
-              <div className="lg:col-span-7 rounded-2xl overflow-hidden border border-[#E5DDD3] bg-white shadow-sm min-h-[380px] relative reveal-right">
+              {/* Mapa Responsivo */}
+              <div className="lg:col-span-7 rounded-2xl overflow-hidden border border-[#EAE3D9] bg-white shadow-sm min-h-[380px] reveal-right">
                 <iframe
                   title="Localização da Lumi Estética e Saúde em Cuiabá"
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3842.8276185848525!2d-56.1150!3d-15.5950!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x939db1b9c9f4d1e1%3A0x6b8a8b8b8b8b8b8b!2sAv.%20Jornalista%20Alves%20de%20Oliveira%20-%20Cidade%20Alta%2C%20Cuiab%C3%A1%20-%20MT!5e0!3m2!1spt-BR!2sbr!4v1710000000000!5m2!1spt-BR!2sbr"
@@ -970,26 +974,21 @@ function IndexPage() {
           </div>
         </section>
 
-        {/* ─── SEÇÃO 11: CTA FINAL ─── */}
-        <section className="py-20 md:py-28 bg-gradient-to-br from-[#1C1A18] to-[#2B2825] text-white relative overflow-hidden">
-          {/* Brilho dourado de fundo */}
-          <div
-            className="absolute -top-24 right-0 w-[450px] h-[450px] bg-[#C5A059]/15 rounded-full blur-3xl pointer-events-none"
-            aria-hidden="true"
-          />
-
+        {/* ─── 11. CTA FINAL: Elegante e Sóbrio ─── */}
+        <section className="py-20 md:py-28 bg-[#1A1816] text-[#FAF8F5] relative overflow-hidden">
           <div className="mx-auto max-w-4xl px-6 lg:px-10 text-center space-y-6 relative z-10 reveal">
-            <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.25em] text-[#E8D5B0]">
-              <Sparkles className="w-4 h-4 text-[#C5A059]" />
-              <span>Dedicado a Você</span>
+            <span className="tag-badge bg-white/10 border-white/20 text-[#EBDDC8]">
+              ✦ Agendamento Direto
             </span>
 
-            <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-light text-[#FAF7F2] leading-tight">
+            <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-light text-[#FAF8F5] leading-tight">
               Reserve um momento para{" "}
-              <span className="italic text-gold-gradient font-normal">cuidar de você.</span>
+              <span className="font-editorial-italic text-gold-gradient block sm:inline">
+                cuidar de você.
+              </span>
             </h2>
 
-            <p className="text-base sm:text-lg text-[#EFE7DC]/80 max-w-2xl mx-auto leading-relaxed font-light">
+            <p className="text-base sm:text-lg text-[#FAF8F5]/80 max-w-2xl mx-auto leading-relaxed font-light">
               Entre em contato com a Lumi Estética e Saúde para conhecer as opções de atendimento e esclarecer suas dúvidas com tranquilidade.
             </p>
 
@@ -998,7 +997,7 @@ function IndexPage() {
                 href={WHATSAPP_MAIN}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-gold py-4 px-9 text-base shadow-xl"
+                className="btn-gold py-4 px-9 text-base bg-[#C5A059] text-white hover:bg-[#B89249] shadow-xl"
               >
                 <MessageCircle className="w-5 h-5" />
                 <span>Agendar pelo WhatsApp</span>
@@ -1006,24 +1005,24 @@ function IndexPage() {
 
               <a
                 href={`tel:${PHONE_RAW}`}
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-[#FAF7F2]/30 px-7 py-3.5 text-sm font-medium text-[#FAF7F2] hover:bg-white/10 transition-colors"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 px-7 py-3.5 text-sm font-medium text-white hover:bg-white/10 transition-colors"
               >
                 <Phone className="w-4 h-4 text-[#C5A059]" />
                 <span>Ligar: {PHONE_DISPLAY}</span>
               </a>
             </div>
 
-            <p className="text-xs text-[#EFE7DC]/60 pt-4">
-              Atendimento na Cidade Alta, Cuiabá – MT · Resposta rápida no WhatsApp
+            <p className="text-xs text-[#FAF8F5]/50 pt-4">
+              Cidade Alta, Cuiabá – MT · Resposta direta no WhatsApp
             </p>
           </div>
         </section>
       </main>
 
-      {/* ─── SEÇÃO 12: FOOTER ─── */}
+      {/* ─── 12. FOOTER ─── */}
       <Footer />
 
-      {/* Botão Flutuante de WhatsApp */}
+      {/* Botão Flutuante */}
       <WhatsAppFloatingButton />
     </div>
   );
