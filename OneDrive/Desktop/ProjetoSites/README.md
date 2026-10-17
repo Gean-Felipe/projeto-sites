@@ -54,15 +54,12 @@ Repositório central com todos os projetos de sites desenvolvidos, contendo a do
 ---
 
 ### 7. 🦷 DRA. LUHARA CARVALHO — ODONTOLOGIA ESTÉTICA
-- **Link Oficial:** [https://luharacarvalho.com.br](https://luharacarvalho.com.br)
+- **Link Oficial Vercel:** [https://design-trust-scan-main.vercel.app](https://design-trust-scan-main.vercel.app)
+- **Link de Produção:** [https://design-trust-scan-main-4el3xoo9k-dev-5d6a.vercel.app](https://design-trust-scan-main-4el3xoo9k-dev-5d6a.vercel.app)
+- **Domínio Próprio (em propagação):** [https://luharacarvalho.com.br](https://luharacarvalho.com.br)
 - **Instagram:** [@draluharacarvalho](https://www.instagram.com/draluharacarvalho/)
 - **Descrição:** Site institucional exclusivo e acolhedor para a Dra. Luhara Carvalho, cirurgiã-dentista em Cuiabá — MT. Apresenta tratamentos de facetas de resina, botox, aparelhos ortodônticos e alinhadores, prova social com avaliação 5,0 estrelas no Google (Espaço Saúde) e agendamento direto via WhatsApp.
 - **Tecnologias:** TanStack Start, React 19, TypeScript, Tailwind CSS v4, Lucide Icons, Vite.
 
-## 🔄 Padrão de Inclusão
-Cada novo site desenvolvido é catalogado neste repositório seguindo o padrão:
-- **Nome do Projeto**
-- **Link Oficial na Vercel**
-- **Descrição & Tecnologias**
 
 
