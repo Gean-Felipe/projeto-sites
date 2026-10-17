@@ -1,0 +1,230 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design System — Lumi Estética e Saúde
+ * Cuiabá — MT
+ * 
+ * Paleta de Identidade Visual Oficial:
+ *   Seda suave / Off-White: #FAF7F2
+ *   Linho puro / Superfície: #FFFFFF
+ *   Dourado Lumi / Ouro Nobre: #C5A059
+ *   Dourado Suave / Champanhe: #DFCFB4
+ *   Dourado Escuro / Bronze: #9E7D3B
+ *   Nude Quente / Areia: #EFE7DC
+ *   Preto Ônix / Grafite: #1C1A18
+ *   Taupe / Cinza Acolhedor: #69635D
+ *   Borda Suave: #E5DDD3
+ *
+ * Tipografia:
+ *   Títulos e Destaques: "Cormorant Garamond", Georgia, serif
+ *   Textos e Interface: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-dark: var(--gold-dark);
+  --color-nude: var(--nude);
+  --color-sand: var(--sand);
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+:root {
+  --radius: 0.5rem;
+  --background: #FAF7F2;
+  --foreground: #1C1A18;
+  --card: #FFFFFF;
+  --card-foreground: #1C1A18;
+  --popover: #FFFFFF;
+  --popover-foreground: #1C1A18;
+  --primary: #C5A059;
+  --primary-foreground: #FFFFFF;
+  --secondary: #EFE7DC;
+  --secondary-foreground: #1C1A18;
+  --muted: #F3ECE2;
+  --muted-foreground: #69635D;
+  --accent: #C5A059;
+  --accent-foreground: #1C1A18;
+  --destructive: #B91C1C;
+  --destructive-foreground: #FFFFFF;
+  --border: #E5DDD3;
+  --input: #E5DDD3;
+  --ring: #C5A059;
+  --gold: #C5A059;
+  --gold-light: #F4EBDD;
+  --gold-dark: #9E7D3B;
+  --nude: #EFE7DC;
+  --sand: #F7F2EB;
+}
+
+/* Base Styles */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Scroll Reveal Animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-24px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(24px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.visible,
+.reveal-left.visible,
+.reveal-right.visible {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-left,
+  .reveal-right {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* Premium Buttons */
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #D4AF67 0%, #C5A059 50%, #B58F49 100%);
+  color: #FFFFFF;
+  padding: 0.75rem 1.75rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  font-size: 0.925rem;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 18px rgba(197, 160, 89, 0.28);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-gold:hover {
+  background: linear-gradient(135deg, #DEBA74 0%, #CEAA63 50%, #BE9852 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(197, 160, 89, 0.38);
+}
+
+.btn-gold:active {
+  transform: translateY(0);
+}
+
+.btn-outline-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: #1C1A18;
+  border: 1px solid #D4AF67;
+  padding: 0.75rem 1.75rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  font-size: 0.925rem;
+  letter-spacing: 0.02em;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-outline-gold:hover {
+  background: rgba(197, 160, 89, 0.08);
+  border-color: #B58F49;
+  transform: translateY(-2px);
+}
+
+/* Subtle Shimmer */
+@keyframes shimmerGold {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, #8E6C2D 0%, #C5A059 40%, #E8D39E 60%, #9E7D3B 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Floating WhatsApp Pulse */
+@keyframes pulseSubtle {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+  }
+  50% {
+    transform: scale(1.04);
+    box-shadow: 0 8px 30px rgba(37, 211, 102, 0.45);
+  }
+}
+
+.pulse-whatsapp {
+  animation: pulseSubtle 3s infinite ease-in-out;
+}
