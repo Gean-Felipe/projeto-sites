@@ -1,4 +1,4 @@
-﻿# 🚀 Portfólio de Projetos Web & Sites
+# 🚀 Portfólio de Projetos Web & Sites
 
 Repositório central com todos os projetos de sites desenvolvidos, contendo a documentação, tecnologias e links oficiais de produção na **Vercel**.
 
@@ -60,6 +60,15 @@ Repositório central com todos os projetos de sites desenvolvidos, contendo a do
 - **Instagram:** [@draluharacarvalho](https://www.instagram.com/draluharacarvalho/)
 - **Descrição:** Site institucional exclusivo e acolhedor para a Dra. Luhara Carvalho, cirurgiã-dentista em Cuiabá — MT. Apresenta tratamentos de facetas de resina, botox, aparelhos ortodônticos e alinhadores, prova social com avaliação 5,0 estrelas no Google (Espaço Saúde) e agendamento direto via WhatsApp.
 - **Tecnologias:** TanStack Start, React 19, TypeScript, Tailwind CSS v4, Lucide Icons, Vite.
+
+---
+
+### 8. 👗 EXCLUSIVA STORE — SISTEMA DE GERENCIAMENTO DE MERCADORIAS
+- **Link Oficial Vercel:** [https://sist-exclusiva-store.vercel.app](https://sist-exclusiva-store.vercel.app)
+- **Link de Produção:** [https://sist-exclusiva-store-3l8gyhoxs-dev-5d6a.vercel.app](https://sist-exclusiva-store-3l8gyhoxs-dev-5d6a.vercel.app)
+- **Descrição:** Sistema web completo para controle e gestão de estoque de mercadorias da Exclusiva Store. Inclui Dashboard analítico em tempo real, catálogo com validação de SKU único, controle de entradas com cálculo automático de saldo, saídas com trava anti-estoque negativo, baixas auditáveis (avarias/defeitos), módulo de recebimento e conferência de cargas com bloqueio anti-duplicidade, histórico de movimentações e monitoramento de estoque mínimo de segurança.
+- **Tecnologias:** Vite, React, TypeScript, Tailwind CSS, Lucide Icons.
+
 
 
 
