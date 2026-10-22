@@ -76,7 +76,7 @@ export const DashboardPage: React.FC<DashboardProps> = ({
 
           <button
             onClick={() => onQuickExit()}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white hover:bg-[#FAF6F7] text-[#1F1719] border border-[#E0D4D7] text-xs font-semibold transition-colors"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#FDF2F4] hover:bg-[#FCE7EB] text-[#863C4B] border border-[#F4D7DE] text-xs font-semibold transition-colors shadow-2xs"
             title="Registrar saída por venda ou transferência"
           >
             <ArrowUpFromDot className="w-4 h-4 text-[#9C4B5C]" />
@@ -85,10 +85,10 @@ export const DashboardPage: React.FC<DashboardProps> = ({
 
           <button
             onClick={onOpenNewProduct}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-white hover:bg-[#FAF6F7] text-[#1F1719] border border-[#E0D4D7] text-xs font-semibold transition-colors"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#FDF2F4] hover:bg-[#FCE7EB] text-[#863C4B] border border-[#F4D7DE] text-xs font-semibold transition-colors shadow-2xs"
             title="Cadastrar um novo produto no estoque"
           >
-            <Plus className="w-4 h-4 text-[#75656A]" />
+            <Plus className="w-4 h-4 text-[#9C4B5C]" />
             <span>Cadastrar Produto</span>
           </button>
         </div>

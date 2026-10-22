@@ -202,7 +202,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
 
         <button
           onClick={handleOpenCreate}
-          className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold transition-colors shadow-xs shrink-0"
+          className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg bg-[#9C4B5C] hover:bg-[#863C4B] text-white text-xs font-semibold transition-colors shadow-xs shrink-0"
         >
           <Plus className="w-4 h-4" />
           <span>Cadastrar Produto</span>
@@ -560,7 +560,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
             </button>
             <button
               type="submit"
-              className="px-4 py-2 rounded-lg text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 text-white transition-colors shadow-xs"
+              className="px-4 py-2 rounded-lg text-xs font-semibold bg-[#9C4B5C] hover:bg-[#863C4B] text-white transition-colors shadow-xs"
             >
               {editingProduct ? 'Salvar Alterações' : 'Confirmar Cadastro'}
             </button>
@@ -606,7 +606,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                   setViewingProduct(null);
                   onQuickEntry(viewingProduct.id);
                 }}
-                className="flex items-center gap-1 px-3 py-1.5 rounded text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 text-white transition-colors"
+                className="flex items-center gap-1 px-3 py-1.5 rounded text-xs font-semibold bg-[#9C4B5C] hover:bg-[#863C4B] text-white transition-colors"
               >
                 <ArrowDownToDot className="w-3.5 h-3.5" />
                 <span>Registrar Entrada</span>

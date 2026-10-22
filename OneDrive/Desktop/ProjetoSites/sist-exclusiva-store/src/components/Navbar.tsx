@@ -111,7 +111,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             <button
               onClick={() => onNavigate('stock', 'exit')}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-white hover:bg-[#FAF6F7] text-[#1F1719] border border-[#E0D4D7] transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-[#FDF2F4] hover:bg-[#FCE7EB] text-[#863C4B] border border-[#F4D7DE] transition-colors shadow-2xs"
               title="Registrar saída de produtos por venda ou transferência"
             >
               <ArrowUpFromDot className="w-3.5 h-3.5 text-[#9C4B5C]" />
@@ -120,10 +120,10 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             <button
               onClick={() => onNavigate('stock', 'loss')}
-              className="hidden md:flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-white hover:bg-[#FAF6F7] text-[#1F1719] border border-[#E0D4D7] transition-colors"
+              className="hidden md:flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-[#FDF2F4] hover:bg-[#FCE7EB] text-[#863C4B] border border-[#F4D7DE] transition-colors shadow-2xs"
               title="Registrar baixa por defeito ou perda"
             >
-              <FileWarning className="w-3.5 h-3.5 text-[#78696F]" />
+              <FileWarning className="w-3.5 h-3.5 text-[#9C4B5C]" />
               <span>Baixa</span>
             </button>
           </div>

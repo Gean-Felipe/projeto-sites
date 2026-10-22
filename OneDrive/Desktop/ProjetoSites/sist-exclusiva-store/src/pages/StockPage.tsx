@@ -236,14 +236,14 @@ export const StockPage: React.FC<StockPageProps> = ({
 
   return (
     <div className="space-y-6">
-      {/* Abas Superiores de Estoque Neutras */}
-      <div className="bg-zinc-100 border border-zinc-200 rounded-xl p-1 flex flex-wrap gap-1">
+      {/* Abas Superiores de Estoque com Toque Rosé da Loja */}
+      <div className="bg-[#FAF6F7] border border-[#EAE0E3] rounded-xl p-1 flex flex-wrap gap-1">
         <button
           onClick={() => onTabChange('entry')}
           className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-medium transition-colors ${
             activeTab === 'entry'
-              ? 'bg-zinc-900 text-white shadow-xs'
-              : 'text-zinc-600 hover:text-zinc-900 hover:bg-white/80'
+              ? 'bg-[#9C4B5C] text-white shadow-xs'
+              : 'text-[#6F5F64] hover:text-[#1F1719] hover:bg-white'
           }`}
         >
           <ArrowDownToDot className="w-4 h-4" />
@@ -254,8 +254,8 @@ export const StockPage: React.FC<StockPageProps> = ({
           onClick={() => onTabChange('exit')}
           className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-medium transition-colors ${
             activeTab === 'exit'
-              ? 'bg-zinc-900 text-white shadow-xs'
-              : 'text-zinc-600 hover:text-zinc-900 hover:bg-white/80'
+              ? 'bg-[#9C4B5C] text-white shadow-xs'
+              : 'text-[#6F5F64] hover:text-[#1F1719] hover:bg-white'
           }`}
         >
           <ArrowUpFromDot className="w-4 h-4" />
@@ -266,8 +266,8 @@ export const StockPage: React.FC<StockPageProps> = ({
           onClick={() => onTabChange('loss')}
           className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-medium transition-colors ${
             activeTab === 'loss'
-              ? 'bg-zinc-900 text-white shadow-xs'
-              : 'text-zinc-600 hover:text-zinc-900 hover:bg-white/80'
+              ? 'bg-[#9C4B5C] text-white shadow-xs'
+              : 'text-[#6F5F64] hover:text-[#1F1719] hover:bg-white'
           }`}
         >
           <FileWarning className="w-4 h-4" />
@@ -278,8 +278,8 @@ export const StockPage: React.FC<StockPageProps> = ({
           onClick={() => onTabChange('receivings')}
           className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-medium transition-colors ${
             activeTab === 'receivings'
-              ? 'bg-zinc-900 text-white shadow-xs'
-              : 'text-zinc-600 hover:text-zinc-900 hover:bg-white/80'
+              ? 'bg-[#9C4B5C] text-white shadow-xs'
+              : 'text-[#6F5F64] hover:text-[#1F1719] hover:bg-white'
           }`}
         >
           <Truck className="w-4 h-4" />
@@ -290,8 +290,8 @@ export const StockPage: React.FC<StockPageProps> = ({
           onClick={() => onTabChange('overview')}
           className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-medium transition-colors ${
             activeTab === 'overview'
-              ? 'bg-zinc-900 text-white shadow-xs'
-              : 'text-zinc-600 hover:text-zinc-900 hover:bg-white/80'
+              ? 'bg-[#9C4B5C] text-white shadow-xs'
+              : 'text-[#6F5F64] hover:text-[#1F1719] hover:bg-white'
           }`}
         >
           <AlertTriangle className="w-4 h-4" />
@@ -396,7 +396,7 @@ export const StockPage: React.FC<StockPageProps> = ({
               <div className="pt-3 border-t border-zinc-200 flex items-center justify-end">
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-lg text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 text-white transition-colors shadow-xs"
+                  className="px-5 py-2 rounded-lg text-xs font-semibold bg-[#9C4B5C] hover:bg-[#863C4B] text-white transition-colors shadow-xs"
                 >
                   Confirmar Entrada de Mercadoria
                 </button>
@@ -543,7 +543,7 @@ export const StockPage: React.FC<StockPageProps> = ({
                   className={`px-5 py-2 rounded-lg text-xs font-semibold transition-colors shadow-xs ${
                     isExitExceeded
                       ? 'bg-zinc-200 text-zinc-400 cursor-not-allowed'
-                      : 'bg-zinc-900 hover:bg-zinc-800 text-white'
+                      : 'bg-[#9C4B5C] hover:bg-[#863C4B] text-white'
                   }`}
                 >
                   Confirmar Saída de Mercadoria
@@ -812,7 +812,7 @@ export const StockPage: React.FC<StockPageProps> = ({
                         {isPending ? (
                           <button
                             onClick={() => onConfirmReceiving(rec.id)}
-                            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold transition-colors shadow-xs"
+                            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#9C4B5C] hover:bg-[#863C4B] text-white text-xs font-semibold transition-colors shadow-xs"
                             title="Confirmar carga e alimentar o estoque"
                           >
                             <Check className="w-4 h-4" />
@@ -870,7 +870,7 @@ export const StockPage: React.FC<StockPageProps> = ({
                             setEntryId(p.id);
                             onTabChange('entry');
                           }}
-                          className="px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold transition-colors"
+                          className="px-3 py-1.5 rounded-lg bg-[#9C4B5C] hover:bg-[#863C4B] text-white text-xs font-semibold transition-colors shadow-2xs"
                         >
                           Repor Agora
                         </button>

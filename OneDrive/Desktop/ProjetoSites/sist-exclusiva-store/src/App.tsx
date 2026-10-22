@@ -392,7 +392,7 @@ export function App() {
             </button>
             <button
               onClick={handleConfirmClearAll}
-              className="px-4 py-2 rounded-lg text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 text-white transition-colors shadow-xs"
+              className="px-4 py-2 rounded-lg text-xs font-semibold bg-[#9C4B5C] hover:bg-[#863C4B] text-white transition-colors shadow-xs"
             >
               Zerar Todo o Estoque (Limpo)
             </button>

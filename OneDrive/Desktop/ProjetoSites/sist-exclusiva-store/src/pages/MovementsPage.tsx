@@ -126,9 +126,9 @@ export const MovementsPage: React.FC<MovementsPageProps> = ({
 
         <button
           onClick={handleExportCSV}
-          className="flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold transition-colors shadow-xs shrink-0"
+          className="flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#9C4B5C] hover:bg-[#863C4B] text-white text-xs font-semibold transition-colors shadow-xs shrink-0"
         >
-          <FileSpreadsheet className="w-4 h-4 text-emerald-400" />
+          <FileSpreadsheet className="w-4 h-4 text-white" />
           <span>Exportar Relatório (CSV)</span>
         </button>
       </div>
@@ -374,7 +374,7 @@ export const MovementsPage: React.FC<MovementsPageProps> = ({
             <div className="pt-3 border-t border-zinc-200 flex justify-end">
               <button
                 onClick={() => setSelectedMovement(null)}
-                className="px-4 py-2 rounded-lg text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 text-white transition-colors"
+                className="px-4 py-2 rounded-lg text-xs font-semibold bg-[#9C4B5C] hover:bg-[#863C4B] text-white transition-colors"
               >
                 Fechar
               </button>
