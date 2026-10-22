@@ -8,18 +8,18 @@ export default {
     extend: {
       colors: {
         store: {
-          bg: '#FEFEFE',
-          surface: '#FAE7E7',
-          surfaceHover: '#F5D8D8',
-          surfaceLight: '#FDF7F7',
-          primary: '#CF7C89',
-          primaryHover: '#BE6B78',
-          primaryLight: '#FCECEF',
-          secondary: '#AA8B97',
-          secondaryDark: '#7A5B67',
-          text: '#0E0606',
-          border: '#EED9DC',
-          borderLight: '#F3E5E7',
+          bg: '#FFFFFF',
+          surface: '#F4F4F5',
+          surfaceHover: '#E4E4E7',
+          surfaceLight: '#FAFAFA',
+          primary: '#18181B',
+          primaryHover: '#27272A',
+          primaryLight: '#F4F4F5',
+          secondary: '#71717A',
+          secondaryDark: '#52525B',
+          text: '#09090B',
+          border: '#E4E4E7',
+          borderLight: '#F4F4F5',
         }
       },
       fontFamily: {

@@ -41,22 +41,22 @@ export const Modal: React.FC<ModalProps> = ({
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0E0606]/35 backdrop-blur-xs transition-opacity"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/30 backdrop-blur-xs transition-opacity"
       onClick={onClose}
     >
       <div 
-        className={`bg-[#FEFEFE] rounded-xl shadow-lg border border-[#EED9DC] w-full ${maxWidthClasses} overflow-hidden max-h-[92vh] flex flex-col`}
+        className={`bg-white rounded-xl shadow-lg border border-zinc-200 w-full ${maxWidthClasses} overflow-hidden max-h-[92vh] flex flex-col`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="px-6 py-4 border-b border-[#EED9DC] flex items-center justify-between bg-[#FAE7E7]/50">
+        <div className="px-6 py-4 border-b border-zinc-200 flex items-center justify-between bg-zinc-50/80">
           <div>
-            <h3 className="font-bold text-[#0E0606] text-base">{title}</h3>
-            {subtitle && <p className="text-xs text-[#7A5B67] mt-0.5">{subtitle}</p>}
+            <h3 className="font-bold text-zinc-900 text-sm md:text-base">{title}</h3>
+            {subtitle && <p className="text-xs text-zinc-500 mt-0.5">{subtitle}</p>}
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-[#7A5B67] hover:text-[#0E0606] hover:bg-[#FAE7E7] transition-colors"
+            className="p-1.5 rounded-lg text-zinc-400 hover:text-zinc-900 hover:bg-zinc-100 transition-colors"
             aria-label="Fechar"
           >
             <X className="w-4 h-4" />

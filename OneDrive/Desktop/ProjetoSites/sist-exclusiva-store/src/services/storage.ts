@@ -1,14 +1,19 @@
 import type { Product, Movement, Receiving, DashboardMetrics } from '../types/index.ts';
 
 const STORAGE_KEYS = {
-  PRODUCTS: 'exclusiva_products_v1',
-  MOVEMENTS: 'exclusiva_movements_v1',
-  RECEIVINGS: 'exclusiva_receivings_v1',
-  VERSION: 'exclusiva_version_v1',
+  PRODUCTS: 'exclusiva_clean_v3_products',
+  MOVEMENTS: 'exclusiva_clean_v3_movements',
+  RECEIVINGS: 'exclusiva_clean_v3_receivings',
+  VERSION: 'exclusiva_clean_v3',
 };
 
-// Dados demonstrativos realistas e consistentes para a Exclusiva Store
-export const INITIAL_PRODUCTS: Product[] = [
+// Inicialização padrão: 100% LIMPO E ZERADO
+export const INITIAL_PRODUCTS: Product[] = [];
+export const INITIAL_MOVEMENTS: Movement[] = [];
+export const INITIAL_RECEIVINGS: Receiving[] = [];
+
+// Dados demonstrativos isolados para bateria de testes / simulação
+export const DEMO_PRODUCTS: Product[] = [
   {
     id: 'prod-001',
     name: 'Vestido Midi Linho Elegance',
@@ -123,7 +128,7 @@ export const INITIAL_PRODUCTS: Product[] = [
   },
 ];
 
-export const INITIAL_MOVEMENTS: Movement[] = [
+export const DEMO_MOVEMENTS: Movement[] = [
   {
     id: 'mov-001',
     timestamp: '2026-10-15T09:30:00Z',
@@ -210,7 +215,7 @@ export const INITIAL_MOVEMENTS: Movement[] = [
   },
 ];
 
-export const INITIAL_RECEIVINGS: Receiving[] = [
+export const DEMO_RECEIVINGS: Receiving[] = [
   {
     id: 'rec-001',
     code: 'REC-2026-001',
@@ -265,13 +270,13 @@ export class StockService {
     if (typeof window === 'undefined') return;
 
     if (!localStorage.getItem(STORAGE_KEYS.PRODUCTS)) {
-      localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(INITIAL_PRODUCTS));
+      localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify([]));
     }
     if (!localStorage.getItem(STORAGE_KEYS.MOVEMENTS)) {
-      localStorage.setItem(STORAGE_KEYS.MOVEMENTS, JSON.stringify(INITIAL_MOVEMENTS));
+      localStorage.setItem(STORAGE_KEYS.MOVEMENTS, JSON.stringify([]));
     }
     if (!localStorage.getItem(STORAGE_KEYS.RECEIVINGS)) {
-      localStorage.setItem(STORAGE_KEYS.RECEIVINGS, JSON.stringify(INITIAL_RECEIVINGS));
+      localStorage.setItem(STORAGE_KEYS.RECEIVINGS, JSON.stringify([]));
     }
   }
 
@@ -776,10 +781,17 @@ export class StockService {
     };
   }
 
-  // Reset para demonstração
+  // Limpar e zerar todo o estoque e movimentações
+  public static clearAllData(): void {
+    localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify([]));
+    localStorage.setItem(STORAGE_KEYS.MOVEMENTS, JSON.stringify([]));
+    localStorage.setItem(STORAGE_KEYS.RECEIVINGS, JSON.stringify([]));
+  }
+
+  // Carregar dados de demonstração (útil para testes e simulações)
   public static resetToDemoData(): void {
-    localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(INITIAL_PRODUCTS));
-    localStorage.setItem(STORAGE_KEYS.MOVEMENTS, JSON.stringify(INITIAL_MOVEMENTS));
-    localStorage.setItem(STORAGE_KEYS.RECEIVINGS, JSON.stringify(INITIAL_RECEIVINGS));
+    localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(DEMO_PRODUCTS));
+    localStorage.setItem(STORAGE_KEYS.MOVEMENTS, JSON.stringify(DEMO_MOVEMENTS));
+    localStorage.setItem(STORAGE_KEYS.RECEIVINGS, JSON.stringify(DEMO_RECEIVINGS));
   }
 }

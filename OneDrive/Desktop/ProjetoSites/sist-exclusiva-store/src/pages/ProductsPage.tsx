@@ -6,7 +6,6 @@ import {
   Eye, 
   ArrowDownToDot, 
   ArrowUpFromDot, 
-  FileWarning, 
   History,
   X
 } from 'lucide-react';
@@ -30,7 +29,6 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
   onUpdateProduct,
   onQuickEntry,
   onQuickExit,
-  onQuickLoss,
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('ALL');
@@ -196,15 +194,15 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
       {/* Cabeçalho e Botão de Ação Principal */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-[#0E0606] tracking-tight">Produtos em Estoque</h1>
-          <p className="text-xs text-[#7A5B67] mt-0.5">
+          <h1 className="text-xl font-bold text-zinc-950 tracking-tight">Produtos em Estoque</h1>
+          <p className="text-xs text-zinc-500 mt-0.5">
             Consulta rápida, controle de estoque mínimo e dados cadastrais das mercadorias.
           </p>
         </div>
 
         <button
           onClick={handleOpenCreate}
-          className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg bg-[#CF7C89] hover:bg-[#BE6B78] text-[#FEFEFE] text-xs font-semibold transition-colors shadow-2xs shrink-0"
+          className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold transition-colors shadow-xs shrink-0"
         >
           <Plus className="w-4 h-4" />
           <span>Cadastrar Produto</span>
@@ -212,16 +210,16 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
       </div>
 
       {/* Barra de Filtros e Busca */}
-      <div className="bg-[#FAE7E7] border border-[#EED9DC] rounded-xl p-3.5 flex flex-col md:flex-row gap-3">
+      <div className="bg-zinc-50 border border-zinc-200 rounded-xl p-3.5 flex flex-col md:flex-row gap-3">
         {/* Campo de Busca */}
         <div className="relative flex-1">
-          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#7A5B67]" />
+          <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
           <input
             type="text"
             placeholder="Buscar por nome ou código do produto..."
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] placeholder-[#7A5B67] focus:outline-none focus:border-[#CF7C89]"
+            className="w-full pl-9 pr-4 py-2 rounded-lg text-xs bg-white border border-zinc-200 text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-zinc-400"
           />
         </div>
 
@@ -230,7 +228,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
           <select
             value={categoryFilter}
             onChange={e => setCategoryFilter(e.target.value)}
-            className="w-full px-3 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] focus:outline-none focus:border-[#CF7C89]"
+            className="w-full px-3 py-2 rounded-lg text-xs bg-white border border-zinc-200 text-zinc-900 focus:outline-none focus:border-zinc-400"
           >
             <option value="ALL">Todas as categorias</option>
             {categories.map(cat => (
@@ -244,7 +242,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
           <select
             value={stockStatusFilter}
             onChange={e => setStockStatusFilter(e.target.value)}
-            className="w-full px-3 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] focus:outline-none focus:border-[#CF7C89]"
+            className="w-full px-3 py-2 rounded-lg text-xs bg-white border border-zinc-200 text-zinc-900 focus:outline-none focus:border-zinc-400"
           >
             <option value="ALL">Todas as situações</option>
             <option value="NORMAL">Estoque regular</option>
@@ -255,11 +253,11 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
       </div>
 
       {/* Tabela Principal de Produtos */}
-      <div className="bg-[#FEFEFE] rounded-xl border border-[#EED9DC] overflow-hidden">
+      <div className="bg-white rounded-xl border border-zinc-200 overflow-hidden shadow-xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="bg-[#FAE7E7]/60 text-[#7A5B67] uppercase text-[10px] font-semibold border-b border-[#EED9DC]">
+              <tr className="bg-zinc-50 text-zinc-500 uppercase text-[10px] font-semibold border-b border-zinc-200">
                 <th className="py-3 px-4">Nome do Produto</th>
                 <th className="py-3 px-4">Código</th>
                 <th className="py-3 px-4">Categoria</th>
@@ -269,10 +267,10 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                 <th className="py-3 px-4 text-right">Ações</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#EED9DC]/60">
+            <tbody className="divide-y divide-zinc-200/60">
               {filteredProducts.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-12 text-center text-[#7A5B67]">
+                  <td colSpan={7} className="py-12 text-center text-zinc-500">
                     Nenhum produto encontrado com os filtros aplicados.
                   </td>
                 </tr>
@@ -301,39 +299,39 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                   }
 
                   return (
-                    <tr key={product.id} className="hover:bg-[#FAE7E7]/30 transition-colors">
+                    <tr key={product.id} className="hover:bg-zinc-50/80 transition-colors">
                       {/* Nome do Produto */}
                       <td className="py-3 px-4">
                         <button
                           onClick={() => setViewingProduct(product)}
-                          className="font-semibold text-[#0E0606] hover:text-[#CF7C89] text-left transition-colors"
+                          className="font-semibold text-zinc-900 hover:text-zinc-600 text-left transition-colors"
                         >
                           {product.name}
                         </button>
                         {product.description && (
-                          <p className="text-[11px] text-[#7A5B67] truncate max-w-xs">{product.description}</p>
+                          <p className="text-[11px] text-zinc-400 truncate max-w-xs">{product.description}</p>
                         )}
                       </td>
 
                       {/* Código */}
-                      <td className="py-3 px-4 font-mono text-[#0E0606] font-medium">
+                      <td className="py-3 px-4 font-mono text-zinc-900 font-medium">
                         {product.sku}
                       </td>
 
                       {/* Categoria */}
-                      <td className="py-3 px-4 text-[#7A5B67]">
+                      <td className="py-3 px-4 text-zinc-500">
                         {product.category}
                       </td>
 
                       {/* Quantidade em Estoque */}
                       <td className="py-3 px-4 text-center">
-                        <span className={`font-bold ${isZero ? 'text-rose-700' : isLow ? 'text-amber-700' : 'text-[#0E0606]'}`}>
+                        <span className={`font-bold ${isZero ? 'text-rose-700' : isLow ? 'text-amber-700' : 'text-zinc-900'}`}>
                           {product.quantity} un.
                         </span>
                       </td>
 
                       {/* Estoque Mínimo */}
-                      <td className="py-3 px-4 text-center text-[#7A5B67]">
+                      <td className="py-3 px-4 text-center text-zinc-500">
                         {product.minStock} un.
                       </td>
 
@@ -347,25 +345,25 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                         <div className="inline-flex items-center gap-1">
                           <button
                             onClick={() => onQuickEntry(product.id)}
-                            className="p-1.5 rounded text-[#7A5B67] hover:text-[#0E0606] hover:bg-[#FAE7E7] transition-colors"
+                            className="p-1.5 rounded text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100 transition-colors"
                             title="Registrar Entrada"
                             aria-label={`Registrar entrada para ${product.name}`}
                           >
-                            <ArrowDownToDot className="w-4 h-4 text-[#CF7C89]" />
+                            <ArrowDownToDot className="w-4 h-4 text-zinc-900" />
                           </button>
 
                           <button
                             onClick={() => onQuickExit(product.id)}
-                            className="p-1.5 rounded text-[#7A5B67] hover:text-[#0E0606] hover:bg-[#FAE7E7] transition-colors"
+                            className="p-1.5 rounded text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100 transition-colors"
                             title="Registrar Saída"
                             aria-label={`Registrar saída para ${product.name}`}
                           >
-                            <ArrowUpFromDot className="w-4 h-4 text-[#7A5B67]" />
+                            <ArrowUpFromDot className="w-4 h-4 text-zinc-600" />
                           </button>
 
                           <button
                             onClick={() => handleOpenEdit(product)}
-                            className="p-1.5 rounded text-[#7A5B67] hover:text-[#0E0606] hover:bg-[#FAE7E7] transition-colors"
+                            className="p-1.5 rounded text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100 transition-colors"
                             title="Editar Dados do Produto"
                             aria-label={`Editar ${product.name}`}
                           >
@@ -374,7 +372,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
 
                           <button
                             onClick={() => setViewingProduct(product)}
-                            className="p-1.5 rounded text-[#7A5B67] hover:text-[#0E0606] hover:bg-[#FAE7E7] transition-colors"
+                            className="p-1.5 rounded text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100 transition-colors"
                             title="Visualizar Detalhes e Histórico"
                             aria-label={`Ver detalhes de ${product.name}`}
                           >
@@ -408,13 +406,13 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
 
           {/* Grupo 1: Identificação Básica */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold text-[#0E0606] uppercase tracking-wide border-b border-[#EED9DC] pb-1">
+            <h4 className="text-xs font-bold text-zinc-900 uppercase tracking-wide border-b border-zinc-200 pb-1">
               1. Identificação
             </h4>
 
             <div>
-              <label className="block text-xs font-medium text-[#0E0606] mb-1">
-                Nome do Produto <span className="text-[#CF7C89]">*</span>
+              <label className="block text-xs font-medium text-zinc-900 mb-1">
+                Nome do Produto <span className="text-zinc-900">*</span>
               </label>
               <input
                 type="text"
@@ -422,14 +420,14 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                 value={formData.name}
                 onChange={e => setFormData({ ...formData, name: e.target.value })}
                 placeholder="Ex: Camisa Linho Elegance Manga Longa"
-                className="w-full px-3 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] focus:outline-none focus:border-[#CF7C89]"
+                className="w-full px-3 py-2 rounded-lg text-xs bg-white border border-zinc-200 text-zinc-900 focus:outline-none focus:border-zinc-400"
               />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-medium text-[#0E0606] mb-1">
-                  Código / SKU <span className="text-[#CF7C89]">*</span>
+                <label className="block text-xs font-medium text-zinc-900 mb-1">
+                  Código / SKU <span className="text-zinc-900">*</span>
                 </label>
                 <input
                   type="text"
@@ -437,12 +435,12 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                   value={formData.sku}
                   onChange={e => setFormData({ ...formData, sku: e.target.value })}
                   placeholder="Ex: CMS-001"
-                  className="w-full px-3 py-2 rounded-lg text-xs font-mono bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] uppercase focus:outline-none focus:border-[#CF7C89]"
+                  className="w-full px-3 py-2 rounded-lg text-xs font-mono bg-white border border-zinc-200 text-zinc-900 uppercase focus:outline-none focus:border-zinc-400"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-[#0E0606] mb-1">
+                <label className="block text-xs font-medium text-zinc-900 mb-1">
                   Categoria
                 </label>
                 <input
@@ -450,13 +448,13 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                   value={formData.category}
                   onChange={e => setFormData({ ...formData, category: e.target.value })}
                   placeholder="Ex: Vestuário Feminino"
-                  className="w-full px-3 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] focus:outline-none focus:border-[#CF7C89]"
+                  className="w-full px-3 py-2 rounded-lg text-xs bg-white border border-zinc-200 text-zinc-900 focus:outline-none focus:border-zinc-400"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-[#0E0606] mb-1">
+              <label className="block text-xs font-medium text-zinc-900 mb-1">
                 Descrição ou Detalhes (Opcional)
               </label>
               <textarea
@@ -464,21 +462,21 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                 value={formData.description}
                 onChange={e => setFormData({ ...formData, description: e.target.value })}
                 placeholder="Detalhes sobre o tecido, caimento ou especificações..."
-                className="w-full px-3 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] focus:outline-none focus:border-[#CF7C89]"
+                className="w-full px-3 py-2 rounded-lg text-xs bg-white border border-zinc-200 text-zinc-900 focus:outline-none focus:border-zinc-400"
               />
             </div>
           </div>
 
           {/* Grupo 2: Controle de Estoque */}
           <div className="space-y-3 pt-2">
-            <h4 className="text-xs font-bold text-[#0E0606] uppercase tracking-wide border-b border-[#EED9DC] pb-1">
+            <h4 className="text-xs font-bold text-zinc-900 uppercase tracking-wide border-b border-zinc-200 pb-1">
               2. Parâmetros de Estoque
             </h4>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {!editingProduct ? (
                 <div>
-                  <label className="block text-xs font-medium text-[#0E0606] mb-1">
+                  <label className="block text-xs font-medium text-zinc-900 mb-1">
                     Estoque Inicial (Peças)
                   </label>
                   <input
@@ -486,20 +484,20 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                     min="0"
                     value={formData.quantity}
                     onChange={e => setFormData({ ...formData, quantity: parseInt(e.target.value) || 0 })}
-                    className="w-full px-3 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] focus:outline-none focus:border-[#CF7C89]"
+                    className="w-full px-3 py-2 rounded-lg text-xs bg-white border border-zinc-200 text-zinc-900 focus:outline-none focus:border-zinc-400"
                   />
-                  <p className="text-[10px] text-[#7A5B67] mt-0.5">Saldo inicial em estoque</p>
+                  <p className="text-[10px] text-zinc-500 mt-0.5">Saldo inicial em estoque</p>
                 </div>
               ) : (
-                <div className="p-2.5 rounded-lg bg-[#FAE7E7] border border-[#EED9DC]">
-                  <span className="text-[10px] text-[#7A5B67] block uppercase font-semibold">Estoque Atual</span>
-                  <span className="text-sm font-bold text-[#0E0606]">{editingProduct.quantity} peças</span>
-                  <p className="text-[10px] text-[#7A5B67] mt-0.5">Para alterar o saldo, use as operações de entrada ou saída.</p>
+                <div className="p-2.5 rounded-lg bg-zinc-50 border border-zinc-200">
+                  <span className="text-[10px] text-zinc-500 block uppercase font-semibold">Estoque Atual</span>
+                  <span className="text-sm font-bold text-zinc-900">{editingProduct.quantity} peças</span>
+                  <p className="text-[10px] text-zinc-500 mt-0.5">Para alterar o saldo, use as operações de entrada ou saída.</p>
                 </div>
               )}
 
               <div>
-                <label className="block text-xs font-medium text-[#0E0606] mb-1">
+                <label className="block text-xs font-medium text-zinc-900 mb-1">
                   Estoque Mínimo de Segurança
                 </label>
                 <input
@@ -507,22 +505,22 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                   min="0"
                   value={formData.minStock}
                   onChange={e => setFormData({ ...formData, minStock: parseInt(e.target.value) || 0 })}
-                  className="w-full px-3 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] focus:outline-none focus:border-[#CF7C89]"
+                  className="w-full px-3 py-2 rounded-lg text-xs bg-white border border-zinc-200 text-zinc-900 focus:outline-none focus:border-zinc-400"
                 />
-                <p className="text-[10px] text-[#7A5B67] mt-0.5">Aviso quando atingir essa quantidade</p>
+                <p className="text-[10px] text-zinc-500 mt-0.5">Aviso quando atingir essa quantidade</p>
               </div>
             </div>
           </div>
 
           {/* Grupo 3: Preços e Custos (Opcional) */}
           <div className="space-y-3 pt-2">
-            <h4 className="text-xs font-bold text-[#0E0606] uppercase tracking-wide border-b border-[#EED9DC] pb-1">
+            <h4 className="text-xs font-bold text-zinc-900 uppercase tracking-wide border-b border-zinc-200 pb-1">
               3. Valores Comerciais (Opcional)
             </h4>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-medium text-[#0E0606] mb-1">
+                <label className="block text-xs font-medium text-zinc-900 mb-1">
                   Custo Unitário (R$)
                 </label>
                 <input
@@ -531,12 +529,12 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                   min="0"
                   value={formData.unitCost}
                   onChange={e => setFormData({ ...formData, unitCost: parseFloat(e.target.value) || 0 })}
-                  className="w-full px-3 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] focus:outline-none focus:border-[#CF7C89]"
+                  className="w-full px-3 py-2 rounded-lg text-xs bg-white border border-zinc-200 text-zinc-900 focus:outline-none focus:border-zinc-400"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-[#0E0606] mb-1">
+                <label className="block text-xs font-medium text-zinc-900 mb-1">
                   Preço de Venda (R$)
                 </label>
                 <input
@@ -545,24 +543,24 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                   min="0"
                   value={formData.salePrice}
                   onChange={e => setFormData({ ...formData, salePrice: parseFloat(e.target.value) || 0 })}
-                  className="w-full px-3 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] focus:outline-none focus:border-[#CF7C89]"
+                  className="w-full px-3 py-2 rounded-lg text-xs bg-white border border-zinc-200 text-zinc-900 focus:outline-none focus:border-zinc-400"
                 />
               </div>
             </div>
           </div>
 
           {/* Botões do Formulário */}
-          <div className="pt-4 flex items-center justify-end gap-2.5 border-t border-[#EED9DC]">
+          <div className="pt-4 flex items-center justify-end gap-2.5 border-t border-zinc-200">
             <button
               type="button"
               onClick={() => setIsFormModalOpen(false)}
-              className="px-4 py-2 rounded-lg text-xs font-medium text-[#7A5B67] hover:bg-[#FAE7E7] transition-colors"
+              className="px-4 py-2 rounded-lg text-xs font-medium text-zinc-600 hover:bg-zinc-100 transition-colors"
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="px-4 py-2 rounded-lg text-xs font-semibold bg-[#CF7C89] hover:bg-[#BE6B78] text-[#FEFEFE] transition-colors shadow-2xs"
+              className="px-4 py-2 rounded-lg text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 text-white transition-colors shadow-xs"
             >
               {editingProduct ? 'Salvar Alterações' : 'Confirmar Cadastro'}
             </button>
@@ -582,33 +580,33 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
           <div className="space-y-5">
             {/* Resumo Rápido */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              <div className="p-3 rounded-lg bg-[#FAE7E7] border border-[#EED9DC]">
-                <span className="text-[10px] text-[#7A5B67] uppercase font-semibold">Estoque Atual</span>
-                <div className="text-base font-bold text-[#0E0606] mt-0.5">{viewingProduct.quantity} peças</div>
+              <div className="p-3 rounded-lg bg-zinc-50 border border-zinc-200">
+                <span className="text-[10px] text-zinc-500 uppercase font-semibold">Estoque Atual</span>
+                <div className="text-base font-bold text-zinc-900 mt-0.5">{viewingProduct.quantity} peças</div>
               </div>
-              <div className="p-3 rounded-lg bg-[#FAE7E7] border border-[#EED9DC]">
-                <span className="text-[10px] text-[#7A5B67] uppercase font-semibold">Estoque Mínimo</span>
-                <div className="text-base font-bold text-[#0E0606] mt-0.5">{viewingProduct.minStock} peças</div>
+              <div className="p-3 rounded-lg bg-zinc-50 border border-zinc-200">
+                <span className="text-[10px] text-zinc-500 uppercase font-semibold">Estoque Mínimo</span>
+                <div className="text-base font-bold text-zinc-900 mt-0.5">{viewingProduct.minStock} peças</div>
               </div>
-              <div className="p-3 rounded-lg bg-[#FAE7E7] border border-[#EED9DC]">
-                <span className="text-[10px] text-[#7A5B67] uppercase font-semibold">Custo Unitário</span>
-                <div className="text-base font-bold text-[#0E0606] mt-0.5">{formatCurrency(viewingProduct.unitCost)}</div>
+              <div className="p-3 rounded-lg bg-zinc-50 border border-zinc-200">
+                <span className="text-[10px] text-zinc-500 uppercase font-semibold">Custo Unitário</span>
+                <div className="text-base font-bold text-zinc-900 mt-0.5">{formatCurrency(viewingProduct.unitCost)}</div>
               </div>
-              <div className="p-3 rounded-lg bg-[#FAE7E7] border border-[#EED9DC]">
-                <span className="text-[10px] text-[#7A5B67] uppercase font-semibold">Preço de Venda</span>
-                <div className="text-base font-bold text-[#CF7C89] mt-0.5">{formatCurrency(viewingProduct.salePrice)}</div>
+              <div className="p-3 rounded-lg bg-zinc-50 border border-zinc-200">
+                <span className="text-[10px] text-zinc-500 uppercase font-semibold">Preço de Venda</span>
+                <div className="text-base font-bold text-zinc-900 mt-0.5">{formatCurrency(viewingProduct.salePrice)}</div>
               </div>
             </div>
 
             {/* Ações diretas para este produto */}
-            <div className="flex flex-wrap items-center gap-2 p-3 bg-[#FAE7E7]/40 rounded-lg border border-[#EED9DC]">
-              <span className="text-xs font-semibold text-[#0E0606] mr-2">Ações rápidas:</span>
+            <div className="flex flex-wrap items-center gap-2 p-3 bg-zinc-50 rounded-lg border border-zinc-200">
+              <span className="text-xs font-semibold text-zinc-900 mr-2">Ações rápidas:</span>
               <button
                 onClick={() => {
                   setViewingProduct(null);
                   onQuickEntry(viewingProduct.id);
                 }}
-                className="flex items-center gap-1 px-3 py-1.5 rounded text-xs font-semibold bg-[#CF7C89] hover:bg-[#BE6B78] text-[#FEFEFE] transition-colors"
+                className="flex items-center gap-1 px-3 py-1.5 rounded text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 text-white transition-colors"
               >
                 <ArrowDownToDot className="w-3.5 h-3.5" />
                 <span>Registrar Entrada</span>
@@ -618,9 +616,9 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                   setViewingProduct(null);
                   onQuickExit(viewingProduct.id);
                 }}
-                className="flex items-center gap-1 px-3 py-1.5 rounded text-xs font-semibold bg-[#FEFEFE] hover:bg-[#FAE7E7] text-[#0E0606] border border-[#EED9DC] transition-colors"
+                className="flex items-center gap-1 px-3 py-1.5 rounded text-xs font-semibold bg-white hover:bg-zinc-100 text-zinc-800 border border-zinc-200 transition-colors"
               >
-                <ArrowUpFromDot className="w-3.5 h-3.5 text-[#CF7C89]" />
+                <ArrowUpFromDot className="w-3.5 h-3.5 text-zinc-600" />
                 <span>Registrar Saída</span>
               </button>
               <button
@@ -629,57 +627,57 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                   setViewingProduct(null);
                   handleOpenEdit(p);
                 }}
-                className="flex items-center gap-1 px-3 py-1.5 rounded text-xs font-semibold bg-[#FEFEFE] hover:bg-[#FAE7E7] text-[#0E0606] border border-[#EED9DC] transition-colors"
+                className="flex items-center gap-1 px-3 py-1.5 rounded text-xs font-semibold bg-white hover:bg-zinc-100 text-zinc-800 border border-zinc-200 transition-colors"
               >
-                <Edit3 className="w-3.5 h-3.5 text-[#7A5B67]" />
+                <Edit3 className="w-3.5 h-3.5 text-zinc-500" />
                 <span>Editar</span>
               </button>
             </div>
 
             {/* Histórico Recente deste Produto */}
             <div>
-              <div className="flex items-center justify-between pb-2 border-b border-[#EED9DC] mb-2">
-                <h4 className="text-xs font-bold text-[#0E0606] uppercase tracking-wide">
+              <div className="flex items-center justify-between pb-2 border-b border-zinc-200 mb-2">
+                <h4 className="text-xs font-bold text-zinc-900 uppercase tracking-wide">
                   Histórico de Movimentações deste Produto
                 </h4>
-                <span className="text-[11px] text-[#7A5B67]">{viewingMovements.length} registro(s)</span>
+                <span className="text-[11px] text-zinc-500">{viewingMovements.length} registro(s)</span>
               </div>
 
               {viewingMovements.length === 0 ? (
-                <p className="text-xs text-[#7A5B67] py-4 text-center">
+                <p className="text-xs text-zinc-500 py-4 text-center">
                   Nenhuma movimentação registrada para este produto.
                 </p>
               ) : (
                 <div className="max-h-56 overflow-y-auto">
                   <table className="w-full text-left text-xs">
                     <thead>
-                      <tr className="text-[#7A5B67] text-[10px] font-semibold border-b border-[#EED9DC]">
-                        <th className="py-2">Data</th>
-                        <th className="py-2">Tipo</th>
-                        <th className="py-2 text-center">Quantidade</th>
-                        <th className="py-2 text-center">Saldo</th>
-                        <th className="py-2">Motivo</th>
+                      <tr className="bg-zinc-50 text-zinc-500 text-[10px] font-semibold border-b border-zinc-200">
+                        <th className="py-2 px-3">Data</th>
+                        <th className="py-2 px-3">Tipo</th>
+                        <th className="py-2 px-3 text-center">Quantidade</th>
+                        <th className="py-2 px-3 text-center">Saldo</th>
+                        <th className="py-2 px-3">Motivo</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-[#EED9DC]/50">
+                    <tbody className="divide-y divide-zinc-200/50">
                       {viewingMovements.map(m => (
-                        <tr key={m.id}>
-                          <td className="py-2 text-[11px] text-[#7A5B67]">{formatDate(m.timestamp)}</td>
-                          <td className="py-2">
-                            <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
-                              m.type === 'ENTRADA' ? 'bg-emerald-50 text-emerald-800' :
-                              m.type === 'SAIDA' ? 'bg-[#FAE7E7] text-[#0E0606]' : 'bg-rose-50 text-rose-800'
+                        <tr key={m.id} className="hover:bg-zinc-50/70 transition-colors">
+                          <td className="py-2 px-3 text-[11px] text-zinc-500">{formatDate(m.timestamp)}</td>
+                          <td className="py-2 px-3">
+                            <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded border ${
+                              m.type === 'ENTRADA' ? 'bg-emerald-50 text-emerald-800 border-emerald-200' :
+                              m.type === 'SAIDA' ? 'bg-zinc-100 text-zinc-800 border-zinc-200' : 'bg-rose-50 text-rose-800 border-rose-200'
                             }`}>
                               {m.type}
                             </span>
                           </td>
-                          <td className="py-2 text-center font-bold text-[#0E0606]">
+                          <td className="py-2 px-3 text-center font-bold text-zinc-900">
                             {m.type === 'ENTRADA' ? `+${m.quantity}` : `-${m.quantity}`}
                           </td>
-                          <td className="py-2 text-center text-[#7A5B67]">
-                            {m.previousStock} ➔ <strong className="text-[#0E0606]">{m.newStock}</strong>
+                          <td className="py-2 px-3 text-center text-zinc-500">
+                            {m.previousStock} ➔ <strong className="text-zinc-900">{m.newStock}</strong>
                           </td>
-                          <td className="py-2 text-[#7A5B67] truncate max-w-xs">{m.reason}</td>
+                          <td className="py-2 px-3 text-zinc-600 truncate max-w-xs">{m.reason}</td>
                         </tr>
                       ))}
                     </tbody>

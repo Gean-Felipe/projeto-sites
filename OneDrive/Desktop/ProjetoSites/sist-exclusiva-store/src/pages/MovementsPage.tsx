@@ -118,33 +118,33 @@ export const MovementsPage: React.FC<MovementsPageProps> = ({
       {/* Cabeçalho e Ação de Exportação */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl font-bold text-[#0E0606] tracking-tight">Histórico de Movimentações</h1>
-          <p className="text-xs text-[#7A5B67] mt-0.5">
+          <h1 className="text-xl font-bold text-zinc-950 tracking-tight">Histórico de Movimentações</h1>
+          <p className="text-xs text-zinc-500 mt-0.5">
             Registro cronológico e rastreável de todas as entradas, saídas e baixas efetuadas.
           </p>
         </div>
 
         <button
           onClick={handleExportCSV}
-          className="flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#FEFEFE] hover:bg-[#FAE7E7] text-[#0E0606] border border-[#EED9DC] text-xs font-semibold transition-colors shadow-2xs shrink-0"
+          className="flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold transition-colors shadow-xs shrink-0"
         >
-          <FileSpreadsheet className="w-4 h-4 text-[#CF7C89]" />
+          <FileSpreadsheet className="w-4 h-4 text-emerald-400" />
           <span>Exportar Relatório (CSV)</span>
         </button>
       </div>
 
-      {/* Painel de Filtros */}
-      <div className="bg-[#FAE7E7] border border-[#EED9DC] rounded-xl p-3.5 space-y-3">
+      {/* Painel de Filtros Neutro */}
+      <div className="bg-zinc-50 border border-zinc-200 rounded-xl p-3.5 space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           {/* Busca Livre */}
           <div className="relative lg:col-span-2">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#7A5B67]" />
+            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
             <input
               type="text"
               placeholder="Buscar por produto, SKU, motivo ou doc..."
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] placeholder-[#7A5B67] focus:outline-none focus:border-[#CF7C89]"
+              className="w-full pl-9 pr-4 py-2 rounded-lg text-xs bg-white border border-zinc-200 text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-zinc-400"
             />
           </div>
 
@@ -153,7 +153,7 @@ export const MovementsPage: React.FC<MovementsPageProps> = ({
             <select
               value={typeFilter}
               onChange={e => setTypeFilter(e.target.value as any)}
-              className="w-full px-3 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] focus:outline-none focus:border-[#CF7C89]"
+              className="w-full px-3 py-2 rounded-lg text-xs bg-white border border-zinc-200 text-zinc-900 focus:outline-none focus:border-zinc-400"
             >
               <option value="ALL">Todos os tipos</option>
               <option value="ENTRADA">Apenas Entradas</option>
@@ -167,7 +167,7 @@ export const MovementsPage: React.FC<MovementsPageProps> = ({
             <select
               value={productFilter}
               onChange={e => setProductFilter(e.target.value)}
-              className="w-full px-3 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] focus:outline-none focus:border-[#CF7C89]"
+              className="w-full px-3 py-2 rounded-lg text-xs bg-white border border-zinc-200 text-zinc-900 focus:outline-none focus:border-zinc-400"
             >
               <option value="ALL">Todos os produtos</option>
               {products.map(p => (
@@ -186,7 +186,7 @@ export const MovementsPage: React.FC<MovementsPageProps> = ({
                 setStartDate('');
                 setEndDate('');
               }}
-              className="w-full px-3 py-2 rounded-lg text-xs font-medium text-[#7A5B67] hover:bg-[#FEFEFE] border border-transparent hover:border-[#EED9DC] transition-colors text-center"
+              className="w-full px-3 py-2 rounded-lg text-xs font-medium text-zinc-600 hover:text-zinc-900 hover:bg-white border border-transparent hover:border-zinc-200 transition-colors text-center"
             >
               Limpar Filtros
             </button>
@@ -194,15 +194,15 @@ export const MovementsPage: React.FC<MovementsPageProps> = ({
         </div>
 
         {/* Filtro por Período */}
-        <div className="flex flex-wrap items-center gap-3 pt-2 border-t border-[#EED9DC]/60 text-xs text-[#7A5B67]">
-          <span className="font-medium text-[#0E0606]">Filtrar por período:</span>
+        <div className="flex flex-wrap items-center gap-3 pt-2 border-t border-zinc-200 text-xs text-zinc-500">
+          <span className="font-medium text-zinc-900">Filtrar por período:</span>
           <div className="flex items-center gap-2">
             <span>De:</span>
             <input
               type="date"
               value={startDate}
               onChange={e => setStartDate(e.target.value)}
-              className="px-2.5 py-1 rounded-md text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606]"
+              className="px-2.5 py-1 rounded-md text-xs bg-white border border-zinc-200 text-zinc-900 focus:outline-none"
             />
           </div>
           <div className="flex items-center gap-2">
@@ -211,21 +211,21 @@ export const MovementsPage: React.FC<MovementsPageProps> = ({
               type="date"
               value={endDate}
               onChange={e => setEndDate(e.target.value)}
-              className="px-2.5 py-1 rounded-md text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606]"
+              className="px-2.5 py-1 rounded-md text-xs bg-white border border-zinc-200 text-zinc-900 focus:outline-none"
             />
           </div>
-          <span className="text-[11px] text-[#7A5B67] ml-auto">
+          <span className="text-[11px] text-zinc-400 ml-auto">
             {filteredMovements.length} registro(s) encontrado(s)
           </span>
         </div>
       </div>
 
       {/* Tabela de Movimentações */}
-      <div className="bg-[#FEFEFE] rounded-xl border border-[#EED9DC] overflow-hidden">
+      <div className="bg-white rounded-xl border border-zinc-200 overflow-hidden shadow-xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="bg-[#FAE7E7]/60 text-[#7A5B67] uppercase text-[10px] font-semibold border-b border-[#EED9DC]">
+              <tr className="bg-zinc-50 text-zinc-500 uppercase text-[10px] font-semibold border-b border-zinc-200">
                 <th className="py-3 px-4">Data e Hora</th>
                 <th className="py-3 px-4">Produto</th>
                 <th className="py-3 px-4">Tipo</th>
@@ -235,10 +235,10 @@ export const MovementsPage: React.FC<MovementsPageProps> = ({
                 <th className="py-3 px-4 text-right">Ação</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#EED9DC]/60">
+            <tbody className="divide-y divide-zinc-200/60">
               {filteredMovements.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-12 text-center text-[#7A5B67]">
+                  <td colSpan={7} className="py-12 text-center text-zinc-500">
                     Nenhuma movimentação localizada com os filtros selecionados.
                   </td>
                 </tr>
@@ -251,7 +251,7 @@ export const MovementsPage: React.FC<MovementsPageProps> = ({
                   );
                   if (m.type === 'SAIDA') {
                     typeBadge = (
-                      <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-[#FAE7E7] text-[#0E0606] border border-[#EED9DC]">
+                      <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-zinc-100 text-zinc-800 border border-zinc-200">
                         Saída
                       </span>
                     );
@@ -264,33 +264,33 @@ export const MovementsPage: React.FC<MovementsPageProps> = ({
                   }
 
                   return (
-                    <tr key={m.id} className="hover:bg-[#FAE7E7]/30 transition-colors">
-                      <td className="py-3 px-4 text-[#7A5B67] whitespace-nowrap text-[11px]">
+                    <tr key={m.id} className="hover:bg-zinc-50/80 transition-colors">
+                      <td className="py-3 px-4 text-zinc-500 whitespace-nowrap text-[11px]">
                         {formatDate(m.timestamp)}
                       </td>
                       <td className="py-3 px-4">
-                        <div className="font-semibold text-[#0E0606]">{m.productName}</div>
-                        <div className="text-[10px] text-[#7A5B67] font-mono">{m.productSku}</div>
+                        <div className="font-semibold text-zinc-900">{m.productName}</div>
+                        <div className="text-[10px] text-zinc-400 font-mono">{m.productSku}</div>
                       </td>
                       <td className="py-3 px-4">{typeBadge}</td>
-                      <td className="py-3 px-4 text-center font-bold text-[#0E0606]">
+                      <td className="py-3 px-4 text-center font-bold text-zinc-900">
                         {m.type === 'ENTRADA' ? `+${m.quantity}` : `-${m.quantity}`}
                       </td>
                       <td className="py-3 px-4 text-center text-xs">
-                        <span className="text-[#7A5B67]">{m.previousStock}</span>
-                        <span className="mx-1 text-[#AA8B97]">➔</span>
-                        <strong className="text-[#0E0606]">{m.newStock} un.</strong>
+                        <span className="text-zinc-400">{m.previousStock}</span>
+                        <span className="mx-1 text-zinc-300">➔</span>
+                        <strong className="text-zinc-900">{m.newStock} un.</strong>
                       </td>
-                      <td className="py-3 px-4 text-[#7A5B67] max-w-xs">
-                        <div className="font-medium text-[#0E0606] truncate">{m.reason}</div>
+                      <td className="py-3 px-4 text-zinc-500 max-w-xs">
+                        <div className="font-medium text-zinc-800 truncate">{m.reason}</div>
                         {m.referenceDoc && (
-                          <div className="text-[10px] text-[#7A5B67] truncate">{m.referenceDoc}</div>
+                          <div className="text-[10px] text-zinc-400 truncate">{m.referenceDoc}</div>
                         )}
                       </td>
                       <td className="py-3 px-4 text-right">
                         <button
                           onClick={() => setSelectedMovement(m)}
-                          className="p-1.5 rounded text-[#7A5B67] hover:text-[#0E0606] hover:bg-[#FAE7E7] transition-colors"
+                          className="p-1.5 rounded text-zinc-500 hover:text-zinc-950 hover:bg-zinc-100 transition-colors"
                           title="Ver detalhes completos desta movimentação"
                         >
                           <Eye className="w-4 h-4" />
@@ -315,66 +315,66 @@ export const MovementsPage: React.FC<MovementsPageProps> = ({
       >
         {selectedMovement && (
           <div className="space-y-4 text-xs">
-            <div className="p-3 rounded-lg bg-[#FAE7E7] border border-[#EED9DC] space-y-1">
-              <span className="text-[10px] font-bold text-[#7A5B67] uppercase">Produto Movimentado</span>
-              <div className="text-sm font-bold text-[#0E0606]">{selectedMovement.productName}</div>
-              <div className="text-[11px] font-mono text-[#7A5B67]">SKU: {selectedMovement.productSku}</div>
+            <div className="p-3 rounded-lg bg-zinc-50 border border-zinc-200 space-y-1">
+              <span className="text-[10px] font-bold text-zinc-500 uppercase">Produto Movimentado</span>
+              <div className="text-sm font-bold text-zinc-900">{selectedMovement.productName}</div>
+              <div className="text-[11px] font-mono text-zinc-400">SKU: {selectedMovement.productSku}</div>
             </div>
 
             <div className="grid grid-cols-3 gap-3 text-center">
-              <div className="p-2.5 rounded-lg bg-[#FEFEFE] border border-[#EED9DC]">
-                <span className="text-[10px] text-[#7A5B67] block">Estoque Anterior</span>
-                <strong className="text-sm text-[#0E0606]">{selectedMovement.previousStock} un.</strong>
+              <div className="p-2.5 rounded-lg bg-white border border-zinc-200">
+                <span className="text-[10px] text-zinc-500 block">Estoque Anterior</span>
+                <strong className="text-sm text-zinc-900">{selectedMovement.previousStock} un.</strong>
               </div>
-              <div className="p-2.5 rounded-lg bg-[#FEFEFE] border border-[#EED9DC]">
-                <span className="text-[10px] text-[#7A5B67] block">Quantidade</span>
-                <strong className="text-sm text-[#CF7C89]">
+              <div className="p-2.5 rounded-lg bg-white border border-zinc-200">
+                <span className="text-[10px] text-zinc-500 block">Quantidade</span>
+                <strong className="text-sm text-zinc-900">
                   {selectedMovement.type === 'ENTRADA' ? `+${selectedMovement.quantity}` : `-${selectedMovement.quantity}`}
                 </strong>
               </div>
-              <div className="p-2.5 rounded-lg bg-[#FEFEFE] border border-[#EED9DC]">
-                <span className="text-[10px] text-[#7A5B67] block">Saldo Resultante</span>
-                <strong className="text-sm text-[#0E0606]">{selectedMovement.newStock} un.</strong>
+              <div className="p-2.5 rounded-lg bg-white border border-zinc-200">
+                <span className="text-[10px] text-zinc-500 block">Saldo Resultante</span>
+                <strong className="text-sm text-zinc-900">{selectedMovement.newStock} un.</strong>
               </div>
             </div>
 
-            <div className="space-y-2 pt-2 border-t border-[#EED9DC]">
+            <div className="space-y-2 pt-2 border-t border-zinc-200">
               <div>
-                <span className="text-[10px] text-[#7A5B67] uppercase font-semibold block">Tipo de Operação</span>
-                <strong className="text-xs text-[#0E0606]">{selectedMovement.type}</strong>
+                <span className="text-[10px] text-zinc-500 uppercase font-semibold block">Tipo de Operação</span>
+                <strong className="text-xs text-zinc-900">{selectedMovement.type}</strong>
               </div>
 
               <div>
-                <span className="text-[10px] text-[#7A5B67] uppercase font-semibold block">Motivo Informado</span>
-                <p className="text-xs text-[#0E0606]">{selectedMovement.reason}</p>
+                <span className="text-[10px] text-zinc-500 uppercase font-semibold block">Motivo Informado</span>
+                <p className="text-xs text-zinc-900">{selectedMovement.reason}</p>
               </div>
 
               {selectedMovement.referenceDoc && (
                 <div>
-                  <span className="text-[10px] text-[#7A5B67] uppercase font-semibold block">Documento / NF-e</span>
-                  <p className="text-xs text-[#0E0606]">{selectedMovement.referenceDoc}</p>
+                  <span className="text-[10px] text-zinc-500 uppercase font-semibold block">Documento / NF-e</span>
+                  <p className="text-xs text-zinc-900">{selectedMovement.referenceDoc}</p>
                 </div>
               )}
 
               {selectedMovement.supplier && (
                 <div>
-                  <span className="text-[10px] text-[#7A5B67] uppercase font-semibold block">Fornecedor / Origem</span>
-                  <p className="text-xs text-[#0E0606]">{selectedMovement.supplier}</p>
+                  <span className="text-[10px] text-zinc-500 uppercase font-semibold block">Fornecedor / Origem</span>
+                  <p className="text-xs text-zinc-900">{selectedMovement.supplier}</p>
                 </div>
               )}
 
               {selectedMovement.notes && (
                 <div>
-                  <span className="text-[10px] text-[#7A5B67] uppercase font-semibold block">Observações</span>
-                  <p className="text-xs text-[#0E0606] italic">{selectedMovement.notes}</p>
+                  <span className="text-[10px] text-zinc-500 uppercase font-semibold block">Observações</span>
+                  <p className="text-xs text-zinc-900 italic">{selectedMovement.notes}</p>
                 </div>
               )}
             </div>
 
-            <div className="pt-3 border-t border-[#EED9DC] flex justify-end">
+            <div className="pt-3 border-t border-zinc-200 flex justify-end">
               <button
                 onClick={() => setSelectedMovement(null)}
-                className="px-4 py-2 rounded-lg text-xs font-semibold bg-[#CF7C89] hover:bg-[#BE6B78] text-[#FEFEFE] transition-colors"
+                className="px-4 py-2 rounded-lg text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 text-white transition-colors"
               >
                 Fechar
               </button>

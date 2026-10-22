@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --color-bg: #FEFEFE;
-  --color-surface: #FAE7E7;
-  --color-primary: #CF7C89;
-  --color-secondary: #AA8B97;
-  --color-text: #0E0606;
+  --color-bg: #FFFFFF;
+  --color-surface: #F4F4F5;
+  --color-primary: #18181B;
+  --color-secondary: #71717A;
+  --color-text: #09090B;
 }
 
 @layer base {
@@ -18,18 +18,18 @@
   }
 }
 
-/* Scrollbar limpa e discreta */
+/* Scrollbar neutra e discreta */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #FAFAFA;
+  background: #F4F4F5;
 }
 ::-webkit-scrollbar-thumb {
-  background: #EED9DC;
+  background: #D4D4D8;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #CF7C89;
+  background: #A1A1AA;
 }

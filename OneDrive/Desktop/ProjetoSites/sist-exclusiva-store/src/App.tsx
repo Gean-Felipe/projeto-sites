@@ -252,14 +252,22 @@ export function App() {
     StockService.resetToDemoData();
     refreshData();
     setIsResetConfirmOpen(false);
-    showToast('info', 'Os dados originais da Exclusiva Store foram restaurados.', 'Demonstração Reiniciada');
+    showToast('info', 'Os dados de exemplo da Exclusiva Store foram carregados.', 'Demonstração Ativada');
+  };
+
+  // Zerar todo o estoque (iniciar 100% limpo)
+  const handleConfirmClearAll = () => {
+    StockService.clearAllData();
+    refreshData();
+    setIsResetConfirmOpen(false);
+    showToast('success', 'Todas as mercadorias e movimentações foram zeradas. O sistema está limpo para novos cadastros.', 'Estoque Zerado com Sucesso');
   };
 
   // Produtos críticos para o dashboard
   const criticalProducts = products.filter(p => p.quantity <= p.minStock);
 
   return (
-    <div className="flex min-h-screen bg-[#FEFEFE] text-[#0E0606] font-sans">
+    <div className="flex min-h-screen bg-white text-zinc-900 font-sans">
       {/* Notificações Toast */}
       <ToastContainer toasts={toasts} onRemove={removeToast} />
 
@@ -296,6 +304,7 @@ export function App() {
               metrics={metrics}
               recentMovements={movements}
               criticalProducts={criticalProducts}
+              products={products}
               onNavigate={handleNavigate}
               onOpenNewProduct={() => setActivePage('products')}
               onQuickEntry={handleQuickEntry}
@@ -323,6 +332,7 @@ export function App() {
               activeTab={activeStockTab}
               onTabChange={setActiveStockTab}
               preselectedProductId={preselectedProductId}
+              onNavigateToProducts={() => setActivePage('products')}
               onRegisterEntry={handleRegisterEntry}
               onRegisterExit={handleRegisterExit}
               onRegisterLoss={handleRegisterLoss}
@@ -340,32 +350,51 @@ export function App() {
         </main>
       </div>
 
-      {/* Modal de Confirmação: Restaurar Dados Demo */}
+      {/* Modal de Gestão de Dados: Zerar ou Restaurar */}
       <Modal
         isOpen={isResetConfirmOpen}
         onClose={() => setIsResetConfirmOpen(false)}
-        title="Restaurar Dados de Demonstração?"
-        subtitle="Exclusiva Store — Reiniciar cenário"
+        title="Gerenciamento da Base de Dados"
+        subtitle="Exclusiva Store — Limpeza ou Demonstração"
         maxWidth="md"
       >
         <div className="space-y-4 text-xs">
-          <p className="text-[#7A5B67] leading-relaxed">
-            Deseja restaurar o catálogo e as movimentações para o estado inicial padrão? 
-            Esta ação é útil para reiniciar os testes e demonstrar o sistema do zero.
+          <p className="text-zinc-600 leading-relaxed">
+            Escolha como deseja configurar o sistema:
           </p>
 
-          <div className="pt-3 flex items-center justify-end gap-2.5 border-t border-[#EED9DC]">
+          <div className="p-3.5 rounded-lg bg-zinc-50 border border-zinc-200 space-y-1">
+            <strong className="text-zinc-900 block font-semibold">Opção 1: Zerar Tudo (Iniciar Loja Real)</strong>
+            <p className="text-zinc-500 text-[11px]">
+              Remove todos os produtos, movimentações e recebimentos. Deixa o sistema 100% limpo para você cadastrar as mercadorias reais da sua loja.
+            </p>
+          </div>
+
+          <div className="p-3.5 rounded-lg bg-zinc-50 border border-zinc-200 space-y-1">
+            <strong className="text-zinc-900 block font-semibold">Opção 2: Carregar Demonstração</strong>
+            <p className="text-zinc-500 text-[11px]">
+              Carrega produtos e histórico fictícios para você demonstrar a aplicação com dados preenchidos.
+            </p>
+          </div>
+
+          <div className="pt-3 flex flex-wrap items-center justify-end gap-2.5 border-t border-zinc-200">
             <button
               onClick={() => setIsResetConfirmOpen(false)}
-              className="px-4 py-2 rounded-lg text-xs font-medium text-[#7A5B67] hover:bg-[#FAE7E7] transition-colors"
+              className="px-3.5 py-2 rounded-lg text-xs font-medium text-zinc-600 hover:bg-zinc-100 border border-zinc-200 transition-colors"
             >
               Cancelar
             </button>
             <button
               onClick={handleConfirmResetDemo}
-              className="px-4 py-2 rounded-lg text-xs font-semibold bg-[#CF7C89] hover:bg-[#BE6B78] text-[#FEFEFE] transition-colors shadow-2xs"
+              className="px-3.5 py-2 rounded-lg text-xs font-medium text-zinc-700 hover:bg-zinc-100 border border-zinc-200 transition-colors"
             >
-              Sim, Restaurar Demonstração
+              Carregar Demo
+            </button>
+            <button
+              onClick={handleConfirmClearAll}
+              className="px-4 py-2 rounded-lg text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 text-white transition-colors shadow-xs"
+            >
+              Zerar Todo o Estoque (Limpo)
             </button>
           </div>
         </div>

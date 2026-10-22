@@ -6,9 +6,7 @@ import {
   Truck, 
   AlertTriangle, 
   CheckCircle2, 
-  Boxes,
-  Check,
-  Search
+  Check
 } from 'lucide-react';
 import { Product, Movement, Receiving, StockTab } from '../types/index.ts';
 
@@ -19,6 +17,7 @@ interface StockPageProps {
   activeTab: StockTab;
   onTabChange: (tab: StockTab) => void;
   preselectedProductId?: string;
+  onNavigateToProducts?: () => void;
   onRegisterEntry: (params: {
     productId: string;
     quantity: number;
@@ -55,15 +54,14 @@ interface StockPageProps {
 
 export const StockPage: React.FC<StockPageProps> = ({
   products,
-  recentMovements,
   receivings,
   activeTab,
   onTabChange,
   preselectedProductId,
+  onNavigateToProducts,
   onRegisterEntry,
   onRegisterExit,
   onRegisterLoss,
-  onCreateReceiving,
   onConfirmReceiving,
 }) => {
   const activeProducts = products.filter(p => p.status === 'active');
@@ -238,14 +236,14 @@ export const StockPage: React.FC<StockPageProps> = ({
 
   return (
     <div className="space-y-6">
-      {/* Abas Superiores de Estoque */}
-      <div className="bg-[#FAE7E7] border border-[#EED9DC] rounded-xl p-1.5 flex flex-wrap gap-1">
+      {/* Abas Superiores de Estoque Neutras */}
+      <div className="bg-zinc-100 border border-zinc-200 rounded-xl p-1 flex flex-wrap gap-1">
         <button
           onClick={() => onTabChange('entry')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-colors ${
+          className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-medium transition-colors ${
             activeTab === 'entry'
-              ? 'bg-[#CF7C89] text-[#FEFEFE] shadow-2xs'
-              : 'text-[#0E0606] hover:bg-[#FEFEFE]/60'
+              ? 'bg-zinc-900 text-white shadow-xs'
+              : 'text-zinc-600 hover:text-zinc-900 hover:bg-white/80'
           }`}
         >
           <ArrowDownToDot className="w-4 h-4" />
@@ -254,10 +252,10 @@ export const StockPage: React.FC<StockPageProps> = ({
 
         <button
           onClick={() => onTabChange('exit')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-colors ${
+          className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-medium transition-colors ${
             activeTab === 'exit'
-              ? 'bg-[#CF7C89] text-[#FEFEFE] shadow-2xs'
-              : 'text-[#0E0606] hover:bg-[#FEFEFE]/60'
+              ? 'bg-zinc-900 text-white shadow-xs'
+              : 'text-zinc-600 hover:text-zinc-900 hover:bg-white/80'
           }`}
         >
           <ArrowUpFromDot className="w-4 h-4" />
@@ -266,10 +264,10 @@ export const StockPage: React.FC<StockPageProps> = ({
 
         <button
           onClick={() => onTabChange('loss')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-colors ${
+          className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-medium transition-colors ${
             activeTab === 'loss'
-              ? 'bg-[#CF7C89] text-[#FEFEFE] shadow-2xs'
-              : 'text-[#0E0606] hover:bg-[#FEFEFE]/60'
+              ? 'bg-zinc-900 text-white shadow-xs'
+              : 'text-zinc-600 hover:text-zinc-900 hover:bg-white/80'
           }`}
         >
           <FileWarning className="w-4 h-4" />
@@ -278,10 +276,10 @@ export const StockPage: React.FC<StockPageProps> = ({
 
         <button
           onClick={() => onTabChange('receivings')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-colors ${
+          className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-medium transition-colors ${
             activeTab === 'receivings'
-              ? 'bg-[#CF7C89] text-[#FEFEFE] shadow-2xs'
-              : 'text-[#0E0606] hover:bg-[#FEFEFE]/60'
+              ? 'bg-zinc-900 text-white shadow-xs'
+              : 'text-zinc-600 hover:text-zinc-900 hover:bg-white/80'
           }`}
         >
           <Truck className="w-4 h-4" />
@@ -290,10 +288,10 @@ export const StockPage: React.FC<StockPageProps> = ({
 
         <button
           onClick={() => onTabChange('overview')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-colors ${
+          className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-medium transition-colors ${
             activeTab === 'overview'
-              ? 'bg-[#CF7C89] text-[#FEFEFE] shadow-2xs'
-              : 'text-[#0E0606] hover:bg-[#FEFEFE]/60'
+              ? 'bg-zinc-900 text-white shadow-xs'
+              : 'text-zinc-600 hover:text-zinc-900 hover:bg-white/80'
           }`}
         >
           <AlertTriangle className="w-4 h-4" />
@@ -304,9 +302,9 @@ export const StockPage: React.FC<StockPageProps> = ({
       {/* ABA 1: ENTRADA DE MERCADORIA */}
       {activeTab === 'entry' && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 bg-[#FEFEFE] border border-[#EED9DC] rounded-xl p-5 md:p-6">
-            <h2 className="text-base font-bold text-[#0E0606] mb-1">Registrar Entrada de Mercadoria</h2>
-            <p className="text-xs text-[#7A5B67] mb-5">
+          <div className="lg:col-span-2 bg-white border border-zinc-200 rounded-xl p-5 md:p-6 shadow-xs">
+            <h2 className="text-base font-bold text-zinc-900 mb-1">Registrar Entrada de Mercadoria</h2>
+            <p className="text-xs text-zinc-500 mb-5">
               Selecione o produto e informe as peças recebidas para incrementar o saldo automaticamente.
             </p>
 
@@ -322,13 +320,13 @@ export const StockPage: React.FC<StockPageProps> = ({
 
             <form onSubmit={handleEntrySubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-[#0E0606] mb-1">
-                  Produto <span className="text-[#CF7C89]">*</span>
+                <label className="block text-xs font-medium text-zinc-900 mb-1">
+                  Produto <span className="text-zinc-900">*</span>
                 </label>
                 <select
                   value={entryId}
                   onChange={e => setEntryId(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] focus:outline-none focus:border-[#CF7C89]"
+                  className="w-full px-3 py-2 rounded-lg text-xs bg-white border border-zinc-200 text-zinc-900 focus:outline-none focus:border-zinc-400"
                 >
                   {activeProducts.map(p => (
                     <option key={p.id} value={p.id}>
@@ -340,8 +338,8 @@ export const StockPage: React.FC<StockPageProps> = ({
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-medium text-[#0E0606] mb-1">
-                    Quantidade Recebida <span className="text-[#CF7C89]">*</span>
+                  <label className="block text-xs font-medium text-zinc-900 mb-1">
+                    Quantidade Recebida <span className="text-zinc-900">*</span>
                   </label>
                   <input
                     type="number"
@@ -349,12 +347,12 @@ export const StockPage: React.FC<StockPageProps> = ({
                     required
                     value={entryQty}
                     onChange={e => setEntryQty(Math.max(1, parseInt(e.target.value) || 0))}
-                    className="w-full px-3 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] focus:outline-none focus:border-[#CF7C89]"
+                    className="w-full px-3 py-2 rounded-lg text-xs bg-white border border-zinc-200 text-zinc-900 focus:outline-none focus:border-zinc-400"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-[#0E0606] mb-1">
+                  <label className="block text-xs font-medium text-zinc-900 mb-1">
                     Fornecedor ou Origem (Opcional)
                   </label>
                   <input
@@ -362,14 +360,14 @@ export const StockPage: React.FC<StockPageProps> = ({
                     value={entrySupplier}
                     onChange={e => setEntrySupplier(e.target.value)}
                     placeholder="Ex: Alfaiataria Moderna, Confecção Bella..."
-                    className="w-full px-3 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] focus:outline-none focus:border-[#CF7C89]"
+                    className="w-full px-3 py-2 rounded-lg text-xs bg-white border border-zinc-200 text-zinc-900 focus:outline-none focus:border-zinc-400"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-medium text-[#0E0606] mb-1">
+                  <label className="block text-xs font-medium text-zinc-900 mb-1">
                     Documento / NF-e (Opcional)
                   </label>
                   <input
@@ -377,12 +375,12 @@ export const StockPage: React.FC<StockPageProps> = ({
                     value={entryDoc}
                     onChange={e => setEntryDoc(e.target.value)}
                     placeholder="Ex: NF 1024 / Romaneio 88"
-                    className="w-full px-3 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] focus:outline-none focus:border-[#CF7C89]"
+                    className="w-full px-3 py-2 rounded-lg text-xs bg-white border border-zinc-200 text-zinc-900 focus:outline-none focus:border-zinc-400"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-[#0E0606] mb-1">
+                  <label className="block text-xs font-medium text-zinc-900 mb-1">
                     Observações Internas (Opcional)
                   </label>
                   <input
@@ -390,15 +388,15 @@ export const StockPage: React.FC<StockPageProps> = ({
                     value={entryNotes}
                     onChange={e => setEntryNotes(e.target.value)}
                     placeholder="Ex: Lote de reposição de inverno"
-                    className="w-full px-3 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] focus:outline-none focus:border-[#CF7C89]"
+                    className="w-full px-3 py-2 rounded-lg text-xs bg-white border border-zinc-200 text-zinc-900 focus:outline-none focus:border-zinc-400"
                   />
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-[#EED9DC] flex items-center justify-end">
+              <div className="pt-3 border-t border-zinc-200 flex items-center justify-end">
                 <button
                   type="submit"
-                  className="px-5 py-2.5 rounded-lg text-xs font-semibold bg-[#CF7C89] hover:bg-[#BE6B78] text-[#FEFEFE] transition-colors shadow-2xs"
+                  className="px-5 py-2 rounded-lg text-xs font-semibold bg-zinc-900 hover:bg-zinc-800 text-white transition-colors shadow-xs"
                 >
                   Confirmar Entrada de Mercadoria
                 </button>
@@ -407,44 +405,44 @@ export const StockPage: React.FC<StockPageProps> = ({
           </div>
 
           {/* Painel Lateral: Resumo de Conferência da Entrada */}
-          <div className="bg-[#FAE7E7] border border-[#EED9DC] rounded-xl p-5 flex flex-col justify-between">
+          <div className="bg-zinc-50 border border-zinc-200 rounded-xl p-5 flex flex-col justify-between shadow-xs">
             <div>
-              <h3 className="text-xs font-bold text-[#0E0606] uppercase tracking-wide mb-3">
+              <h3 className="text-xs font-bold text-zinc-900 uppercase tracking-wide mb-3">
                 Conferência da Entrada
               </h3>
 
               {selectedEntryProd ? (
                 <div className="space-y-3 text-xs">
                   <div>
-                    <span className="text-[#7A5B67] text-[11px] block">Produto Selecionado</span>
-                    <strong className="text-[#0E0606] text-sm block">{selectedEntryProd.name}</strong>
-                    <span className="text-[11px] font-mono text-[#7A5B67]">SKU: {selectedEntryProd.sku}</span>
+                    <span className="text-zinc-500 text-[11px] block">Produto Selecionado</span>
+                    <strong className="text-zinc-900 text-sm block">{selectedEntryProd.name}</strong>
+                    <span className="text-[11px] font-mono text-zinc-400">SKU: {selectedEntryProd.sku}</span>
                   </div>
 
-                  <div className="pt-2 border-t border-[#EED9DC]/60 grid grid-cols-2 gap-2">
-                    <div className="p-2.5 rounded-lg bg-[#FEFEFE] border border-[#EED9DC]">
-                      <span className="text-[10px] text-[#7A5B67] block">Estoque Atual</span>
-                      <strong className="text-sm text-[#0E0606]">{entryCurrentStock} un.</strong>
+                  <div className="pt-2 border-t border-zinc-200 grid grid-cols-2 gap-2">
+                    <div className="p-2.5 rounded-lg bg-white border border-zinc-200">
+                      <span className="text-[10px] text-zinc-500 block">Estoque Atual</span>
+                      <strong className="text-sm text-zinc-900">{entryCurrentStock} un.</strong>
                     </div>
 
-                    <div className="p-2.5 rounded-lg bg-[#FEFEFE] border border-[#EED9DC]">
-                      <span className="text-[10px] text-[#7A5B67] block">Entrada Informada</span>
+                    <div className="p-2.5 rounded-lg bg-white border border-zinc-200">
+                      <span className="text-[10px] text-zinc-500 block">Entrada Informada</span>
                       <strong className="text-sm text-emerald-800">+{entryQty || 0} un.</strong>
                     </div>
                   </div>
 
-                  <div className="p-3 rounded-lg bg-[#FEFEFE] border border-[#EED9DC] text-center">
-                    <span className="text-[11px] text-[#7A5B67] block">Saldo Resultante no Estoque</span>
-                    <strong className="text-xl font-bold text-[#0E0606]">{entrySimulatedStock} peças</strong>
+                  <div className="p-3 rounded-lg bg-white border border-zinc-200 text-center">
+                    <span className="text-[11px] text-zinc-500 block">Saldo Resultante no Estoque</span>
+                    <strong className="text-xl font-bold text-zinc-900">{entrySimulatedStock} peças</strong>
                   </div>
                 </div>
               ) : (
-                <p className="text-xs text-[#7A5B67]">Nenhum produto selecionado.</p>
+                <p className="text-xs text-zinc-500">Nenhum produto selecionado.</p>
               )}
             </div>
 
-            <p className="text-[11px] text-[#7A5B67] mt-4 pt-3 border-t border-[#EED9DC]/60">
-              O sistema registrará data, hora, saldo anterior e novo saldo no histórico inviolável de auditoria.
+            <p className="text-[11px] text-zinc-400 mt-4 pt-3 border-t border-zinc-200">
+              O sistema registrará data, hora, saldo anterior e novo saldo no histórico de auditoria.
             </p>
           </div>
         </div>
@@ -453,10 +451,10 @@ export const StockPage: React.FC<StockPageProps> = ({
       {/* ABA 2: SAÍDA DE MERCADORIA */}
       {activeTab === 'exit' && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 bg-[#FEFEFE] border border-[#EED9DC] rounded-xl p-5 md:p-6">
-            <h2 className="text-base font-bold text-[#0E0606] mb-1">Registrar Saída de Mercadoria</h2>
-            <p className="text-xs text-[#7A5B67] mb-5">
-              Informe a quantidade que sairá do estoque. O sistema bloqueia automaticamente qualquer saída que resulte em saldo negativo.
+          <div className="lg:col-span-2 bg-white border border-zinc-200 rounded-xl p-5 md:p-6 shadow-xs">
+            <h2 className="text-base font-bold text-zinc-900 mb-1">Registrar Saída de Mercadoria</h2>
+            <p className="text-xs text-zinc-500 mb-5">
+              Informe a quantidade que sairá do estoque. O sistema bloqueia automaticamente saídas com saldo insuficiente.
             </p>
 
             {exitFeedback && (
@@ -471,13 +469,13 @@ export const StockPage: React.FC<StockPageProps> = ({
 
             <form onSubmit={handleExitSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-[#0E0606] mb-1">
-                  Produto <span className="text-[#CF7C89]">*</span>
+                <label className="block text-xs font-medium text-zinc-900 mb-1">
+                  Produto <span className="text-zinc-900">*</span>
                 </label>
                 <select
                   value={exitId}
                   onChange={e => setExitId(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] focus:outline-none focus:border-[#CF7C89]"
+                  className="w-full px-3 py-2 rounded-lg text-xs bg-white border border-zinc-200 text-zinc-900 focus:outline-none focus:border-zinc-400"
                 >
                   {activeProducts.map(p => (
                     <option key={p.id} value={p.id}>
@@ -489,8 +487,8 @@ export const StockPage: React.FC<StockPageProps> = ({
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-medium text-[#0E0606] mb-1">
-                    Quantidade de Saída <span className="text-[#CF7C89]">*</span>
+                  <label className="block text-xs font-medium text-zinc-900 mb-1">
+                    Quantidade de Saída <span className="text-zinc-900">*</span>
                   </label>
                   <input
                     type="number"
@@ -498,7 +496,7 @@ export const StockPage: React.FC<StockPageProps> = ({
                     required
                     value={exitQty}
                     onChange={e => setExitQty(Math.max(1, parseInt(e.target.value) || 0))}
-                    className="w-full px-3 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] focus:outline-none focus:border-[#CF7C89]"
+                    className="w-full px-3 py-2 rounded-lg text-xs bg-white border border-zinc-200 text-zinc-900 focus:outline-none focus:border-zinc-400"
                   />
                   {isExitExceeded && (
                     <p className="text-[11px] text-rose-700 font-medium mt-1">
@@ -508,13 +506,13 @@ export const StockPage: React.FC<StockPageProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-[#0E0606] mb-1">
-                    Motivo da Saída <span className="text-[#CF7C89]">*</span>
+                  <label className="block text-xs font-medium text-zinc-900 mb-1">
+                    Motivo da Saída <span className="text-zinc-900">*</span>
                   </label>
                   <select
                     value={exitReason}
                     onChange={e => setExitReason(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] focus:outline-none focus:border-[#CF7C89]"
+                    className="w-full px-3 py-2 rounded-lg text-xs bg-white border border-zinc-200 text-zinc-900 focus:outline-none focus:border-zinc-400"
                   >
                     <option value="Venda balcão loja física">Venda balcão loja física</option>
                     <option value="Venda online / WhatsApp">Venda online / WhatsApp</option>
@@ -526,7 +524,7 @@ export const StockPage: React.FC<StockPageProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-[#0E0606] mb-1">
+                <label className="block text-xs font-medium text-zinc-900 mb-1">
                   Documento ou Cupom (Opcional)
                 </label>
                 <input
@@ -534,18 +532,18 @@ export const StockPage: React.FC<StockPageProps> = ({
                   value={exitDoc}
                   onChange={e => setExitDoc(e.target.value)}
                   placeholder="Ex: Cupom 402, Pedido #891..."
-                  className="w-full px-3 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] focus:outline-none focus:border-[#CF7C89]"
+                  className="w-full px-3 py-2 rounded-lg text-xs bg-white border border-zinc-200 text-zinc-900 focus:outline-none focus:border-zinc-400"
                 />
               </div>
 
-              <div className="pt-3 border-t border-[#EED9DC] flex items-center justify-end">
+              <div className="pt-3 border-t border-zinc-200 flex items-center justify-end">
                 <button
                   type="submit"
                   disabled={isExitExceeded}
-                  className={`px-5 py-2.5 rounded-lg text-xs font-semibold transition-colors shadow-2xs ${
+                  className={`px-5 py-2 rounded-lg text-xs font-semibold transition-colors shadow-xs ${
                     isExitExceeded
-                      ? 'bg-[#EED9DC] text-[#7A5B67] cursor-not-allowed'
-                      : 'bg-[#CF7C89] hover:bg-[#BE6B78] text-[#FEFEFE]'
+                      ? 'bg-zinc-200 text-zinc-400 cursor-not-allowed'
+                      : 'bg-zinc-900 hover:bg-zinc-800 text-white'
                   }`}
                 >
                   Confirmar Saída de Mercadoria
@@ -555,49 +553,49 @@ export const StockPage: React.FC<StockPageProps> = ({
           </div>
 
           {/* Painel Lateral: Validação e Saldo Restante */}
-          <div className="bg-[#FAE7E7] border border-[#EED9DC] rounded-xl p-5 flex flex-col justify-between">
+          <div className="bg-zinc-50 border border-zinc-200 rounded-xl p-5 flex flex-col justify-between shadow-xs">
             <div>
-              <h3 className="text-xs font-bold text-[#0E0606] uppercase tracking-wide mb-3">
+              <h3 className="text-xs font-bold text-zinc-900 uppercase tracking-wide mb-3">
                 Conferência da Saída
               </h3>
 
               {selectedExitProd ? (
                 <div className="space-y-3 text-xs">
                   <div>
-                    <span className="text-[#7A5B67] text-[11px] block">Produto</span>
-                    <strong className="text-[#0E0606] text-sm block">{selectedExitProd.name}</strong>
-                    <span className="text-[11px] font-mono text-[#7A5B67]">SKU: {selectedExitProd.sku}</span>
+                    <span className="text-zinc-500 text-[11px] block">Produto</span>
+                    <strong className="text-zinc-900 text-sm block">{selectedExitProd.name}</strong>
+                    <span className="text-[11px] font-mono text-zinc-400">SKU: {selectedExitProd.sku}</span>
                   </div>
 
-                  <div className="pt-2 border-t border-[#EED9DC]/60 grid grid-cols-2 gap-2">
-                    <div className="p-2.5 rounded-lg bg-[#FEFEFE] border border-[#EED9DC]">
-                      <span className="text-[10px] text-[#7A5B67] block">Disponível</span>
-                      <strong className="text-sm text-[#0E0606]">{exitCurrentStock} un.</strong>
+                  <div className="pt-2 border-t border-zinc-200 grid grid-cols-2 gap-2">
+                    <div className="p-2.5 rounded-lg bg-white border border-zinc-200">
+                      <span className="text-[10px] text-zinc-500 block">Disponível</span>
+                      <strong className="text-sm text-zinc-900">{exitCurrentStock} un.</strong>
                     </div>
 
-                    <div className="p-2.5 rounded-lg bg-[#FEFEFE] border border-[#EED9DC]">
-                      <span className="text-[10px] text-[#7A5B67] block">Saída Prevista</span>
-                      <strong className={`text-sm ${isExitExceeded ? 'text-rose-700' : 'text-[#0E0606]'}`}>
+                    <div className="p-2.5 rounded-lg bg-white border border-zinc-200">
+                      <span className="text-[10px] text-zinc-500 block">Saída Prevista</span>
+                      <strong className={`text-sm ${isExitExceeded ? 'text-rose-700' : 'text-zinc-900'}`}>
                         -{exitQty || 0} un.
                       </strong>
                     </div>
                   </div>
 
                   <div className={`p-3 rounded-lg border text-center ${
-                    isExitExceeded ? 'bg-rose-50 border-rose-200' : 'bg-[#FEFEFE] border-[#EED9DC]'
+                    isExitExceeded ? 'bg-rose-50 border-rose-200' : 'bg-white border-zinc-200'
                   }`}>
-                    <span className="text-[11px] text-[#7A5B67] block">Saldo Restante</span>
-                    <strong className={`text-xl font-bold ${isExitExceeded ? 'text-rose-700' : 'text-[#0E0606]'}`}>
+                    <span className="text-[11px] text-zinc-500 block">Saldo Restante</span>
+                    <strong className={`text-xl font-bold ${isExitExceeded ? 'text-rose-700' : 'text-zinc-900'}`}>
                       {exitSimulatedStock} peças
                     </strong>
                   </div>
                 </div>
               ) : (
-                <p className="text-xs text-[#7A5B67]">Nenhum produto selecionado.</p>
+                <p className="text-xs text-zinc-500">Nenhum produto selecionado.</p>
               )}
             </div>
 
-            <p className="text-[11px] text-[#7A5B67] mt-4 pt-3 border-t border-[#EED9DC]/60">
+            <p className="text-[11px] text-zinc-400 mt-4 pt-3 border-t border-zinc-200">
               Operações de saída reduzem o estoque imediatamente e preservam o número do documento no histórico.
             </p>
           </div>
@@ -607,9 +605,9 @@ export const StockPage: React.FC<StockPageProps> = ({
       {/* ABA 3: BAIXA DE MERCADORIA */}
       {activeTab === 'loss' && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 bg-[#FEFEFE] border border-[#EED9DC] rounded-xl p-5 md:p-6">
-            <h2 className="text-base font-bold text-[#0E0606] mb-1">Registrar Baixa de Mercadoria</h2>
-            <p className="text-xs text-[#7A5B67] mb-5">
+          <div className="lg:col-span-2 bg-white border border-zinc-200 rounded-xl p-5 md:p-6 shadow-xs">
+            <h2 className="text-base font-bold text-zinc-900 mb-1">Registrar Baixa de Mercadoria</h2>
+            <p className="text-xs text-zinc-500 mb-5">
               Utilize esta opção para descartar peças danificadas, avariadas ou com defeito de fábrica, mantendo a rastreabilidade da perda.
             </p>
 
@@ -625,13 +623,13 @@ export const StockPage: React.FC<StockPageProps> = ({
 
             <form onSubmit={handleLossSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-medium text-[#0E0606] mb-1">
-                  Produto para Baixa <span className="text-[#CF7C89]">*</span>
+                <label className="block text-xs font-medium text-zinc-900 mb-1">
+                  Produto para Baixa <span className="text-zinc-900">*</span>
                 </label>
                 <select
                   value={lossId}
                   onChange={e => setLossId(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] focus:outline-none focus:border-[#CF7C89]"
+                  className="w-full px-3 py-2 rounded-lg text-xs bg-white border border-zinc-200 text-zinc-900 focus:outline-none focus:border-zinc-400"
                 >
                   {activeProducts.map(p => (
                     <option key={p.id} value={p.id}>
@@ -643,8 +641,8 @@ export const StockPage: React.FC<StockPageProps> = ({
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-medium text-[#0E0606] mb-1">
-                    Quantidade a Baixar <span className="text-[#CF7C89]">*</span>
+                  <label className="block text-xs font-medium text-zinc-900 mb-1">
+                    Quantidade a Baixar <span className="text-zinc-900">*</span>
                   </label>
                   <input
                     type="number"
@@ -652,18 +650,18 @@ export const StockPage: React.FC<StockPageProps> = ({
                     required
                     value={lossQty}
                     onChange={e => setLossQty(Math.max(1, parseInt(e.target.value) || 0))}
-                    className="w-full px-3 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] focus:outline-none focus:border-[#CF7C89]"
+                    className="w-full px-3 py-2 rounded-lg text-xs bg-white border border-zinc-200 text-zinc-900 focus:outline-none focus:border-zinc-400"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-[#0E0606] mb-1">
-                    Motivo da Baixa <span className="text-[#CF7C89]">*</span>
+                  <label className="block text-xs font-medium text-zinc-900 mb-1">
+                    Motivo da Baixa <span className="text-zinc-900">*</span>
                   </label>
                   <select
                     value={lossReason}
                     onChange={e => setLossReason(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] focus:outline-none focus:border-[#CF7C89]"
+                    className="w-full px-3 py-2 rounded-lg text-xs bg-white border border-zinc-200 text-zinc-900 focus:outline-none focus:border-zinc-400"
                   >
                     <option value="Produto com defeito de fabricação">Produto com defeito de fabricação</option>
                     <option value="Avaria ou dano durante manuseio">Avaria ou dano durante manuseio</option>
@@ -675,7 +673,7 @@ export const StockPage: React.FC<StockPageProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-medium text-[#0E0606] mb-1">
+                <label className="block text-xs font-medium text-zinc-900 mb-1">
                   Detalhes da Avaria ou Laudo (Opcional)
                 </label>
                 <textarea
@@ -683,18 +681,18 @@ export const StockPage: React.FC<StockPageProps> = ({
                   value={lossNotes}
                   onChange={e => setLossNotes(e.target.value)}
                   placeholder="Ex: Zíper travado, costura rompida no acabamento..."
-                  className="w-full px-3 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] focus:outline-none focus:border-[#CF7C89]"
+                  className="w-full px-3 py-2 rounded-lg text-xs bg-white border border-zinc-200 text-zinc-900 focus:outline-none focus:border-zinc-400"
                 />
               </div>
 
-              <div className="pt-3 border-t border-[#EED9DC] flex items-center justify-end">
+              <div className="pt-3 border-t border-zinc-200 flex items-center justify-end">
                 <button
                   type="submit"
                   disabled={isLossExceeded}
-                  className={`px-5 py-2.5 rounded-lg text-xs font-semibold transition-colors shadow-2xs ${
+                  className={`px-5 py-2 rounded-lg text-xs font-semibold transition-colors shadow-xs ${
                     isLossExceeded
-                      ? 'bg-[#EED9DC] text-[#7A5B67] cursor-not-allowed'
-                      : 'bg-rose-700 hover:bg-rose-800 text-[#FEFEFE]'
+                      ? 'bg-zinc-200 text-zinc-400 cursor-not-allowed'
+                      : 'bg-rose-700 hover:bg-rose-800 text-white'
                   }`}
                 >
                   Confirmar Baixa de Mercadoria
@@ -703,43 +701,43 @@ export const StockPage: React.FC<StockPageProps> = ({
             </form>
           </div>
 
-          <div className="bg-[#FAE7E7] border border-[#EED9DC] rounded-xl p-5 flex flex-col justify-between">
+          <div className="bg-zinc-50 border border-zinc-200 rounded-xl p-5 flex flex-col justify-between shadow-xs">
             <div>
-              <h3 className="text-xs font-bold text-[#0E0606] uppercase tracking-wide mb-3">
+              <h3 className="text-xs font-bold text-zinc-900 uppercase tracking-wide mb-3">
                 Conferência da Baixa
               </h3>
 
               {selectedLossProd ? (
                 <div className="space-y-3 text-xs">
                   <div>
-                    <span className="text-[#7A5B67] text-[11px] block">Produto</span>
-                    <strong className="text-[#0E0606] text-sm block">{selectedLossProd.name}</strong>
-                    <span className="text-[11px] font-mono text-[#7A5B67]">SKU: {selectedLossProd.sku}</span>
+                    <span className="text-zinc-500 text-[11px] block">Produto</span>
+                    <strong className="text-zinc-900 text-sm block">{selectedLossProd.name}</strong>
+                    <span className="text-[11px] font-mono text-zinc-400">SKU: {selectedLossProd.sku}</span>
                   </div>
 
-                  <div className="pt-2 border-t border-[#EED9DC]/60 grid grid-cols-2 gap-2">
-                    <div className="p-2.5 rounded-lg bg-[#FEFEFE] border border-[#EED9DC]">
-                      <span className="text-[10px] text-[#7A5B67] block">Estoque Atual</span>
-                      <strong className="text-sm text-[#0E0606]">{lossCurrentStock} un.</strong>
+                  <div className="pt-2 border-t border-zinc-200 grid grid-cols-2 gap-2">
+                    <div className="p-2.5 rounded-lg bg-white border border-zinc-200">
+                      <span className="text-[10px] text-zinc-500 block">Estoque Atual</span>
+                      <strong className="text-sm text-zinc-900">{lossCurrentStock} un.</strong>
                     </div>
 
-                    <div className="p-2.5 rounded-lg bg-[#FEFEFE] border border-[#EED9DC]">
-                      <span className="text-[10px] text-[#7A5B67] block">Baixa Registrada</span>
+                    <div className="p-2.5 rounded-lg bg-white border border-zinc-200">
+                      <span className="text-[10px] text-zinc-500 block">Baixa Registrada</span>
                       <strong className="text-sm text-rose-700">-{lossQty || 0} un.</strong>
                     </div>
                   </div>
 
-                  <div className="p-3 rounded-lg bg-[#FEFEFE] border border-[#EED9DC] text-center">
-                    <span className="text-[11px] text-[#7A5B67] block">Saldo Após Baixa</span>
-                    <strong className="text-xl font-bold text-[#0E0606]">{lossSimulatedStock} peças</strong>
+                  <div className="p-3 rounded-lg bg-white border border-zinc-200 text-center">
+                    <span className="text-[11px] text-zinc-500 block">Saldo Após Baixa</span>
+                    <strong className="text-xl font-bold text-zinc-900">{lossSimulatedStock} peças</strong>
                   </div>
                 </div>
               ) : (
-                <p className="text-xs text-[#7A5B67]">Nenhum produto selecionado.</p>
+                <p className="text-xs text-zinc-500">Nenhum produto selecionado.</p>
               )}
             </div>
 
-            <p className="text-[11px] text-[#7A5B67] mt-4 pt-3 border-t border-[#EED9DC]/60">
+            <p className="text-[11px] text-zinc-400 mt-4 pt-3 border-t border-zinc-200">
               A baixa é categorizada separadamente de saídas comuns para facilitar o acompanhamento de perdas da loja.
             </p>
           </div>
@@ -749,11 +747,11 @@ export const StockPage: React.FC<StockPageProps> = ({
       {/* ABA 4: RECEBIMENTO DE CARGAS */}
       {activeTab === 'receivings' && (
         <div className="space-y-6">
-          <div className="bg-[#FEFEFE] border border-[#EED9DC] rounded-xl p-5 md:p-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#EED9DC]">
+          <div className="bg-white border border-zinc-200 rounded-xl p-5 md:p-6 shadow-xs">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-zinc-200">
               <div>
-                <h2 className="text-base font-bold text-[#0E0606]">Recebimentos & Conferência de Cargas</h2>
-                <p className="text-xs text-[#7A5B67] mt-0.5">
+                <h2 className="text-base font-bold text-zinc-900">Recebimentos & Conferência de Cargas</h2>
+                <p className="text-xs text-zinc-500 mt-0.5">
                   Conferência de lotes e notas fiscais com trava de segurança contra entradas duplicadas.
                 </p>
               </div>
@@ -761,7 +759,7 @@ export const StockPage: React.FC<StockPageProps> = ({
 
             <div className="mt-4 space-y-4">
               {receivings.length === 0 ? (
-                <p className="text-xs text-[#7A5B67] text-center py-6">
+                <p className="text-xs text-zinc-500 text-center py-6">
                   Nenhuma carga de recebimento registrada no sistema.
                 </p>
               ) : (
@@ -772,28 +770,28 @@ export const StockPage: React.FC<StockPageProps> = ({
                   return (
                     <div
                       key={rec.id}
-                      className="p-4 rounded-xl border border-[#EED9DC] bg-[#FAE7E7]/40 flex flex-col md:flex-row md:items-center justify-between gap-4"
+                      className="p-4 rounded-xl border border-zinc-200 bg-zinc-50/60 flex flex-col md:flex-row md:items-center justify-between gap-4"
                     >
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
-                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
                             isPending
-                              ? 'bg-amber-100 text-amber-800 border border-amber-200'
-                              : 'bg-emerald-100 text-emerald-800 border border-emerald-200'
+                              ? 'bg-amber-50 text-amber-800 border-amber-200'
+                              : 'bg-emerald-50 text-emerald-800 border-emerald-200'
                           }`}>
                             {isPending ? 'Pendente de Conferência' : 'Confirmado no Estoque'}
                           </span>
-                          <span className="font-mono text-xs font-bold text-[#0E0606]">{rec.code}</span>
+                          <span className="font-mono text-xs font-bold text-zinc-900">{rec.code}</span>
                           {rec.referenceDoc && (
-                            <span className="text-xs text-[#7A5B67]">• {rec.referenceDoc}</span>
+                            <span className="text-xs text-zinc-500">• {rec.referenceDoc}</span>
                           )}
                         </div>
 
-                        <div className="text-xs text-[#0E0606] font-medium">
+                        <div className="text-xs text-zinc-900 font-medium">
                           Fornecedor: <span className="font-semibold">{rec.supplier}</span>
                         </div>
 
-                        <div className="text-[11px] text-[#7A5B67]">
+                        <div className="text-[11px] text-zinc-500">
                           Itens da Carga ({rec.items.length}):{' '}
                           {rec.items.map(it => `${it.productName} (+${it.quantity} un.)`).join(', ')}
                         </div>
@@ -807,14 +805,14 @@ export const StockPage: React.FC<StockPageProps> = ({
 
                       <div className="flex items-center gap-3 shrink-0">
                         <div className="text-right hidden sm:block">
-                          <span className="text-[10px] text-[#7A5B67] uppercase block">Total da Carga</span>
-                          <span className="text-sm font-bold text-[#0E0606]">{totalItemsQty} peças</span>
+                          <span className="text-[10px] text-zinc-500 uppercase block">Total da Carga</span>
+                          <span className="text-sm font-bold text-zinc-900">{totalItemsQty} peças</span>
                         </div>
 
                         {isPending ? (
                           <button
                             onClick={() => onConfirmReceiving(rec.id)}
-                            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#CF7C89] hover:bg-[#BE6B78] text-[#FEFEFE] text-xs font-semibold transition-colors shadow-2xs"
+                            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold transition-colors shadow-xs"
                             title="Confirmar carga e alimentar o estoque"
                           >
                             <Check className="w-4 h-4" />
@@ -839,9 +837,9 @@ export const StockPage: React.FC<StockPageProps> = ({
       {/* ABA 5: CONSULTA & ALERTAS */}
       {activeTab === 'overview' && (
         <div className="space-y-6">
-          <div className="bg-[#FEFEFE] border border-[#EED9DC] rounded-xl p-5 md:p-6">
-            <h2 className="text-base font-bold text-[#0E0606] mb-1">Produtos que Precisam de Reposição</h2>
-            <p className="text-xs text-[#7A5B67] mb-5">
+          <div className="bg-white border border-zinc-200 rounded-xl p-5 md:p-6 shadow-xs">
+            <h2 className="text-base font-bold text-zinc-900 mb-1">Produtos que Precisam de Reposição</h2>
+            <p className="text-xs text-zinc-500 mb-5">
               Supervisão de produtos com estoque zerado ou em quantidade igual ou inferior ao estoque mínimo.
             </p>
 
@@ -853,7 +851,7 @@ export const StockPage: React.FC<StockPageProps> = ({
                 </h3>
 
                 {outOfStockProducts.length === 0 ? (
-                  <p className="text-xs text-[#7A5B67] p-3 rounded-lg bg-[#FAE7E7]/40 border border-[#EED9DC]">
+                  <p className="text-xs text-zinc-500 p-3 rounded-lg bg-zinc-50 border border-zinc-200">
                     Nenhum produto com estoque zerado na loja.
                   </p>
                 ) : (
@@ -861,18 +859,18 @@ export const StockPage: React.FC<StockPageProps> = ({
                     {outOfStockProducts.map(p => (
                       <div
                         key={p.id}
-                        className="p-3.5 rounded-xl border border-rose-200 bg-rose-50/40 flex items-center justify-between gap-3"
+                        className="p-3.5 rounded-xl border border-rose-200 bg-rose-50/30 flex items-center justify-between gap-3"
                       >
                         <div>
-                          <strong className="text-xs font-bold text-[#0E0606] block">{p.name}</strong>
-                          <span className="text-[11px] font-mono text-[#7A5B67]">SKU: {p.sku} | Mínimo: {p.minStock} un.</span>
+                          <strong className="text-xs font-bold text-zinc-900 block">{p.name}</strong>
+                          <span className="text-[11px] font-mono text-zinc-500">SKU: {p.sku} | Mínimo: {p.minStock} un.</span>
                         </div>
                         <button
                           onClick={() => {
                             setEntryId(p.id);
                             onTabChange('entry');
                           }}
-                          className="px-3 py-1.5 rounded-lg bg-[#CF7C89] hover:bg-[#BE6B78] text-[#FEFEFE] text-xs font-semibold transition-colors"
+                          className="px-3 py-1.5 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-semibold transition-colors"
                         >
                           Repor Agora
                         </button>
@@ -883,13 +881,13 @@ export const StockPage: React.FC<StockPageProps> = ({
               </div>
 
               {/* Produtos com Estoque Baixo */}
-              <div className="pt-3 border-t border-[#EED9DC]">
+              <div className="pt-3 border-t border-zinc-200">
                 <h3 className="text-xs font-bold text-amber-800 uppercase tracking-wide mb-2 flex items-center gap-1.5">
                   <span>Produtos com Estoque Baixo ({lowStockProducts.length})</span>
                 </h3>
 
                 {lowStockProducts.length === 0 ? (
-                  <p className="text-xs text-[#7A5B67] p-3 rounded-lg bg-[#FAE7E7]/40 border border-[#EED9DC]">
+                  <p className="text-xs text-zinc-500 p-3 rounded-lg bg-zinc-50 border border-zinc-200">
                     Nenhum produto abaixo do limite de segurança.
                   </p>
                 ) : (
@@ -897,11 +895,11 @@ export const StockPage: React.FC<StockPageProps> = ({
                     {lowStockProducts.map(p => (
                       <div
                         key={p.id}
-                        className="p-3.5 rounded-xl border border-amber-200 bg-amber-50/40 flex items-center justify-between gap-3"
+                        className="p-3.5 rounded-xl border border-amber-200 bg-amber-50/30 flex items-center justify-between gap-3"
                       >
                         <div>
-                          <strong className="text-xs font-bold text-[#0E0606] block">{p.name}</strong>
-                          <span className="text-[11px] text-[#7A5B67]">
+                          <strong className="text-xs font-bold text-zinc-900 block">{p.name}</strong>
+                          <span className="text-[11px] text-zinc-500">
                             Restam: <strong className="text-amber-800">{p.quantity} un.</strong> (mínimo de segurança: {p.minStock} un.)
                           </span>
                         </div>
@@ -910,7 +908,7 @@ export const StockPage: React.FC<StockPageProps> = ({
                             setEntryId(p.id);
                             onTabChange('entry');
                           }}
-                          className="px-3 py-1.5 rounded-lg bg-[#FEFEFE] hover:bg-[#FAE7E7] text-[#0E0606] border border-[#EED9DC] text-xs font-semibold transition-colors"
+                          className="px-3 py-1.5 rounded-lg bg-white hover:bg-zinc-100 text-zinc-900 border border-zinc-200 text-xs font-semibold transition-colors"
                         >
                           Registrar Entrada
                         </button>
