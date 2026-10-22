@@ -29,8 +29,8 @@ export const Navbar: React.FC<NavbarProps> = ({
     switch (activePage) {
       case 'dashboard':
         return {
-          title: 'Dashboard de Gestão',
-          subtitle: 'Painel executivo com métricas financeiras, margem bruta e rentabilidade do estoque',
+          title: 'Visão Geral',
+          subtitle: 'Situação atual do estoque e atividades recentes da Exclusiva Store',
         };
       case 'products':
         return {
@@ -58,14 +58,14 @@ export const Navbar: React.FC<NavbarProps> = ({
   const { title, subtitle } = getPageInfo();
 
   return (
-    <header className="bg-white border-b border-zinc-200 px-4 md:px-8 py-3.5 sticky top-0 z-30">
+    <header className="bg-white border-b border-[#EAE0E3] px-4 md:px-8 py-3.5 sticky top-0 z-30">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         {/* Lado Esquerdo: Botão Mobile + Título */}
         <div className="flex items-center gap-3">
           {onToggleMobileMenu && (
             <button
               onClick={onToggleMobileMenu}
-              className="lg:hidden p-2 rounded-lg text-zinc-900 hover:bg-zinc-100 border border-zinc-200 transition-colors"
+              className="lg:hidden p-2 rounded-lg text-[#1F1719] hover:bg-[#FAF6F7] border border-[#E0D4D7] transition-colors"
               title="Abrir menu lateral"
               aria-label="Abrir menu lateral"
             >
@@ -74,27 +74,27 @@ export const Navbar: React.FC<NavbarProps> = ({
           )}
 
           <div>
-            <h2 className="text-base md:text-lg font-bold text-zinc-900 tracking-tight">
+            <h2 className="text-base md:text-lg font-bold text-[#1F1719] tracking-tight">
               {title}
             </h2>
-            <p className="text-xs text-zinc-500 mt-0.5">
+            <p className="text-xs text-[#78696F] mt-0.5">
               {subtitle}
             </p>
           </div>
         </div>
 
-        {/* Lado Direito: Resumo e Ações Rápidas */}
-        <div className="flex flex-wrap items-center gap-2">
-          {/* Indicador de Unidades Totais */}
-          <div className="hidden sm:flex items-center gap-3 px-3 py-1.5 rounded-lg bg-zinc-100 border border-zinc-200 text-xs font-medium text-zinc-900">
+        {/* Lado Direito: Resumo e Ações Rápidas (Exatamente como o usuário adorou) */}
+        <div className="flex flex-wrap items-center gap-2.5">
+          {/* Indicador de Unidades Totais (Rosa Enxuto / Clean) */}
+          <div className="hidden sm:flex items-center gap-3 px-3.5 py-1.5 rounded-lg bg-[#FAF6F7] border border-[#EAE0E3] text-xs font-medium text-[#1F1719]">
             <div>
-              <span className="text-zinc-500">Produtos:</span>{' '}
-              <strong className="font-semibold text-zinc-900">{totalProducts}</strong>
+              <span className="text-[#78696F]">Produtos:</span>{' '}
+              <strong className="font-bold text-[#1F1719]">{totalProducts}</strong>
             </div>
-            <span className="text-zinc-300">|</span>
+            <span className="text-[#EAE0E3]">|</span>
             <div>
-              <span className="text-zinc-500">Disponível:</span>{' '}
-              <strong className="font-semibold text-zinc-950">{totalUnits} un.</strong>
+              <span className="text-[#78696F]">Disponível:</span>{' '}
+              <strong className="font-bold text-[#9C4B5C]">{totalUnits} un.</strong>
             </div>
           </div>
 
@@ -102,7 +102,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="flex items-center gap-1.5">
             <button
               onClick={() => onNavigate('stock', 'entry')}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-zinc-900 hover:bg-zinc-800 text-white transition-colors shadow-xs"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-[#9C4B5C] hover:bg-[#863C4B] text-white transition-colors shadow-2xs"
               title="Registrar nova entrada de produtos"
             >
               <ArrowDownToDot className="w-3.5 h-3.5" />
@@ -111,31 +111,31 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             <button
               onClick={() => onNavigate('stock', 'exit')}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-white hover:bg-zinc-100 text-zinc-800 border border-zinc-200 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-white hover:bg-[#FAF6F7] text-[#1F1719] border border-[#E0D4D7] transition-colors"
               title="Registrar saída de produtos por venda ou transferência"
             >
-              <ArrowUpFromDot className="w-3.5 h-3.5 text-zinc-600" />
+              <ArrowUpFromDot className="w-3.5 h-3.5 text-[#9C4B5C]" />
               <span>Registrar Saída</span>
             </button>
 
             <button
               onClick={() => onNavigate('stock', 'loss')}
-              className="hidden md:flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-white hover:bg-zinc-100 text-zinc-800 border border-zinc-200 transition-colors"
+              className="hidden md:flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-white hover:bg-[#FAF6F7] text-[#1F1719] border border-[#E0D4D7] transition-colors"
               title="Registrar baixa por defeito ou perda"
             >
-              <FileWarning className="w-3.5 h-3.5 text-zinc-500" />
+              <FileWarning className="w-3.5 h-3.5 text-[#78696F]" />
               <span>Baixa</span>
             </button>
           </div>
 
-          {/* Gerenciar Base de Dados (Zerar ou Demo) */}
+          {/* Restaurar Demonstração (Discreto) */}
           <button
             onClick={onResetDemo}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 text-[11px] font-medium rounded-lg text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 border border-transparent hover:border-zinc-200 transition-colors"
-            title="Zerar todo o estoque para nova rotina ou carregar dados de demonstração"
+            className="flex items-center gap-1 px-2.5 py-1.5 text-[11px] font-medium rounded-lg text-[#78696F] hover:text-[#1F1719] hover:bg-[#FAF6F7] border border-transparent hover:border-[#EAE0E3] transition-colors"
+            title="Restaurar dados ou gerenciar base de dados"
           >
-            <RotateCcw className="w-3.5 h-3.5 text-zinc-400" />
-            <span className="hidden lg:inline">Zerar / Configurar Base</span>
+            <RotateCcw className="w-3 h-3 text-[#A39299]" />
+            <span className="hidden xl:inline">Restaurar Demo</span>
           </button>
         </div>
       </div>
