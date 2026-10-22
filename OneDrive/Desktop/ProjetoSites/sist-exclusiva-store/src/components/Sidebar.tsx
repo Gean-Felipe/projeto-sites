@@ -2,22 +2,20 @@ import React from 'react';
 import { 
   LayoutDashboard, 
   Package, 
-  ArrowDownToDot, 
-  ArrowUpFromDot, 
-  FileWarning, 
-  Truck, 
-  History, 
-  ShieldAlert,
-  Sparkles,
-  ChevronRight
+  Boxes, 
+  History,
+  Store,
+  AlertCircle
 } from 'lucide-react';
-import { ActivePage } from '../types';
+import { ActivePage } from '../types/index.ts';
 
 interface SidebarProps {
   activePage: ActivePage;
   onNavigate: (page: ActivePage) => void;
   lowStockAlertsCount: number;
   outOfStockCount: number;
+  isMobileOpen?: boolean;
+  onCloseMobile?: () => void;
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({
@@ -25,120 +23,130 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onNavigate,
   lowStockAlertsCount,
   outOfStockCount,
+  isMobileOpen = false,
+  onCloseMobile,
 }) => {
   const totalAlerts = lowStockAlertsCount + outOfStockCount;
 
-  const menuItems: { id: ActivePage; label: string; icon: React.ReactNode; badge?: number; badgeColor?: string }[] = [
+  const navItems: { id: ActivePage; label: string; icon: React.ReactNode; badge?: number }[] = [
     {
       id: 'dashboard',
-      label: 'Dashboard Geral',
-      icon: <LayoutDashboard className="w-5 h-5" />,
+      label: 'Visão Geral',
+      icon: <LayoutDashboard className="w-4 h-4" />,
     },
     {
       id: 'products',
-      label: 'Catálogo de Produtos',
-      icon: <Package className="w-5 h-5" />,
+      label: 'Produtos',
+      icon: <Package className="w-4 h-4" />,
     },
     {
-      id: 'entries',
-      label: 'Entradas de Mercadorias',
-      icon: <ArrowDownToDot className="w-5 h-5" />,
-    },
-    {
-      id: 'exits',
-      label: 'Saídas de Mercadorias',
-      icon: <ArrowUpFromDot className="w-5 h-5" />,
-    },
-    {
-      id: 'losses',
-      label: 'Baixas de Estoque',
-      icon: <FileWarning className="w-5 h-5" />,
-    },
-    {
-      id: 'receivings',
-      label: 'Recebimentos & Cargas',
-      icon: <Truck className="w-5 h-5" />,
+      id: 'stock',
+      label: 'Estoque & Operações',
+      icon: <Boxes className="w-4 h-4" />,
+      badge: totalAlerts > 0 ? totalAlerts : undefined,
     },
     {
       id: 'movements',
-      label: 'Histórico & Auditoria',
-      icon: <History className="w-5 h-5" />,
-    },
-    {
-      id: 'stock-alerts',
-      label: 'Consulta & Alertas',
-      icon: <ShieldAlert className="w-5 h-5" />,
-      badge: totalAlerts > 0 ? totalAlerts : undefined,
-      badgeColor: outOfStockCount > 0 ? 'bg-rose-500 text-white' : 'bg-amber-500 text-white',
+      label: 'Movimentações',
+      icon: <History className="w-4 h-4" />,
     },
   ];
 
+  const handleSelect = (id: ActivePage) => {
+    onNavigate(id);
+    if (onCloseMobile) onCloseMobile();
+  };
+
   return (
-    <aside className="w-64 bg-slate-900 text-slate-200 flex flex-col shrink-0 min-h-screen border-r border-slate-800">
-      {/* Brand Header */}
-      <div className="p-6 border-b border-slate-800/80">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center font-bold text-white shadow-lg shadow-amber-500/20 text-lg tracking-wider">
-            ES
-          </div>
-          <div>
-            <h1 className="font-bold text-base text-white tracking-tight flex items-center gap-1.5">
-              Exclusiva Store
-            </h1>
-            <p className="text-[11px] text-amber-400/90 font-medium tracking-wider uppercase">
-              Controle de Estoque
-            </p>
+    <>
+      {/* Backdrop mobile */}
+      {isMobileOpen && (
+        <div 
+          onClick={onCloseMobile}
+          className="fixed inset-0 bg-[#0E0606]/30 z-40 lg:hidden backdrop-blur-xs transition-opacity"
+        />
+      )}
+
+      <aside className={`
+        fixed top-0 bottom-0 left-0 z-50 w-64 bg-[#FEFEFE] border-r border-[#EED9DC] flex flex-col transition-transform duration-200 ease-in-out
+        lg:static lg:translate-x-0
+        ${isMobileOpen ? 'translate-x-0' : '-translate-x-full'}
+      `}>
+        {/* Identidade Visual da Loja */}
+        <div className="p-5 border-b border-[#EED9DC]">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-[#FAE7E7] border border-[#EED9DC] flex items-center justify-center text-[#CF7C89] font-bold text-lg">
+              <Store className="w-5 h-5 text-[#CF7C89]" />
+            </div>
+            <div>
+              <h1 className="font-bold text-base text-[#0E0606] leading-tight tracking-tight">
+                Exclusiva Store
+              </h1>
+              <p className="text-xs text-[#AA8B97] font-medium">
+                Controle de Mercadorias
+              </p>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Navigation Links */}
-      <nav className="flex-1 px-3 py-6 space-y-1.5 overflow-y-auto">
-        <div className="px-3 pb-2 text-[10px] font-semibold tracking-wider text-slate-400 uppercase">
-          Módulos Principais
-        </div>
+        {/* Menu de Navegação */}
+        <nav className="flex-1 px-3 py-5 space-y-1 overflow-y-auto">
+          <div className="px-3 pb-2 text-[11px] font-semibold tracking-wider text-[#7A5B67] uppercase">
+            Navegação Principal
+          </div>
 
-        {menuItems.map(item => {
-          const isActive = activePage === item.id;
-          return (
-            <button
-              key={item.id}
-              onClick={() => onNavigate(item.id)}
-              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all ${
-                isActive
-                  ? 'bg-amber-500/15 text-amber-300 font-semibold border border-amber-500/30 shadow-sm'
-                  : 'text-slate-300 hover:bg-slate-800/60 hover:text-white'
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                <span className={isActive ? 'text-amber-400' : 'text-slate-400'}>
-                  {item.icon}
-                </span>
-                <span>{item.label}</span>
+          {navItems.map(item => {
+            const isActive = activePage === item.id;
+            return (
+              <button
+                key={item.id}
+                onClick={() => handleSelect(item.id)}
+                className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-medium transition-colors ${
+                  isActive
+                    ? 'bg-[#FAE7E7] text-[#0E0606] font-semibold border border-[#EED9DC]'
+                    : 'text-[#0E0606]/80 hover:bg-[#FDF7F7] hover:text-[#0E0606]'
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  <span className={isActive ? 'text-[#CF7C89]' : 'text-[#AA8B97]'}>
+                    {item.icon}
+                  </span>
+                  <span>{item.label}</span>
+                </div>
+
+                {item.badge !== undefined && (
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#CF7C89] text-[#FEFEFE]">
+                    {item.badge}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </nav>
+
+        {/* Painel de Apoio / Status da Loja */}
+        <div className="p-4 border-t border-[#EED9DC] bg-[#FDF7F7]">
+          {totalAlerts > 0 ? (
+            <div className="p-3 rounded-lg bg-[#FAE7E7] border border-[#EED9DC] text-xs space-y-1">
+              <div className="flex items-center gap-1.5 font-semibold text-[#0E0606]">
+                <AlertCircle className="w-3.5 h-3.5 text-[#CF7C89]" />
+                <span>Itens com Atenção</span>
               </div>
-
-              {item.badge !== undefined && (
-                <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${item.badgeColor || 'bg-slate-700 text-slate-200'}`}>
-                  {item.badge}
-                </span>
-              )}
-            </button>
-          );
-        })}
-      </nav>
-
-      {/* Mode / Demo Badge */}
-      <div className="p-4 border-t border-slate-800/80 bg-slate-950/40">
-        <div className="p-3 rounded-xl bg-slate-800/60 border border-slate-700/60">
-          <div className="flex items-center gap-2 text-amber-400 mb-1">
-            <Sparkles className="w-4 h-4" />
-            <span className="text-xs font-semibold">Versão Demonstrativa</span>
-          </div>
-          <p className="text-[11px] text-slate-400 leading-snug">
-            Base de dados ativa com validações reais de estoque e auditoria.
-          </p>
+              <p className="text-[11px] text-[#7A5B67] leading-relaxed">
+                {outOfStockCount > 0 ? `${outOfStockCount} esgotado(s) e ` : ''}
+                {lowStockAlertsCount} com estoque baixo.
+              </p>
+            </div>
+          ) : (
+            <div className="p-3 rounded-lg bg-[#FAE7E7]/60 border border-[#EED9DC] text-xs">
+              <div className="font-semibold text-[#0E0606] text-xs">Estoque Regularizado</div>
+              <p className="text-[11px] text-[#7A5B67] mt-0.5">
+                Nenhum produto em nível crítico no momento.
+              </p>
+            </div>
+          )}
         </div>
-      </div>
-    </aside>
+      </aside>
+    </>
   );
 };

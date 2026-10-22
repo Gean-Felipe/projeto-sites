@@ -1,4 +1,4 @@
-import { Product, Movement, Receiving, DashboardMetrics } from '../types';
+import type { Product, Movement, Receiving, DashboardMetrics } from '../types/index.ts';
 
 const STORAGE_KEYS = {
   PRODUCTS: 'exclusiva_products_v1',

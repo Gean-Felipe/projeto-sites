@@ -1,17 +1,13 @@
 import React, { useState, useMemo } from 'react';
 import { 
-  History, 
   Search, 
-  Filter, 
-  ArrowDownToDot, 
-  ArrowUpFromDot, 
-  FileWarning, 
-  Download, 
+  FileSpreadsheet, 
+  Eye, 
   Calendar,
-  FileSpreadsheet,
-  Boxes
+  X
 } from 'lucide-react';
-import { Movement, Product } from '../types';
+import { Movement, Product } from '../types/index.ts';
+import { Modal } from '../components/Modal';
 
 interface MovementsPageProps {
   movements: Movement[];
@@ -27,6 +23,7 @@ export const MovementsPage: React.FC<MovementsPageProps> = ({
   const [productFilter, setProductFilter] = useState('ALL');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [selectedMovement, setSelectedMovement] = useState<Movement | null>(null);
 
   const filteredMovements = useMemo(() => {
     return movements.filter(m => {
@@ -36,15 +33,14 @@ export const MovementsPage: React.FC<MovementsPageProps> = ({
       // Produto
       if (productFilter !== 'ALL' && m.productId !== productFilter) return false;
 
-      // Busca livre
+      // Busca por texto
       const term = searchTerm.toLowerCase();
       const matchSearch =
         m.productName.toLowerCase().includes(term) ||
         m.productSku.toLowerCase().includes(term) ||
         m.reason.toLowerCase().includes(term) ||
         (m.referenceDoc && m.referenceDoc.toLowerCase().includes(term)) ||
-        (m.supplier && m.supplier.toLowerCase().includes(term)) ||
-        (m.notes && m.notes.toLowerCase().includes(term));
+        (m.supplier && m.supplier.toLowerCase().includes(term));
 
       if (!matchSearch) return false;
 
@@ -71,7 +67,7 @@ export const MovementsPage: React.FC<MovementsPageProps> = ({
       'SKU',
       'Quantidade',
       'Estoque Anterior',
-      'Estoque Posterior',
+      'Saldo Resultante',
       'Motivo',
       'Fornecedor',
       'Documento/NF',
@@ -102,97 +98,86 @@ export const MovementsPage: React.FC<MovementsPageProps> = ({
     document.body.removeChild(link);
   };
 
+  const formatDate = (isoString: string) => {
+    try {
+      const d = new Date(isoString);
+      return d.toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+    } catch {
+      return isoString;
+    }
+  };
+
   return (
     <div className="space-y-6">
-      {/* Title & Export action */}
+      {/* Cabeçalho e Ação de Exportação */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-slate-900 tracking-tight">Histórico Completo & Auditoria</h2>
-          <p className="text-xs text-slate-500 mt-1">
-            Rastreabilidade total e imutável de todas as movimentações (entradas, saídas e baixas) realizadas no estoque.
+          <h1 className="text-xl font-bold text-[#0E0606] tracking-tight">Histórico de Movimentações</h1>
+          <p className="text-xs text-[#7A5B67] mt-0.5">
+            Registro cronológico e rastreável de todas as entradas, saídas e baixas efetuadas.
           </p>
         </div>
 
         <button
           onClick={handleExportCSV}
-          className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs tracking-wide shadow-sm transition-all hover:scale-[1.01] shrink-0"
+          className="flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#FEFEFE] hover:bg-[#FAE7E7] text-[#0E0606] border border-[#EED9DC] text-xs font-semibold transition-colors shadow-2xs shrink-0"
         >
-          <FileSpreadsheet className="w-4 h-4 text-emerald-400" />
-          Exportar Relatório (CSV)
+          <FileSpreadsheet className="w-4 h-4 text-[#CF7C89]" />
+          <span>Exportar Relatório (CSV)</span>
         </button>
       </div>
 
-      {/* Filters Card */}
-      <div className="bg-white p-4.5 rounded-2xl border border-slate-200/90 shadow-xs space-y-4">
+      {/* Painel de Filtros */}
+      <div className="bg-[#FAE7E7] border border-[#EED9DC] rounded-xl p-3.5 space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
-          {/* Search Box */}
+          {/* Busca Livre */}
           <div className="relative lg:col-span-2">
-            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#7A5B67]" />
             <input
               type="text"
               placeholder="Buscar por produto, SKU, motivo ou doc..."
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 rounded-xl text-xs bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
+              className="w-full pl-9 pr-4 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] placeholder-[#7A5B67] focus:outline-none focus:border-[#CF7C89]"
             />
           </div>
 
-          {/* Type Filter */}
+          {/* Filtro por Tipo */}
           <div>
             <select
               value={typeFilter}
               onChange={e => setTypeFilter(e.target.value as any)}
-              className="w-full px-3.5 py-2 rounded-xl text-xs bg-slate-50 border border-slate-200 text-slate-700 font-medium focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+              className="w-full px-3 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] focus:outline-none focus:border-[#CF7C89]"
             >
-              <option value="ALL">Tipo: Todas as Operações</option>
-              <option value="ENTRADA">Apenas Entradas (+)</option>
-              <option value="SAIDA">Apenas Saídas (-)</option>
-              <option value="BAIXA">Apenas Baixas / Avarias (!)</option>
+              <option value="ALL">Todos os tipos</option>
+              <option value="ENTRADA">Apenas Entradas</option>
+              <option value="SAIDA">Apenas Saídas</option>
+              <option value="BAIXA">Apenas Baixas</option>
             </select>
           </div>
 
-          {/* Product Filter */}
+          {/* Filtro por Produto */}
           <div>
             <select
               value={productFilter}
               onChange={e => setProductFilter(e.target.value)}
-              className="w-full px-3.5 py-2 rounded-xl text-xs bg-slate-50 border border-slate-200 text-slate-700 font-medium focus:outline-none focus:ring-2 focus:ring-amber-500/20"
+              className="w-full px-3 py-2 rounded-lg text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606] focus:outline-none focus:border-[#CF7C89]"
             >
-              <option value="ALL">Produto: Todos</option>
+              <option value="ALL">Todos os produtos</option>
               {products.map(p => (
-                <option key={p.id} value={p.id}>
-                  {p.name} ({p.sku})
-                </option>
+                <option key={p.id} value={p.id}>{p.name}</option>
               ))}
             </select>
           </div>
 
-          {/* Date range */}
-          <div className="flex items-center gap-1.5">
-            <input
-              type="date"
-              value={startDate}
-              onChange={e => setStartDate(e.target.value)}
-              className="w-full px-2 py-2 rounded-xl text-[11px] bg-slate-50 border border-slate-200 text-slate-700 focus:outline-none"
-              title="Data Inicial"
-            />
-            <span className="text-slate-400 text-xs">até</span>
-            <input
-              type="date"
-              value={endDate}
-              onChange={e => setEndDate(e.target.value)}
-              className="w-full px-2 py-2 rounded-xl text-[11px] bg-slate-50 border border-slate-200 text-slate-700 focus:outline-none"
-              title="Data Final"
-            />
-          </div>
-        </div>
-
-        {/* Counts */}
-        <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1 border-t border-slate-100">
-          <span>
-            Mostrando <strong>{filteredMovements.length}</strong> movimentação(ões) auditada(s)
-          </span>
-          {(searchTerm || typeFilter !== 'ALL' || productFilter !== 'ALL' || startDate || endDate) && (
+          {/* Limpar Filtros */}
+          <div className="flex items-center gap-2">
             <button
               onClick={() => {
                 setSearchTerm('');
@@ -201,107 +186,115 @@ export const MovementsPage: React.FC<MovementsPageProps> = ({
                 setStartDate('');
                 setEndDate('');
               }}
-              className="text-amber-600 hover:text-amber-800 font-semibold"
+              className="w-full px-3 py-2 rounded-lg text-xs font-medium text-[#7A5B67] hover:bg-[#FEFEFE] border border-transparent hover:border-[#EED9DC] transition-colors text-center"
             >
-              Limpar filtros
+              Limpar Filtros
             </button>
-          )}
+          </div>
+        </div>
+
+        {/* Filtro por Período */}
+        <div className="flex flex-wrap items-center gap-3 pt-2 border-t border-[#EED9DC]/60 text-xs text-[#7A5B67]">
+          <span className="font-medium text-[#0E0606]">Filtrar por período:</span>
+          <div className="flex items-center gap-2">
+            <span>De:</span>
+            <input
+              type="date"
+              value={startDate}
+              onChange={e => setStartDate(e.target.value)}
+              className="px-2.5 py-1 rounded-md text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606]"
+            />
+          </div>
+          <div className="flex items-center gap-2">
+            <span>Até:</span>
+            <input
+              type="date"
+              value={endDate}
+              onChange={e => setEndDate(e.target.value)}
+              className="px-2.5 py-1 rounded-md text-xs bg-[#FEFEFE] border border-[#EED9DC] text-[#0E0606]"
+            />
+          </div>
+          <span className="text-[11px] text-[#7A5B67] ml-auto">
+            {filteredMovements.length} registro(s) encontrado(s)
+          </span>
         </div>
       </div>
 
-      {/* Movements Table */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+      {/* Tabela de Movimentações */}
+      <div className="bg-[#FEFEFE] rounded-xl border border-[#EED9DC] overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50/80 border-b border-slate-200 text-slate-500 uppercase tracking-wider text-[10px]">
-              <tr>
-                <th className="py-3 px-4 font-bold">Data/Hora</th>
-                <th className="py-3 px-4 font-bold">Tipo</th>
-                <th className="py-3 px-4 font-bold">Produto & SKU</th>
-                <th className="py-3 px-4 font-bold text-center">Movimentado</th>
-                <th className="py-3 px-4 font-bold text-center">Histórico Saldo</th>
-                <th className="py-3 px-4 font-bold">Motivo / Finalidade</th>
-                <th className="py-3 px-4 font-bold">Referência / Doc</th>
-                <th className="py-3 px-4 font-bold">Observações</th>
+            <thead>
+              <tr className="bg-[#FAE7E7]/60 text-[#7A5B67] uppercase text-[10px] font-semibold border-b border-[#EED9DC]">
+                <th className="py-3 px-4">Data e Hora</th>
+                <th className="py-3 px-4">Produto</th>
+                <th className="py-3 px-4">Tipo</th>
+                <th className="py-3 px-4 text-center">Quantidade</th>
+                <th className="py-3 px-4 text-center">Saldo Após Movimentação</th>
+                <th className="py-3 px-4">Motivo / Referência</th>
+                <th className="py-3 px-4 text-right">Ação</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-[#EED9DC]/60">
               {filteredMovements.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="py-12 text-center text-slate-400">
-                    <Boxes className="w-10 h-10 mx-auto text-slate-300 mb-2" />
-                    <p className="text-xs font-semibold text-slate-600">Nenhum registro encontrado</p>
-                    <p className="text-[11px] text-slate-400">Ajuste os filtros de data, tipo ou termos de pesquisa.</p>
+                  <td colSpan={7} className="py-12 text-center text-[#7A5B67]">
+                    Nenhuma movimentação localizada com os filtros selecionados.
                   </td>
                 </tr>
               ) : (
                 filteredMovements.map(m => {
-                  let badge = (
-                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
-                      <ArrowDownToDot className="w-3 h-3" /> Entrada
+                  let typeBadge = (
+                    <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-emerald-50 text-emerald-800 border border-emerald-200">
+                      Entrada
                     </span>
                   );
                   if (m.type === 'SAIDA') {
-                    badge = (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800 border border-blue-200">
-                        <ArrowUpFromDot className="w-3 h-3" /> Saída
+                    typeBadge = (
+                      <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-[#FAE7E7] text-[#0E0606] border border-[#EED9DC]">
+                        Saída
                       </span>
                     );
                   } else if (m.type === 'BAIXA') {
-                    badge = (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-800 border border-rose-200">
-                        <FileWarning className="w-3 h-3" /> Baixa
+                    typeBadge = (
+                      <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-rose-50 text-rose-800 border border-rose-200">
+                        Baixa
                       </span>
                     );
                   }
 
                   return (
-                    <tr key={m.id} className="hover:bg-slate-50/90 transition-colors">
-                      {/* Date */}
-                      <td className="py-3.5 px-4 text-slate-600 whitespace-nowrap font-medium text-[11px]">
-                        {new Date(m.timestamp).toLocaleDateString('pt-BR')} {new Date(m.timestamp).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                    <tr key={m.id} className="hover:bg-[#FAE7E7]/30 transition-colors">
+                      <td className="py-3 px-4 text-[#7A5B67] whitespace-nowrap text-[11px]">
+                        {formatDate(m.timestamp)}
                       </td>
-
-                      {/* Type */}
-                      <td className="py-3.5 px-4">{badge}</td>
-
-                      {/* Product */}
-                      <td className="py-3.5 px-4">
-                        <div className="font-bold text-slate-900">{m.productName}</div>
-                        <div className="text-[10px] font-mono text-slate-500 mt-0.5">{m.productSku}</div>
+                      <td className="py-3 px-4">
+                        <div className="font-semibold text-[#0E0606]">{m.productName}</div>
+                        <div className="text-[10px] text-[#7A5B67] font-mono">{m.productSku}</div>
                       </td>
-
-                      {/* Quantity */}
-                      <td className="py-3.5 px-4 text-center">
-                        <span className={`text-xs font-black ${
-                          m.type === 'ENTRADA' ? 'text-emerald-700' : m.type === 'SAIDA' ? 'text-blue-700' : 'text-rose-700'
-                        }`}>
-                          {m.type === 'ENTRADA' ? `+${m.quantity}` : `-${m.quantity}`} un.
-                        </span>
+                      <td className="py-3 px-4">{typeBadge}</td>
+                      <td className="py-3 px-4 text-center font-bold text-[#0E0606]">
+                        {m.type === 'ENTRADA' ? `+${m.quantity}` : `-${m.quantity}`}
                       </td>
-
-                      {/* Previous and Next */}
-                      <td className="py-3.5 px-4 text-center text-xs font-mono">
-                        <span className="text-slate-400">{m.previousStock}</span>
-                        <span className="mx-1 text-slate-300">➔</span>
-                        <span className="font-bold text-slate-900">{m.newStock} un.</span>
+                      <td className="py-3 px-4 text-center text-xs">
+                        <span className="text-[#7A5B67]">{m.previousStock}</span>
+                        <span className="mx-1 text-[#AA8B97]">➔</span>
+                        <strong className="text-[#0E0606]">{m.newStock} un.</strong>
                       </td>
-
-                      {/* Reason */}
-                      <td className="py-3.5 px-4 font-medium text-slate-800 max-w-[200px] truncate">
-                        {m.reason}
+                      <td className="py-3 px-4 text-[#7A5B67] max-w-xs">
+                        <div className="font-medium text-[#0E0606] truncate">{m.reason}</div>
+                        {m.referenceDoc && (
+                          <div className="text-[10px] text-[#7A5B67] truncate">{m.referenceDoc}</div>
+                        )}
                       </td>
-
-                      {/* Reference Doc / Supplier */}
-                      <td className="py-3.5 px-4 text-slate-600 text-[11px] max-w-[180px] truncate">
-                        {m.referenceDoc && <div className="font-mono text-slate-800">{m.referenceDoc}</div>}
-                        {m.supplier && <div className="text-slate-500">{m.supplier}</div>}
-                        {!m.referenceDoc && !m.supplier && <span className="text-slate-400">—</span>}
-                      </td>
-
-                      {/* Notes */}
-                      <td className="py-3.5 px-4 text-slate-500 text-[11px] max-w-[200px] truncate">
-                        {m.notes || '—'}
+                      <td className="py-3 px-4 text-right">
+                        <button
+                          onClick={() => setSelectedMovement(m)}
+                          className="p-1.5 rounded text-[#7A5B67] hover:text-[#0E0606] hover:bg-[#FAE7E7] transition-colors"
+                          title="Ver detalhes completos desta movimentação"
+                        >
+                          <Eye className="w-4 h-4" />
+                        </button>
                       </td>
                     </tr>
                   );
@@ -311,6 +304,84 @@ export const MovementsPage: React.FC<MovementsPageProps> = ({
           </table>
         </div>
       </div>
+
+      {/* Modal de Detalhes da Movimentação */}
+      <Modal
+        isOpen={Boolean(selectedMovement)}
+        onClose={() => setSelectedMovement(null)}
+        title="Detalhes da Movimentação de Estoque"
+        subtitle={selectedMovement ? formatDate(selectedMovement.timestamp) : ''}
+        maxWidth="md"
+      >
+        {selectedMovement && (
+          <div className="space-y-4 text-xs">
+            <div className="p-3 rounded-lg bg-[#FAE7E7] border border-[#EED9DC] space-y-1">
+              <span className="text-[10px] font-bold text-[#7A5B67] uppercase">Produto Movimentado</span>
+              <div className="text-sm font-bold text-[#0E0606]">{selectedMovement.productName}</div>
+              <div className="text-[11px] font-mono text-[#7A5B67]">SKU: {selectedMovement.productSku}</div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-3 text-center">
+              <div className="p-2.5 rounded-lg bg-[#FEFEFE] border border-[#EED9DC]">
+                <span className="text-[10px] text-[#7A5B67] block">Estoque Anterior</span>
+                <strong className="text-sm text-[#0E0606]">{selectedMovement.previousStock} un.</strong>
+              </div>
+              <div className="p-2.5 rounded-lg bg-[#FEFEFE] border border-[#EED9DC]">
+                <span className="text-[10px] text-[#7A5B67] block">Quantidade</span>
+                <strong className="text-sm text-[#CF7C89]">
+                  {selectedMovement.type === 'ENTRADA' ? `+${selectedMovement.quantity}` : `-${selectedMovement.quantity}`}
+                </strong>
+              </div>
+              <div className="p-2.5 rounded-lg bg-[#FEFEFE] border border-[#EED9DC]">
+                <span className="text-[10px] text-[#7A5B67] block">Saldo Resultante</span>
+                <strong className="text-sm text-[#0E0606]">{selectedMovement.newStock} un.</strong>
+              </div>
+            </div>
+
+            <div className="space-y-2 pt-2 border-t border-[#EED9DC]">
+              <div>
+                <span className="text-[10px] text-[#7A5B67] uppercase font-semibold block">Tipo de Operação</span>
+                <strong className="text-xs text-[#0E0606]">{selectedMovement.type}</strong>
+              </div>
+
+              <div>
+                <span className="text-[10px] text-[#7A5B67] uppercase font-semibold block">Motivo Informado</span>
+                <p className="text-xs text-[#0E0606]">{selectedMovement.reason}</p>
+              </div>
+
+              {selectedMovement.referenceDoc && (
+                <div>
+                  <span className="text-[10px] text-[#7A5B67] uppercase font-semibold block">Documento / NF-e</span>
+                  <p className="text-xs text-[#0E0606]">{selectedMovement.referenceDoc}</p>
+                </div>
+              )}
+
+              {selectedMovement.supplier && (
+                <div>
+                  <span className="text-[10px] text-[#7A5B67] uppercase font-semibold block">Fornecedor / Origem</span>
+                  <p className="text-xs text-[#0E0606]">{selectedMovement.supplier}</p>
+                </div>
+              )}
+
+              {selectedMovement.notes && (
+                <div>
+                  <span className="text-[10px] text-[#7A5B67] uppercase font-semibold block">Observações</span>
+                  <p className="text-xs text-[#0E0606] italic">{selectedMovement.notes}</p>
+                </div>
+              )}
+            </div>
+
+            <div className="pt-3 border-t border-[#EED9DC] flex justify-end">
+              <button
+                onClick={() => setSelectedMovement(null)}
+                className="px-4 py-2 rounded-lg text-xs font-semibold bg-[#CF7C89] hover:bg-[#BE6B78] text-[#FEFEFE] transition-colors"
+              >
+                Fechar
+              </button>
+            </div>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 };

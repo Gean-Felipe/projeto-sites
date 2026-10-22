@@ -6,25 +6,20 @@ import {
   XCircle, 
   ArrowDownToDot, 
   ArrowUpFromDot, 
-  FileWarning, 
-  DollarSign, 
   Plus, 
-  ArrowRight,
-  Truck,
-  TrendingUp,
-  Clock
+  ArrowRight
 } from 'lucide-react';
-import { DashboardMetrics, Movement, Product, ActivePage } from '../types';
+import { DashboardMetrics, Movement, Product, ActivePage, StockTab } from '../types/index.ts';
 
 interface DashboardProps {
   metrics: DashboardMetrics;
   recentMovements: Movement[];
   criticalProducts: Product[];
-  onNavigate: (page: ActivePage) => void;
+  onNavigate: (page: ActivePage, stockTab?: StockTab) => void;
   onOpenNewProduct: () => void;
   onQuickEntry: (productId?: string) => void;
   onQuickExit: (productId?: string) => void;
-  onQuickLoss: (productId?: string) => void;
+  onViewProduct?: (product: Product) => void;
 }
 
 export const DashboardPage: React.FC<DashboardProps> = ({
@@ -35,12 +30,8 @@ export const DashboardPage: React.FC<DashboardProps> = ({
   onOpenNewProduct,
   onQuickEntry,
   onQuickExit,
-  onQuickLoss,
+  onViewProduct,
 }) => {
-  const formatCurrency = (val: number) => {
-    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(val);
-  };
-
   const formatDate = (isoString: string) => {
     try {
       const d = new Date(isoString);
@@ -57,213 +48,167 @@ export const DashboardPage: React.FC<DashboardProps> = ({
   };
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-200">
-      {/* Top Banner / Welcome with quick stats */}
-      <div className="rounded-2xl bg-gradient-to-r from-slate-900 via-slate-800 to-amber-950 text-white p-6 md:p-8 shadow-xl relative overflow-hidden">
-        <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-radial from-amber-500/10 to-transparent pointer-events-none" />
-        <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-          <div className="max-w-xl">
-            <span className="px-3 py-1 rounded-full text-[11px] font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/30 uppercase tracking-wider inline-block mb-3">
-              Painel de Controle em Tempo Real
-            </span>
-            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight">
-              Gestão de Mercadorias Exclusiva Store
-            </h2>
-            <p className="text-slate-300 text-sm mt-2 leading-relaxed">
-              Monitore a rotatividade de peças, garanta a reposição pontual e mantenha a consistência total entre entradas, saídas e estoque físico.
-            </p>
-          </div>
+    <div className="space-y-6">
+      {/* Cabeçalho Limpo e Ações Rápidas Principais */}
+      <div className="bg-[#FAE7E7] border border-[#EED9DC] rounded-xl p-5 md:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <span className="text-[11px] font-semibold text-[#7A5B67] uppercase tracking-wider block mb-1">
+            Exclusiva Store • Controle Diário
+          </span>
+          <h1 className="text-xl md:text-2xl font-bold text-[#0E0606] tracking-tight">
+            Situação do Estoque
+          </h1>
+          <p className="text-xs text-[#7A5B67] mt-1 max-w-xl">
+            Resumo em tempo real das mercadorias disponíveis, alertas de reposição e movimentações recentes.
+          </p>
+        </div>
 
-          <div className="flex flex-wrap gap-2.5 shrink-0">
-            <button
-              onClick={() => onQuickEntry()}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs tracking-wide shadow-lg shadow-emerald-950/40 transition-all hover:scale-[1.02]"
-            >
-              <ArrowDownToDot className="w-4 h-4" />
-              Entrada de Peças
-            </button>
-            <button
-              onClick={() => onQuickExit()}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs tracking-wide shadow-lg shadow-blue-950/40 transition-all hover:scale-[1.02]"
-            >
-              <ArrowUpFromDot className="w-4 h-4" />
-              Saída / Venda
-            </button>
-            <button
-              onClick={onOpenNewProduct}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs tracking-wide shadow-lg shadow-amber-950/40 transition-all hover:scale-[1.02]"
-            >
-              <Plus className="w-4 h-4" />
-              Cadastrar Produto
-            </button>
-          </div>
+        {/* 3 Ações Rápidas Claras e Diretas */}
+        <div className="flex flex-wrap items-center gap-2 shrink-0">
+          <button
+            onClick={() => onQuickEntry()}
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#CF7C89] hover:bg-[#BE6B78] text-[#FEFEFE] text-xs font-semibold transition-colors shadow-2xs"
+            title="Registrar entrada de mercadoria"
+          >
+            <ArrowDownToDot className="w-4 h-4" />
+            <span>Registrar Entrada</span>
+          </button>
+
+          <button
+            onClick={() => onQuickExit()}
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#FEFEFE] hover:bg-[#FDF7F7] text-[#0E0606] border border-[#EED9DC] text-xs font-semibold transition-colors"
+            title="Registrar saída por venda ou transferência"
+          >
+            <ArrowUpFromDot className="w-4 h-4 text-[#CF7C89]" />
+            <span>Registrar Saída</span>
+          </button>
+
+          <button
+            onClick={onOpenNewProduct}
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#FEFEFE] hover:bg-[#FDF7F7] text-[#0E0606] border border-[#EED9DC] text-xs font-semibold transition-colors"
+            title="Cadastrar um novo produto no estoque"
+          >
+            <Plus className="w-4 h-4 text-[#7A5B67]" />
+            <span>Cadastrar Produto</span>
+          </button>
         </div>
       </div>
 
-      {/* KPI Cards Grid */}
+      {/* 4 Indicadores Principais com Fundo e Contraste Harmonioso */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Total Products */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow">
+        {/* 1. Produtos cadastrados */}
+        <div className="bg-[#FAE7E7] border border-[#EED9DC] rounded-xl p-4.5 flex flex-col justify-between">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Produtos Cadastrados</span>
-            <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700">
-              <Package className="w-5 h-5" />
+            <span className="text-xs font-semibold text-[#7A5B67] uppercase tracking-wide">
+              Produtos Cadastrados
+            </span>
+            <div className="w-8 h-8 rounded-lg bg-[#FEFEFE] border border-[#EED9DC] flex items-center justify-center text-[#7A5B67]">
+              <Package className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-black text-slate-900 tracking-tight">{metrics.totalProducts}</div>
-            <p className="text-xs text-slate-500 mt-1 flex items-center gap-1">
-              <span>{metrics.totalUnitsInStock} unidades no estoque global</span>
+            <div className="text-2xl font-bold text-[#0E0606] tracking-tight">
+              {metrics.totalProducts}
+            </div>
+            <p className="text-[11px] text-[#7A5B67] mt-0.5">
+              Itens ativos no catálogo
             </p>
           </div>
         </div>
 
-        {/* Units in Stock */}
-        <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-xs hover:shadow-md transition-shadow">
+        {/* 2. Unidades disponíveis */}
+        <div className="bg-[#FAE7E7] border border-[#EED9DC] rounded-xl p-4.5 flex flex-col justify-between">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Unidades Disponíveis</span>
-            <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600">
-              <Boxes className="w-5 h-5" />
+            <span className="text-xs font-semibold text-[#7A5B67] uppercase tracking-wide">
+              Unidades Disponíveis
+            </span>
+            <div className="w-8 h-8 rounded-lg bg-[#FEFEFE] border border-[#EED9DC] flex items-center justify-center text-[#CF7C89]">
+              <Boxes className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-black text-amber-700 tracking-tight">{metrics.totalUnitsInStock}</div>
-            <p className="text-xs text-slate-500 mt-1">
-              Valor estimado: <span className="font-semibold text-slate-800">{formatCurrency(metrics.totalSaleValue)}</span>
+            <div className="text-2xl font-bold text-[#0E0606] tracking-tight">
+              {metrics.totalUnitsInStock} <span className="text-xs font-normal text-[#7A5B67]">peças</span>
+            </div>
+            <p className="text-[11px] text-[#7A5B67] mt-0.5">
+              Saldo total no estoque físico
             </p>
           </div>
         </div>
 
-        {/* Low Stock Warning */}
+        {/* 3. Produtos com estoque baixo */}
         <div 
-          onClick={() => onNavigate('stock-alerts')}
-          className="bg-white p-5 rounded-2xl border border-amber-200/90 shadow-xs hover:shadow-md transition-all cursor-pointer group"
+          onClick={() => onNavigate('stock', 'overview')}
+          className="bg-[#FAE7E7] border border-[#EED9DC] rounded-xl p-4.5 flex flex-col justify-between cursor-pointer hover:border-[#CF7C89] transition-colors"
+          title="Ver produtos com estoque baixo"
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-amber-800 uppercase tracking-wider">Estoque Baixo</span>
-            <div className="w-10 h-10 rounded-xl bg-amber-100/70 flex items-center justify-center text-amber-600 group-hover:scale-110 transition-transform">
-              <AlertTriangle className="w-5 h-5" />
+            <span className="text-xs font-semibold text-[#7A5B67] uppercase tracking-wide">
+              Estoque Baixo
+            </span>
+            <div className="w-8 h-8 rounded-lg bg-[#FEFEFE] border border-[#EED9DC] flex items-center justify-center text-amber-700">
+              <AlertTriangle className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-black text-amber-600 tracking-tight">{metrics.lowStockCount}</div>
-            <p className="text-xs text-amber-700 font-medium mt-1 flex items-center justify-between">
-              <span>Itens no limite de reposição</span>
-              <ArrowRight className="w-3.5 h-3.5 text-amber-500 group-hover:translate-x-1 transition-transform" />
+            <div className="text-2xl font-bold text-amber-800 tracking-tight">
+              {metrics.lowStockCount}
+            </div>
+            <p className="text-[11px] text-[#7A5B67] mt-0.5 flex items-center justify-between">
+              <span>Abaixo do limite de reposição</span>
+              <ArrowRight className="w-3.5 h-3.5 text-[#CF7C89]" />
             </p>
           </div>
         </div>
 
-        {/* Out of Stock (Zero) */}
+        {/* 4. Produtos sem estoque (zerados) */}
         <div 
-          onClick={() => onNavigate('stock-alerts')}
-          className="bg-white p-5 rounded-2xl border border-rose-200/90 shadow-xs hover:shadow-md transition-all cursor-pointer group"
+          onClick={() => onNavigate('stock', 'overview')}
+          className="bg-[#FAE7E7] border border-[#EED9DC] rounded-xl p-4.5 flex flex-col justify-between cursor-pointer hover:border-[#CF7C89] transition-colors"
+          title="Ver produtos sem estoque"
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-rose-800 uppercase tracking-wider">Sem Estoque (Zerados)</span>
-            <div className="w-10 h-10 rounded-xl bg-rose-100/70 flex items-center justify-center text-rose-600 group-hover:scale-110 transition-transform">
-              <XCircle className="w-5 h-5" />
+            <span className="text-xs font-semibold text-[#7A5B67] uppercase tracking-wide">
+              Sem Estoque
+            </span>
+            <div className="w-8 h-8 rounded-lg bg-[#FEFEFE] border border-[#EED9DC] flex items-center justify-center text-rose-700">
+              <XCircle className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-black text-rose-600 tracking-tight">{metrics.outOfStockCount}</div>
-            <p className="text-xs text-rose-700 font-medium mt-1 flex items-center justify-between">
-              <span>Ruptura de estoque imediata</span>
-              <ArrowRight className="w-3.5 h-3.5 text-rose-500 group-hover:translate-x-1 transition-transform" />
+            <div className="text-2xl font-bold text-rose-800 tracking-tight">
+              {metrics.outOfStockCount}
+            </div>
+            <p className="text-[11px] text-[#7A5B67] mt-0.5 flex items-center justify-between">
+              <span>Peças esgotadas na loja</span>
+              <ArrowRight className="w-3.5 h-3.5 text-[#CF7C89]" />
             </p>
           </div>
         </div>
       </div>
 
-      {/* Secondary Metrics Bar (Flow summaries) */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {/* Entradas */}
-        <div className="bg-emerald-50/50 border border-emerald-200/80 rounded-2xl p-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center">
-              <ArrowDownToDot className="w-5 h-5" />
-            </div>
-            <div>
-              <div className="text-xs font-bold text-emerald-900 uppercase">Entradas de Mercadorias</div>
-              <div className="text-sm font-semibold text-emerald-800">
-                {metrics.totalEntriesCount} operações ({metrics.totalEntriesUnits} peças recebidas)
-              </div>
-            </div>
-          </div>
-          <button
-            onClick={() => onNavigate('entries')}
-            className="text-xs font-semibold text-emerald-700 hover:text-emerald-900 px-2.5 py-1 rounded-lg hover:bg-emerald-100 transition-colors"
-          >
-            Ver
-          </button>
-        </div>
-
-        {/* Saídas */}
-        <div className="bg-blue-50/50 border border-blue-200/80 rounded-2xl p-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center">
-              <ArrowUpFromDot className="w-5 h-5" />
-            </div>
-            <div>
-              <div className="text-xs font-bold text-blue-900 uppercase">Saídas / Vendas</div>
-              <div className="text-sm font-semibold text-blue-800">
-                {metrics.totalExitsCount} operações ({metrics.totalExitsUnits} peças retiradas)
-              </div>
-            </div>
-          </div>
-          <button
-            onClick={() => onNavigate('exits')}
-            className="text-xs font-semibold text-blue-700 hover:text-blue-900 px-2.5 py-1 rounded-lg hover:bg-blue-100 transition-colors"
-          >
-            Ver
-          </button>
-        </div>
-
-        {/* Baixas / Avarias */}
-        <div className="bg-rose-50/50 border border-rose-200/80 rounded-2xl p-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center">
-              <FileWarning className="w-5 h-5" />
-            </div>
-            <div>
-              <div className="text-xs font-bold text-rose-900 uppercase">Baixas & Avarias</div>
-              <div className="text-sm font-semibold text-rose-800">
-                {metrics.totalLossesCount} registros ({metrics.totalLossesUnits} peças perdidas)
-              </div>
-            </div>
-          </div>
-          <button
-            onClick={() => onNavigate('losses')}
-            className="text-xs font-semibold text-rose-700 hover:text-rose-900 px-2.5 py-1 rounded-lg hover:bg-rose-100 transition-colors"
-          >
-            Ver
-          </button>
-        </div>
-      </div>
-
-      {/* Main Two Columns: Critical Alerts & Recent Movements */}
+      {/* Grid Principal: Seção de Atenção & Movimentações Recentes */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Critical Alerts (1 col) */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs flex flex-col">
-          <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-            <div className="flex items-center gap-2">
-              <AlertTriangle className="w-5 h-5 text-amber-500" />
-              <h3 className="font-bold text-slate-900 text-base">Atenção ao Estoque</h3>
+        {/* Seção de Atenção (1 coluna) */}
+        <div className="bg-[#FEFEFE] rounded-xl border border-[#EED9DC] p-5 flex flex-col">
+          <div className="flex items-center justify-between pb-3.5 border-b border-[#EED9DC]">
+            <div>
+              <h2 className="font-bold text-[#0E0606] text-sm">Atenção ao Estoque</h2>
+              <p className="text-[11px] text-[#7A5B67]">Itens zerados ou próximos da reposição</p>
             </div>
             <button
-              onClick={() => onNavigate('stock-alerts')}
-              className="text-xs font-semibold text-amber-600 hover:text-amber-800 flex items-center gap-1"
+              onClick={() => onNavigate('stock', 'overview')}
+              className="text-xs font-semibold text-[#CF7C89] hover:text-[#BE6B78] flex items-center gap-1"
             >
-              Ver todos <ArrowRight className="w-3.5 h-3.5" />
+              Consultar <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
 
-          <div className="mt-4 flex-1 space-y-3">
+          <div className="mt-4 flex-1 space-y-2.5">
             {criticalProducts.length === 0 ? (
-              <div className="text-center py-8 text-slate-400">
-                <Boxes className="w-10 h-10 mx-auto text-emerald-400/80 mb-2" />
-                <p className="text-xs font-medium text-slate-600">Estoque 100% equilibrado!</p>
-                <p className="text-[11px] text-slate-400">Nenhum produto em nível crítico no momento.</p>
+              <div className="text-center py-8">
+                <p className="text-xs font-medium text-[#0E0606]">Estoque equilibrado</p>
+                <p className="text-[11px] text-[#7A5B67] mt-0.5">Nenhum produto precisando de reposição imediata.</p>
               </div>
             ) : (
               criticalProducts.slice(0, 5).map(prod => {
@@ -271,28 +216,28 @@ export const DashboardPage: React.FC<DashboardProps> = ({
                 return (
                   <div
                     key={prod.id}
-                    className={`p-3 rounded-xl border flex items-center justify-between gap-3 ${
-                      isZero ? 'bg-rose-50/50 border-rose-200' : 'bg-amber-50/50 border-amber-200'
-                    }`}
+                    className="p-3 rounded-lg border border-[#EED9DC] bg-[#FAE7E7]/50 flex items-center justify-between gap-3 hover:bg-[#FAE7E7] transition-colors"
                   >
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
-                        <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
-                          isZero ? 'bg-rose-600 text-white' : 'bg-amber-500 text-white'
+                        <span className={`text-[10px] font-bold px-1.5 py-0.2 rounded ${
+                          isZero ? 'bg-rose-100 text-rose-800' : 'bg-amber-100 text-amber-800'
                         }`}>
-                          {isZero ? 'ESGOTADO' : 'BAIXO'}
+                          {isZero ? 'Sem Estoque' : 'Estoque Baixo'}
                         </span>
-                        <span className="text-xs font-bold text-slate-900 truncate">{prod.name}</span>
+                        <span className="text-xs font-semibold text-[#0E0606] truncate">
+                          {prod.name}
+                        </span>
                       </div>
-                      <div className="text-[11px] text-slate-500 mt-1">
-                        SKU: <span className="font-mono text-slate-700">{prod.sku}</span> | Estoque: <span className="font-bold text-slate-900">{prod.quantity}</span> (Mín: {prod.minStock})
+                      <div className="text-[11px] text-[#7A5B67] mt-1">
+                        Cód: <span className="font-mono text-[#0E0606]">{prod.sku}</span> | Saldo: <strong className="text-[#0E0606]">{prod.quantity}</strong> (mín. {prod.minStock})
                       </div>
                     </div>
 
                     <button
                       onClick={() => onQuickEntry(prod.id)}
-                      className="shrink-0 px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-white border border-slate-300 text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-300 transition-colors shadow-2xs"
-                      title="Repor Estoque deste produto"
+                      className="shrink-0 px-2.5 py-1 text-xs font-medium rounded-md bg-[#FEFEFE] hover:bg-[#FAE7E7] text-[#0E0606] border border-[#EED9DC] transition-colors"
+                      title="Registrar entrada para este produto"
                     >
                       Repor
                     </button>
@@ -303,82 +248,82 @@ export const DashboardPage: React.FC<DashboardProps> = ({
           </div>
         </div>
 
-        {/* Recent Movements (2 cols) */}
-        <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200 p-6 shadow-xs flex flex-col">
-          <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-            <div className="flex items-center gap-2">
-              <Clock className="w-5 h-5 text-slate-600" />
-              <h3 className="font-bold text-slate-900 text-base">Últimas Movimentações Realizadas</h3>
+        {/* Movimentações Recentes (2 colunas) */}
+        <div className="lg:col-span-2 bg-[#FEFEFE] rounded-xl border border-[#EED9DC] p-5 flex flex-col">
+          <div className="flex items-center justify-between pb-3.5 border-b border-[#EED9DC]">
+            <div>
+              <h2 className="font-bold text-[#0E0606] text-sm">Últimas Movimentações</h2>
+              <p className="text-[11px] text-[#7A5B67]">Histórico recente de entradas, saídas e baixas</p>
             </div>
             <button
               onClick={() => onNavigate('movements')}
-              className="text-xs font-semibold text-slate-600 hover:text-slate-900 flex items-center gap-1"
+              className="text-xs font-semibold text-[#CF7C89] hover:text-[#BE6B78] flex items-center gap-1"
             >
               Histórico Completo <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
 
-          <div className="mt-4 flex-1 overflow-x-auto">
+          <div className="mt-3 flex-1 overflow-x-auto">
             {recentMovements.length === 0 ? (
-              <div className="text-center py-8 text-slate-400">
-                <p className="text-xs font-medium">Nenhuma movimentação registrada até o momento.</p>
+              <div className="text-center py-8 text-[#7A5B67] text-xs">
+                Nenhuma movimentação registrada no histórico.
               </div>
             ) : (
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="text-slate-400 uppercase tracking-wider text-[10px] border-b border-slate-100 pb-2">
-                    <th className="py-2 font-semibold">Tipo</th>
-                    <th className="py-2 font-semibold">Produto</th>
-                    <th className="py-2 font-semibold text-center">Qtd</th>
-                    <th className="py-2 font-semibold text-center">Estoque</th>
-                    <th className="py-2 font-semibold">Motivo / Doc</th>
-                    <th className="py-2 font-semibold text-right">Data/Hora</th>
+                  <tr className="text-[#7A5B67] uppercase text-[10px] font-semibold border-b border-[#EED9DC] pb-2">
+                    <th className="py-2.5">Data/Hora</th>
+                    <th className="py-2.5">Tipo</th>
+                    <th className="py-2.5">Produto</th>
+                    <th className="py-2.5 text-center">Qtd</th>
+                    <th className="py-2.5 text-center">Estoque Resultante</th>
+                    <th className="py-2.5">Motivo / Documento</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-[#EED9DC]/60">
                   {recentMovements.slice(0, 6).map(mov => {
-                    let badge = (
-                      <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">
-                        + Entrada
+                    let typeBadge = (
+                      <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-emerald-50 text-emerald-800 border border-emerald-200">
+                        Entrada
                       </span>
                     );
                     if (mov.type === 'SAIDA') {
-                      badge = (
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800">
-                          - Saída
+                      typeBadge = (
+                        <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-[#FAE7E7] text-[#0E0606] border border-[#EED9DC]">
+                          Saída
                         </span>
                       );
                     } else if (mov.type === 'BAIXA') {
-                      badge = (
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-800">
-                          ! Baixa
+                      typeBadge = (
+                        <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-medium bg-rose-50 text-rose-800 border border-rose-200">
+                          Baixa
                         </span>
                       );
                     }
 
                     return (
-                      <tr key={mov.id} className="hover:bg-slate-50/80 transition-colors">
-                        <td className="py-3 font-medium">{badge}</td>
-                        <td className="py-3">
-                          <div className="font-semibold text-slate-900">{mov.productName}</div>
-                          <div className="text-[10px] text-slate-400 font-mono">{mov.productSku}</div>
+                      <tr key={mov.id} className="hover:bg-[#FAE7E7]/30 transition-colors">
+                        <td className="py-2.5 text-[#7A5B67] whitespace-nowrap text-[11px]">
+                          {formatDate(mov.timestamp)}
                         </td>
-                        <td className="py-3 text-center font-bold text-slate-900">
+                        <td className="py-2.5">{typeBadge}</td>
+                        <td className="py-2.5">
+                          <div className="font-medium text-[#0E0606]">{mov.productName}</div>
+                          <div className="text-[10px] text-[#7A5B67] font-mono">{mov.productSku}</div>
+                        </td>
+                        <td className="py-2.5 text-center font-bold text-[#0E0606]">
                           {mov.type === 'ENTRADA' ? `+${mov.quantity}` : `-${mov.quantity}`}
                         </td>
-                        <td className="py-3 text-center text-[11px] text-slate-600">
-                          <span className="text-slate-400">{mov.previousStock}</span>
-                          <span className="mx-1 text-slate-300">➔</span>
-                          <span className="font-bold text-slate-800">{mov.newStock}</span>
+                        <td className="py-2.5 text-center text-xs text-[#0E0606]">
+                          <span className="text-[#7A5B67]">{mov.previousStock}</span>
+                          <span className="mx-1 text-[#AA8B97]">➔</span>
+                          <span className="font-bold text-[#0E0606]">{mov.newStock} un.</span>
                         </td>
-                        <td className="py-3 text-slate-600 max-w-[180px] truncate">
-                          <div className="font-medium text-slate-800 truncate">{mov.reason}</div>
+                        <td className="py-2.5 text-[#7A5B67] max-w-[200px]">
+                          <div className="font-medium text-[#0E0606] truncate">{mov.reason}</div>
                           {mov.referenceDoc && (
-                            <div className="text-[10px] text-slate-400 truncate">{mov.referenceDoc}</div>
+                            <div className="text-[10px] text-[#7A5B67] truncate">{mov.referenceDoc}</div>
                           )}
-                        </td>
-                        <td className="py-3 text-right text-slate-500 whitespace-nowrap">
-                          {formatDate(mov.timestamp)}
                         </td>
                       </tr>
                     );

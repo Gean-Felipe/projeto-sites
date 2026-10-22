@@ -1,6 +1,6 @@
 import React from 'react';
 import { CheckCircle2, AlertTriangle, XCircle, Info, X } from 'lucide-react';
-import { ToastNotification } from '../types';
+import { ToastNotification } from '../types/index.ts';
 
 interface ToastProps {
   toasts: ToastNotification[];
@@ -11,44 +11,44 @@ export const ToastContainer: React.FC<ToastProps> = ({ toasts, onRemove }) => {
   if (toasts.length === 0) return null;
 
   return (
-    <div className="fixed top-5 right-5 z-50 flex flex-col space-y-3 max-w-md w-full pointer-events-none">
+    <div className="fixed top-5 right-5 z-50 flex flex-col space-y-2.5 max-w-sm w-full pointer-events-none">
       {toasts.map(toast => {
-        let icon = <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />;
-        let borderColor = 'border-emerald-200 bg-white shadow-emerald-500/10';
+        let icon = <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />;
+        let borderColor = 'border-emerald-200 bg-[#FEFEFE]';
         let titleColor = 'text-emerald-900';
 
         if (toast.type === 'error') {
-          icon = <XCircle className="w-5 h-5 text-rose-500 shrink-0 mt-0.5" />;
-          borderColor = 'border-rose-200 bg-white shadow-rose-500/10';
+          icon = <XCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />;
+          borderColor = 'border-rose-200 bg-[#FEFEFE]';
           titleColor = 'text-rose-900';
         } else if (toast.type === 'warning') {
-          icon = <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />;
-          borderColor = 'border-amber-200 bg-white shadow-amber-500/10';
+          icon = <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />;
+          borderColor = 'border-amber-200 bg-[#FEFEFE]';
           titleColor = 'text-amber-900';
         } else if (toast.type === 'info') {
-          icon = <Info className="w-5 h-5 text-blue-500 shrink-0 mt-0.5" />;
-          borderColor = 'border-blue-200 bg-white shadow-blue-500/10';
-          titleColor = 'text-blue-900';
+          icon = <Info className="w-4 h-4 text-[#CF7C89] shrink-0 mt-0.5" />;
+          borderColor = 'border-[#EED9DC] bg-[#FEFEFE]';
+          titleColor = 'text-[#0E0606]';
         }
 
         return (
           <div
             key={toast.id}
-            className={`pointer-events-auto flex items-start gap-3 p-4 rounded-xl border shadow-lg transition-all animate-in slide-in-from-top duration-200 ${borderColor}`}
+            className={`pointer-events-auto flex items-start gap-3 p-3.5 rounded-lg border shadow-sm transition-all ${borderColor}`}
           >
             {icon}
             <div className="flex-1 min-w-0">
               {toast.title && (
-                <h4 className={`text-sm font-semibold mb-0.5 ${titleColor}`}>{toast.title}</h4>
+                <h4 className={`text-xs font-bold mb-0.5 ${titleColor}`}>{toast.title}</h4>
               )}
-              <p className="text-xs text-slate-700 leading-relaxed font-normal">{toast.message}</p>
+              <p className="text-xs text-[#0E0606]/85 leading-snug">{toast.message}</p>
             </div>
             <button
               onClick={() => onRemove(toast.id)}
-              className="text-slate-400 hover:text-slate-600 transition-colors p-1"
-              aria-label="Fechar"
+              className="text-[#7A5B67] hover:text-[#0E0606] transition-colors p-0.5"
+              aria-label="Fechar notificação"
             >
-              <X className="w-4 h-4" />
+              <X className="w-3.5 h-3.5" />
             </button>
           </div>
         );

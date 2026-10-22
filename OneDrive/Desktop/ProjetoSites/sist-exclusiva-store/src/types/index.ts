@@ -75,12 +75,15 @@ export interface DashboardMetrics {
 export type ActivePage = 
   | 'dashboard'
   | 'products'
-  | 'entries'
-  | 'exits'
-  | 'losses'
-  | 'receivings'
-  | 'movements'
-  | 'stock-alerts';
+  | 'stock'
+  | 'movements';
+
+export type StockTab = 
+  | 'overview'
+  | 'entry'
+  | 'exit'
+  | 'loss'
+  | 'receivings';
 
 export interface ToastNotification {
   id: string;

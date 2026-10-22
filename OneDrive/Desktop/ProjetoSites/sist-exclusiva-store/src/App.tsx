@@ -1,30 +1,31 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { 
   ActivePage, 
+  StockTab,
   Product, 
   Movement, 
   Receiving, 
   DashboardMetrics, 
   ToastNotification 
-} from './types';
+} from './types/index.ts';
 import { StockService } from './services/storage';
 import { Sidebar } from './components/Sidebar';
 import { Navbar } from './components/Navbar';
 import { ToastContainer } from './components/Toast';
 import { Modal } from './components/Modal';
 
-// Páginas
+// Páginas principais
 import { DashboardPage } from './pages/DashboardPage';
 import { ProductsPage } from './pages/ProductsPage';
-import { StockEntriesPage } from './pages/StockEntriesPage';
-import { StockExitsPage } from './pages/StockExitsPage';
-import { StockLossesPage } from './pages/StockLossesPage';
-import { ReceivingPage } from './pages/ReceivingPage';
+import { StockPage } from './pages/StockPage';
 import { MovementsPage } from './pages/MovementsPage';
-import { StockAlertsPage } from './pages/StockAlertsPage';
 
 export function App() {
   const [activePage, setActivePage] = useState<ActivePage>('dashboard');
+  const [activeStockTab, setActiveStockTab] = useState<StockTab>('entry');
+  const [preselectedProductId, setPreselectedProductId] = useState<string | undefined>();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   const [products, setProducts] = useState<Product[]>([]);
   const [movements, setMovements] = useState<Movement[]>([]);
   const [receivings, setReceivings] = useState<Receiving[]>([]);
@@ -45,7 +46,6 @@ export function App() {
 
   const [toasts, setToasts] = useState<ToastNotification[]>([]);
   const [isResetConfirmOpen, setIsResetConfirmOpen] = useState(false);
-  const [preselectedProductId, setPreselectedProductId] = useState<string | undefined>();
 
   // Notificações Toast
   const showToast = useCallback((type: 'success' | 'error' | 'warning' | 'info', message: string, title?: string) => {
@@ -82,20 +82,31 @@ export function App() {
     refreshData();
   }, [refreshData]);
 
-  // Ações de navegação rápida
+  // Navegação
+  const handleNavigate = (page: ActivePage, stockTab?: StockTab) => {
+    setActivePage(page);
+    if (stockTab) {
+      setActiveStockTab(stockTab);
+    }
+  };
+
+  // Ações de atalho rápido
   const handleQuickEntry = (productId?: string) => {
     setPreselectedProductId(productId);
-    setActivePage('entries');
+    setActivePage('stock');
+    setActiveStockTab('entry');
   };
 
   const handleQuickExit = (productId?: string) => {
     setPreselectedProductId(productId);
-    setActivePage('exits');
+    setActivePage('stock');
+    setActiveStockTab('exit');
   };
 
   const handleQuickLoss = (productId?: string) => {
     setPreselectedProductId(productId);
-    setActivePage('losses');
+    setActivePage('stock');
+    setActiveStockTab('loss');
   };
 
   // Cadastro de produto
@@ -138,7 +149,7 @@ export function App() {
       refreshData();
       showToast(
         'success',
-        `Entrada de +${params.quantity} unidade(s) confirmada! Novo saldo: ${result.movement?.newStock} un.`,
+        `Entrada de +${params.quantity} peça(s) confirmada! Novo saldo: ${result.movement?.newStock} un.`,
         'Estoque Atualizado'
       );
       return { success: true };
@@ -162,12 +173,12 @@ export function App() {
       refreshData();
       showToast(
         'success',
-        `Saída de -${params.quantity} unidade(s) confirmada com sucesso! Saldo restante: ${result.movement?.newStock} un.`,
+        `Saída de -${params.quantity} peça(s) confirmada com sucesso! Restam: ${result.movement?.newStock} un.`,
         'Saída Confirmada'
       );
       return { success: true };
     } else {
-      showToast('error', result.error || 'Não foi possível efetuar a saída.', 'Operação Inválida');
+      showToast('error', result.error || 'Não foi possível efetuar a saída.', 'Operação Recusada');
       return { success: false, error: result.error };
     }
   };
@@ -186,8 +197,8 @@ export function App() {
       refreshData();
       showToast(
         'warning',
-        `Baixa de ${params.quantity} peça(s) registrada no histórico! Motivo: ${params.reason}.`,
-        'Baixa de Estoque Efetuada'
+        `Baixa de ${params.quantity} peça(s) registrada no histórico. Motivo: ${params.reason}.`,
+        'Baixa Registrada'
       );
       return { success: true };
     } else {
@@ -227,7 +238,7 @@ export function App() {
       showToast(
         'success',
         `Carga conferida com sucesso! ${result.updatedCount} produto(s) tiveram seus estoques atualizados.`,
-        'Recebimento Integrado ao Estoque'
+        'Estoque Integrado'
       );
       return { success: true };
     } else {
@@ -241,52 +252,54 @@ export function App() {
     StockService.resetToDemoData();
     refreshData();
     setIsResetConfirmOpen(false);
-    showToast('info', 'Os dados originais de demonstração da Exclusiva Store foram restaurados.', 'Demonstração Reiniciada');
+    showToast('info', 'Os dados originais da Exclusiva Store foram restaurados.', 'Demonstração Reiniciada');
   };
 
   // Produtos críticos para o dashboard
   const criticalProducts = products.filter(p => p.quantity <= p.minStock);
 
   return (
-    <div className="flex min-h-screen bg-slate-50 text-slate-900 font-sans">
-      {/* Toast Notification Layer */}
+    <div className="flex min-h-screen bg-[#FEFEFE] text-[#0E0606] font-sans">
+      {/* Notificações Toast */}
       <ToastContainer toasts={toasts} onRemove={removeToast} />
 
-      {/* Sidebar Navigation */}
+      {/* Barra de Navegação Lateral */}
       <Sidebar
         activePage={activePage}
         onNavigate={page => {
           setPreselectedProductId(undefined);
-          setActivePage(page);
+          handleNavigate(page);
         }}
         lowStockAlertsCount={metrics.lowStockCount}
         outOfStockCount={metrics.outOfStockCount}
+        isMobileOpen={isMobileMenuOpen}
+        onCloseMobile={() => setIsMobileMenuOpen(false)}
       />
 
-      {/* Main Content Area */}
+      {/* Área de Conteúdo Principal */}
       <div className="flex-1 flex flex-col min-w-0">
         <Navbar
           activePage={activePage}
-          onNavigate={page => {
+          onNavigate={(page, stockTab) => {
             setPreselectedProductId(undefined);
-            setActivePage(page);
+            handleNavigate(page, stockTab);
           }}
           onResetDemo={() => setIsResetConfirmOpen(true)}
           totalProducts={metrics.totalProducts}
           totalUnits={metrics.totalUnitsInStock}
+          onToggleMobileMenu={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         />
 
-        <main className="flex-1 p-6 md:p-8 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-4 md:p-8 max-w-7xl w-full mx-auto">
           {activePage === 'dashboard' && (
             <DashboardPage
               metrics={metrics}
               recentMovements={movements}
               criticalProducts={criticalProducts}
-              onNavigate={setActivePage}
+              onNavigate={handleNavigate}
               onOpenNewProduct={() => setActivePage('products')}
               onQuickEntry={handleQuickEntry}
               onQuickExit={handleQuickExit}
-              onQuickLoss={handleQuickLoss}
             />
           )}
 
@@ -302,37 +315,17 @@ export function App() {
             />
           )}
 
-          {activePage === 'entries' && (
-            <StockEntriesPage
+          {activePage === 'stock' && (
+            <StockPage
               products={products}
-              recentEntries={movements.filter(m => m.type === 'ENTRADA')}
-              initialProductId={preselectedProductId}
-              onRegisterEntry={handleRegisterEntry}
-            />
-          )}
-
-          {activePage === 'exits' && (
-            <StockExitsPage
-              products={products}
-              recentExits={movements.filter(m => m.type === 'SAIDA')}
-              initialProductId={preselectedProductId}
-              onRegisterExit={handleRegisterExit}
-            />
-          )}
-
-          {activePage === 'losses' && (
-            <StockLossesPage
-              products={products}
-              recentLosses={movements.filter(m => m.type === 'BAIXA')}
-              initialProductId={preselectedProductId}
-              onRegisterLoss={handleRegisterLoss}
-            />
-          )}
-
-          {activePage === 'receivings' && (
-            <ReceivingPage
+              recentMovements={movements}
               receivings={receivings}
-              products={products}
+              activeTab={activeStockTab}
+              onTabChange={setActiveStockTab}
+              preselectedProductId={preselectedProductId}
+              onRegisterEntry={handleRegisterEntry}
+              onRegisterExit={handleRegisterExit}
+              onRegisterLoss={handleRegisterLoss}
               onCreateReceiving={handleCreateReceiving}
               onConfirmReceiving={handleConfirmReceiving}
             />
@@ -342,13 +335,6 @@ export function App() {
             <MovementsPage
               movements={movements}
               products={products}
-            />
-          )}
-
-          {activePage === 'stock-alerts' && (
-            <StockAlertsPage
-              products={products}
-              onQuickEntry={handleQuickEntry}
             />
           )}
         </main>
@@ -362,24 +348,24 @@ export function App() {
         subtitle="Exclusiva Store — Reiniciar cenário"
         maxWidth="md"
       >
-        <div className="space-y-4">
-          <p className="text-xs text-slate-600 leading-relaxed">
-            Deseja redefinir o catálogo para o estado original da demonstração?
-            Todas as movimentações adicionadas durante os testes serão redefinidas para o conjunto inicial consistente.
+        <div className="space-y-4 text-xs">
+          <p className="text-[#7A5B67] leading-relaxed">
+            Deseja restaurar o catálogo e as movimentações para o estado inicial padrão? 
+            Esta ação é útil para reiniciar os testes e demonstrar o sistema do zero.
           </p>
 
-          <div className="pt-3 flex items-center justify-end gap-3 border-t border-slate-100">
+          <div className="pt-3 flex items-center justify-end gap-2.5 border-t border-[#EED9DC]">
             <button
               onClick={() => setIsResetConfirmOpen(false)}
-              className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100"
+              className="px-4 py-2 rounded-lg text-xs font-medium text-[#7A5B67] hover:bg-[#FAE7E7] transition-colors"
             >
               Cancelar
             </button>
             <button
               onClick={handleConfirmResetDemo}
-              className="px-5 py-2 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-md shadow-amber-950/20"
+              className="px-4 py-2 rounded-lg text-xs font-semibold bg-[#CF7C89] hover:bg-[#BE6B78] text-[#FEFEFE] transition-colors shadow-2xs"
             >
-              Sim, Restaurar Dados
+              Sim, Restaurar Demonstração
             </button>
           </div>
         </div>
