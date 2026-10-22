@@ -21,7 +21,7 @@ import { StockPage } from './pages/StockPage';
 import { MovementsPage } from './pages/MovementsPage';
 
 export function App() {
-  const [activePage, setActivePage] = useState<ActivePage>('dashboard');
+  const [activePage, setActivePage] = useState<ActivePage>('products');
   const [activeStockTab, setActiveStockTab] = useState<StockTab>('entry');
   const [preselectedProductId, setPreselectedProductId] = useState<string | undefined>();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -280,6 +280,8 @@ export function App() {
         }}
         lowStockAlertsCount={metrics.lowStockCount}
         outOfStockCount={metrics.outOfStockCount}
+        totalCostValue={metrics.totalCostValue}
+        totalUnitsInStock={metrics.totalUnitsInStock}
         isMobileOpen={isMobileMenuOpen}
         onCloseMobile={() => setIsMobileMenuOpen(false)}
       />

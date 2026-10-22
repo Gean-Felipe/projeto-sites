@@ -5,7 +5,9 @@ import {
   Boxes, 
   History,
   Store,
-  AlertCircle
+  AlertCircle,
+  TrendingUp,
+  ArrowRight
 } from 'lucide-react';
 import { ActivePage } from '../types/index.ts';
 
@@ -14,6 +16,8 @@ interface SidebarProps {
   onNavigate: (page: ActivePage) => void;
   lowStockAlertsCount: number;
   outOfStockCount: number;
+  totalCostValue?: number;
+  totalUnitsInStock?: number;
   isMobileOpen?: boolean;
   onCloseMobile?: () => void;
 }
@@ -23,17 +27,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onNavigate,
   lowStockAlertsCount,
   outOfStockCount,
+  totalCostValue = 0,
+  totalUnitsInStock = 0,
   isMobileOpen = false,
   onCloseMobile,
 }) => {
   const totalAlerts = lowStockAlertsCount + outOfStockCount;
 
+  // Itens na ordem solicitada: Produtos, Estoque, Movimentações e Dashboard embaixo de Movimentações
   const navItems: { id: ActivePage; label: string; icon: React.ReactNode; badge?: number }[] = [
-    {
-      id: 'dashboard',
-      label: 'Visão Geral',
-      icon: <LayoutDashboard className="w-4 h-4" />,
-    },
     {
       id: 'products',
       label: 'Produtos',
@@ -49,6 +51,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
       id: 'movements',
       label: 'Movimentações',
       icon: <History className="w-4 h-4" />,
+    },
+    {
+      id: 'dashboard',
+      label: 'Dashboard de Gestão',
+      icon: <LayoutDashboard className="w-4 h-4" />,
     },
   ];
 
@@ -103,25 +110,65 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 onClick={() => handleSelect(item.id)}
                 className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs font-medium transition-colors ${
                   isActive
-                    ? 'bg-zinc-100 text-zinc-950 font-semibold border border-zinc-200'
-                    : 'text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900'
+                    ? 'bg-zinc-900 text-white font-semibold shadow-xs'
+                    : 'text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900'
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <span className={isActive ? 'text-zinc-950' : 'text-zinc-400'}>
+                  <span className={isActive ? 'text-white' : 'text-zinc-400'}>
                     {item.icon}
                   </span>
                   <span>{item.label}</span>
                 </div>
 
                 {item.badge !== undefined && (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-zinc-800 text-white">
+                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                    isActive ? 'bg-zinc-700 text-white' : 'bg-zinc-800 text-white'
+                  }`}>
                     {item.badge}
                   </span>
                 )}
               </button>
             );
           })}
+
+          {/* Widget de Gestão no Lado Esquerdo (Embaixo de Movimentações) */}
+          <div className="pt-4 px-1">
+            <div className="p-3.5 rounded-xl bg-zinc-50 border border-zinc-200 space-y-2.5">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-semibold tracking-wider text-zinc-500 uppercase flex items-center gap-1.5">
+                  <TrendingUp className="w-3.5 h-3.5 text-zinc-700" />
+                  Gestão em Tempo Real
+                </span>
+                <span className="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2 pt-1">
+                <div className="bg-white p-2 rounded-lg border border-zinc-200">
+                  <span className="text-[10px] text-zinc-400 block font-medium">Estoque</span>
+                  <span className="text-xs font-bold text-zinc-900">{totalUnitsInStock} un.</span>
+                </div>
+                <div className="bg-white p-2 rounded-lg border border-zinc-200">
+                  <span className="text-[10px] text-zinc-400 block font-medium">Capital Custo</span>
+                  <span className="text-xs font-bold text-zinc-900 truncate block">
+                    {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(totalCostValue)}
+                  </span>
+                </div>
+              </div>
+
+              <button
+                onClick={() => handleSelect('dashboard')}
+                className={`w-full py-1.5 px-2.5 rounded-lg text-[11px] font-medium flex items-center justify-center gap-1.5 transition-colors ${
+                  activePage === 'dashboard'
+                    ? 'bg-zinc-900 text-white font-semibold'
+                    : 'bg-white hover:bg-zinc-100 text-zinc-800 border border-zinc-200'
+                }`}
+              >
+                <span>Acessar Dashboard</span>
+                <ArrowRight className="w-3 h-3" />
+              </button>
+            </div>
+          </div>
         </nav>
 
         {/* Painel de Apoio / Status da Loja */}

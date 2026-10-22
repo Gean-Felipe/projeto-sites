@@ -29,8 +29,8 @@ export const Navbar: React.FC<NavbarProps> = ({
     switch (activePage) {
       case 'dashboard':
         return {
-          title: 'Visão Geral',
-          subtitle: 'Situação atual do estoque e atividades recentes da Exclusiva Store',
+          title: 'Dashboard de Gestão',
+          subtitle: 'Painel executivo com métricas financeiras, margem bruta e rentabilidade do estoque',
         };
       case 'products':
         return {
