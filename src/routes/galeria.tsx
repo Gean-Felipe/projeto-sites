@@ -13,10 +13,11 @@ interface GalleryItem {
   id: number;
   title: string;
   imageUrl: string;
+  fallbackUrl: string;
 }
 
 // Carregamento automático de todas as imagens em src/assets/images/galeria/
-const imageModules = import.meta.glob<{ default: string }>(
+const imageModules = import.meta.glob(
   "../assets/images/galeria/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}",
   { eager: true }
 );
@@ -28,17 +29,33 @@ function formatTitleFromFilename(path: string): string {
   return formatted ? formatted.charAt(0).toUpperCase() + formatted.slice(1) : "Registro da Ação";
 }
 
-const ITEMS: GalleryItem[] = Object.keys(imageModules)
-  .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" }))
-  .map((path, index) => {
-    const mod = imageModules[path];
-    const imageUrl = mod ? mod.default : "";
-    return {
-      id: index + 1,
-      title: formatTitleFromFilename(path),
-      imageUrl,
-    };
-  });
+function resolveImageUrl(mod: unknown, filename: string): string {
+  if (typeof mod === "string") return mod;
+  if (mod && typeof mod === "object") {
+    const record = mod as Record<string, unknown>;
+    if (typeof record["default"] === "string") return record["default"];
+    if (typeof record["default"] === "function") return String(record["default"]());
+  }
+  return `/images/galeria/${filename}`;
+}
+
+const sortedPaths = Object.keys(imageModules).sort((a, b) =>
+  a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" })
+);
+
+const ITEMS: GalleryItem[] = sortedPaths.map((path, index) => {
+  const filename = path.split("/").pop() || "";
+  const mod = imageModules[path];
+  const imageUrl = resolveImageUrl(mod, filename);
+  const fallbackUrl = `/images/galeria/${filename}`;
+
+  return {
+    id: index + 1,
+    title: formatTitleFromFilename(path),
+    imageUrl,
+    fallbackUrl,
+  };
+});
 
 function Galeria() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -80,6 +97,12 @@ function Galeria() {
                   alt={item.title}
                   loading="lazy"
                   className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (target.src !== item.fallbackUrl && !target.src.endsWith(item.fallbackUrl)) {
+                      target.src = item.fallbackUrl;
+                    }
+                  }}
                 />
               </button>
               <figcaption className="mt-3">
@@ -108,6 +131,12 @@ function Galeria() {
                     src={activeItem.imageUrl}
                     alt={activeItem.title}
                     className="max-h-[70vh] w-auto object-contain"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      if (target.src !== activeItem.fallbackUrl && !target.src.endsWith(activeItem.fallbackUrl)) {
+                        target.src = activeItem.fallbackUrl;
+                      }
+                    }}
                   />
                   {ITEMS.length > 1 && (
                     <>
