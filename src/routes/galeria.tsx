@@ -11,7 +11,6 @@ export const Route = createFileRoute("/galeria")({
 
 interface GalleryItem {
   id: number;
-  title: string;
   imageUrl: string;
   fallbackUrl: string;
 }
@@ -21,13 +20,6 @@ const imageModules = import.meta.glob(
   "../assets/images/galeria/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}",
   { eager: true }
 );
-
-function formatTitleFromFilename(path: string): string {
-  const filename = path.split("/").pop() || "";
-  const nameWithoutExt = filename.replace(/\.[^/.]+$/, "");
-  const formatted = nameWithoutExt.replace(/[-_]+/g, " ").trim();
-  return formatted ? formatted.charAt(0).toUpperCase() + formatted.slice(1) : "Registro da Ação";
-}
 
 function resolveImageUrl(mod: unknown, filename: string): string {
   if (typeof mod === "string") return mod;
@@ -51,7 +43,6 @@ const ITEMS: GalleryItem[] = sortedPaths.map((path, index) => {
 
   return {
     id: index + 1,
-    title: formatTitleFromFilename(path),
     imageUrl,
     fallbackUrl,
   };
@@ -89,12 +80,12 @@ function Galeria() {
               <button
                 type="button"
                 onClick={() => setSelectedIndex(idx)}
-                aria-label={`Ampliar imagem: ${item.title}`}
+                aria-label={`Ampliar imagem ${idx + 1}`}
                 className="group relative block w-full aspect-[4/3] overflow-hidden rounded-lg border border-border bg-surface text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-navy cursor-pointer"
               >
                 <img
                   src={item.imageUrl}
-                  alt={item.title}
+                  alt={`Registro de ação comunitária CES-MT ${idx + 1}`}
                   loading="lazy"
                   className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                   onError={(e) => {
@@ -105,9 +96,6 @@ function Galeria() {
                   }}
                 />
               </button>
-              <figcaption className="mt-3">
-                <p className="font-semibold text-navy">{item.title}</p>
-              </figcaption>
             </figure>
           ))}
         </div>
@@ -119,7 +107,7 @@ function Galeria() {
                 <div className="flex items-center justify-between gap-4 pr-8">
                   <div>
                     <DialogTitle className="text-lg font-semibold text-navy">
-                      {activeItem.title}
+                      Registro da Ação Social
                     </DialogTitle>
                     <DialogDescription className="text-xs font-bold uppercase tracking-widest text-cta">
                       Foto {selectedIndex + 1} de {ITEMS.length}
@@ -129,7 +117,7 @@ function Galeria() {
                 <div className="relative flex items-center justify-center overflow-hidden rounded-lg bg-surface">
                   <img
                     src={activeItem.imageUrl}
-                    alt={activeItem.title}
+                    alt={`Registro de ação comunitária CES-MT ${selectedIndex + 1}`}
                     className="max-h-[70vh] w-auto object-contain"
                     onError={(e) => {
                       const target = e.currentTarget;
