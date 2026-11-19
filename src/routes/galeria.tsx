@@ -56,6 +56,13 @@ const ITEMS: { id: number; title: string; cat: Exclude<Cat, "Todas">; imageUrl: 
     imageUrl: "/images/galeria/acao-comunitaria-06.jpg",
     description: "Encontro comunitário e celebração solidária com voluntários e famílias atendidas em Cuiabá - MT.",
   },
+  {
+    id: 7,
+    title: "Atendimento às famílias",
+    cat: "Ações Sociais",
+    imageUrl: "/images/galeria/acao-comunitaria-07.jpg",
+    description: "Acolhimento humanizado, orientação social e apoio continuado para famílias atendidas.",
+  },
 ];
 
 function Galeria() {
